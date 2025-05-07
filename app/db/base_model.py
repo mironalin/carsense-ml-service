@@ -10,8 +10,8 @@ class BaseModel:
     def __tablename__(cls):
         return cls.__name__.lower()
 
-    # Primary key
-    id = Column(Integer, primary_key=True, index=True)
+    # Primary key with autoincrement=True to match PostgreSQL SERIAL type
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
 
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)

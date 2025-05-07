@@ -23,7 +23,7 @@ __all__ = [
     # ML models
     "MLModel",
     "Prediction",
-    
+
     # External reference models
     "User",
     "Vehicle",
@@ -34,4 +34,4 @@ __all__ = [
     "DTCLibrary",
     "MaintenanceLog",
     "ServiceWorkshop"
-] 
+]

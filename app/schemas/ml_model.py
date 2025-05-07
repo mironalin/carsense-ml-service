@@ -28,9 +28,9 @@ class MLModelResponse(MLModelBase):
     created_at: datetime = Field(..., description="Creation timestamp")
     updated_at: datetime = Field(..., description="Last update timestamp")
     
-    class Config:
-        orm_mode = True
-        schema_extra = {
+    model_config = {
+        "from_attributes": True,
+        "json_schema_extra": {
             "example": {
                 "id": 1,
                 "name": "CarSense-DTC-Predictor",
@@ -45,4 +45,5 @@ class MLModelResponse(MLModelBase):
                 "created_at": "2023-05-01T12:00:00Z",
                 "updated_at": "2023-05-01T12:00:00Z"
             }
-        } 
+        }
+    } 
