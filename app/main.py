@@ -1,8 +1,15 @@
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.api import api_router
 from app.core.config import settings
+# We'll import but not use it
+from app.db.init_db import init_db
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Create FastAPI app
 app = FastAPI(
@@ -32,6 +39,14 @@ async def root():
         "version": "0.1.0",
         "docs_url": f"{settings.API_V1_STR}/docs",
     }
+
+@app.on_event("startup")
+async def startup_event():
+    """Run on application startup."""
+    logger.info("Starting ML service...")
+    logger.info("Connecting to database but skipping table creation")
+    # We're not calling init_db() to avoid creating tables
+    # The health endpoint will verify the database connection
 
 if __name__ == "__main__":
     import uvicorn
