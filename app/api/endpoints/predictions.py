@@ -10,6 +10,10 @@ from app.db.session import get_db
 from app.models.ml import MLModel, Prediction
 from app.schemas.prediction_db import PredictionCreate, PredictionResponse, PredictionList
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 router = APIRouter()
 
 @router.post("/", response_model=PredictionResponse, status_code=status.HTTP_201_CREATED)
@@ -61,7 +65,32 @@ def predict_vehicle_health(
 
     Requires authentication. The schema for the request body is PredictionRequest.
     """
-    # Call the service function to get the prediction
+    # Authorization check:
+    # If the current_user.role is 'admin', it implies a trusted call (e.g., from the backend service)
+    # and bypasses the specific user-vehicle ownership check.
+    if current_user.role != "admin":
+        # This is a normal user, a more granular check is needed.
+        # TODO: Implement proper user-vehicle ownership check against the database.
+        # This requires querying if a vehicle with prediction_input.vehicle_id
+        # is associated with current_user.username (which is current_user.sub from the token).
+        # Example (assuming Vehicle model has an owner_id or similar field linked to user ID):
+        # vehicle = db.query(Vehicle).filter(
+        #     Vehicle.id == prediction_input.vehicle_id, 
+        #     Vehicle.owner_id == current_user.username
+        # ).first()
+        # if not vehicle:
+        #     raise HTTPException(
+        #         status_code=status.HTTP_403_FORBIDDEN,
+        #         detail="User not authorized to make predictions for this vehicle."
+        #     )
+        
+        # For now, log a warning and allow the request to proceed for easier development.
+        logger.warning(
+            f"User '{current_user.username}' (role: {current_user.role}) accessed vehicle_id {prediction_input.vehicle_id}. "
+            f"Ownership check not yet fully implemented. Request allowed for now."
+        )
+
+    # If authorization passes (or is allowed for now), proceed:
     prediction_result = generate_vehicle_health_prediction(
         prediction_input=prediction_input,
         db=db
