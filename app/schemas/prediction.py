@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union, Any
 from pydantic import BaseModel, Field
 from datetime import datetime
 
@@ -104,4 +104,27 @@ class PredictionResponse(BaseModel):
                 },
                 "processedAt": "2023-05-10T14:23:53.012Z"
             }
-        } 
+        }
+
+# PredictionFeedbackCreate schema
+class PredictionFeedbackCreate(BaseModel):
+    """Schema for submitting feedback on a prediction."""
+    accuracy: float = Field(..., description="Accuracy rating or score (e.g., 0.0-1.0, or a rating like 1.0-5.0). Definition TBD by application logic.")
+    comments: Optional[str] = Field(None, description="User comments about the prediction.")
+    is_actionable: Optional[bool] = Field(None, alias="isActionable", description="Was the prediction actionable by the user?")
+    additional_data: Optional[Dict[str, Any]] = Field(None, alias="additionalData", description="Any other relevant feedback data.")
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "accuracy": 0.85,
+                "comments": "The prediction was spot on, helped identify the issue quickly.",
+                "isActionable": True,
+                "additionalData": {
+                    "service_performed": "Replaced MAF sensor",
+                    "cost": 150.75
+                }
+            }
+        },
+        "populate_by_name": True
+    } 
