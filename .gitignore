@@ -2,6 +2,8 @@
 .env
 __pycache__
 /db-schemas-ts
+data/datasets
 AUTOMOTIVE_DATASETS_AND_RESOURCES.md
 CARSENSE_BACKEND_DOCUMENTATION.md
 ML_SERVICE_ROADMAP.md
+data/README.md
