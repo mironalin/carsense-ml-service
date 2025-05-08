@@ -3,14 +3,15 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, status, Body
 from sqlalchemy.orm import Session
 from app.core.security import get_current_user, TokenData
-from app.schemas.prediction import PredictionRequest, PredictionFeedbackCreate
+from app.schemas.prediction import PredictionRequest, PredictionFeedbackCreate, PredictionResponse, PredictionResult
 from app.services.vehicle_prediction_service import generate_vehicle_health_prediction
 
 from app.db.session import get_db
 from app.models.ml import MLModel, Prediction
-from app.schemas.prediction_db import PredictionCreate, PredictionResponse, PredictionList
+from app.schemas.prediction_db import PredictionCreate, PredictionList
 
 import logging
+import uuid
 
 logger = logging.getLogger(__name__)
 
@@ -51,12 +52,12 @@ def create_prediction(
 
     return prediction
 
-@router.post("/vehicle-health", status_code=status.HTTP_200_OK)
+@router.post("/vehicle-health", response_model=PredictionResponse, status_code=status.HTTP_200_OK)
 def predict_vehicle_health(
     prediction_input: PredictionRequest = Body(...),
     current_user: TokenData = Depends(get_current_user),
     db: Session = Depends(get_db)
-) -> Dict[str, Any]:
+) -> PredictionResponse:
     """
     Make a prediction about vehicle health based on sensor data and DTCs.
 
@@ -64,6 +65,7 @@ def predict_vehicle_health(
     It evaluates overall vehicle health, component failure risks, and recommends maintenance.
 
     Requires authentication. The schema for the request body is PredictionRequest.
+    The response conforms to the PredictionResponse schema.
     """
     # Authorization check:
     # If the current_user.role is 'admin', it implies a trusted call (e.g., from the backend service)
@@ -91,11 +93,25 @@ def predict_vehicle_health(
         )
 
     # If authorization passes (or is allowed for now), proceed:
-    prediction_result = generate_vehicle_health_prediction(
+    prediction_data_dict = generate_vehicle_health_prediction(
         prediction_input=prediction_input,
         db=db
     )
-    return prediction_result
+
+    # Construct the full API response using the PredictionResponse schema
+    response = PredictionResponse(
+        requestId=str(uuid.uuid4()),
+        predictions=PredictionResult(**prediction_data_dict),
+        modelInfo={
+            "name": "CarSense-VehicleHealth-MockModel",
+            "version": "0.1.0",
+            # "accuracy": 0.0, # Could add if the model had a general accuracy
+            "lastTraining": str(datetime.utcnow().date()), # Example
+        },
+        processedAt=datetime.utcnow()
+    )
+    
+    return response
 
 @router.get("/vehicle/{vehicle_id}", response_model=List[PredictionList])
 def get_vehicle_predictions(

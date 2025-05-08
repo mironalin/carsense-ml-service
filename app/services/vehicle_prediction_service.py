@@ -3,74 +3,80 @@ This service will contain the core logic for generating vehicle health predictio
 It will handle data processing, model interaction, and formatting of prediction results.
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, List # Ensure List is imported
 from sqlalchemy.orm import Session
 from app.schemas.prediction import PredictionRequest # For type hinting
+# We might not instantiate these directly here if returning a dict, but good for reference
+# from app.schemas.prediction import PredictionResult, ComponentFailure, MaintenanceRecommendation
 
 def generate_vehicle_health_prediction(
     prediction_input: PredictionRequest,
     db: Session # For potential database access in the future
-) -> Dict[str, Any]:
+) -> Dict[str, Any]: # This will be a dict structured like PredictionResult
     """
     Generates a vehicle health prediction based on the input data.
+    This function is responsible for producing the core prediction results.
 
     Args:
         prediction_input: The validated request data conforming to PredictionRequest schema.
         db: The SQLAlchemy database session.
 
     Returns:
-        A dictionary containing the prediction results.
+        A dictionary structured like the PredictionResult schema.
     """
-    # TODO: Implement actual data processing logic here
-    # 0. Access prediction_input.vehicle_id and prediction_input.vehicleInfo for specific vehicle context.
-    # 1. Fetch any necessary additional data using vehicle_id from prediction_input and db session.
-    #    (e.g., historical sensor data, maintenance records for the vehicle)
-    # 2. Perform feature engineering using prediction_input data (including vehicleInfo, dtcCodes, obdParameters etc.) and historical data.
-    # 3. Load the appropriate pre-trained ML model.
-    # 4. Make predictions using the model.
-    # 5. Format the predictions into the desired output structure.
+    # TODO: Implement actual data processing, model loading, and prediction logic.
 
-    # For now, return the same mock prediction structure used in the API endpoint
-    # This will be moved from the endpoint to here in the next step.
-    mock_component_failure_probabilities = {
-        "engine": 0.15,
-        "transmission": 0.05,
-        "battery": 0.30,
-        "brakes": 0.10,
-        "suspension": 0.20
-    }
+    # Mock data for ComponentFailure
+    mock_component_failures: List[Dict[str, Any]] = [
+        {
+            "component": "Engine",
+            "failureProbability": 0.15,
+            "timeToFailure": 180, # Example days
+            "confidence": 0.80,
+            "severity": "medium"
+        },
+        {
+            "component": "Battery",
+            "failureProbability": 0.30,
+            "timeToFailure": 90,  # Example days
+            "confidence": 0.85,
+            "severity": "high"
+        }
+    ]
 
-    max_risk = max(mock_component_failure_probabilities.values())
-    health_score = max(0, min(100, 100 - max_risk * 100))
-
-    recommendations = []
-    for component, probability in mock_component_failure_probabilities.items():
-        if probability > 0.25:
-            urgency = "critical"
-        elif probability > 0.15:
-            urgency = "high"
-        elif probability > 0.10:
-            urgency = "medium"
-        else:
-            continue
-
-        recommendations.append({
-            "component": component,
-            "urgency": urgency,
-            "estimatedCost": {
-                "min": 150,
-                "max": 500,
-                "currency": "RON"
-            }
+    # Mock data for MaintenanceRecommendation
+    mock_maintenance_recommendations: List[Dict[str, Any]] = []
+    if any(cf["failureProbability"] > 0.25 for cf in mock_component_failures):
+        mock_maintenance_recommendations.append({
+            "action": "Inspect critical components immediately.",
+            "urgency": "immediate",
+            "component": "Multiple", # General recommendation
+            "estimatedCost": {"min": 100, "max": 1000, "currency": "RON"},
+            "description": "High probability of failure detected in one or more critical components."
+        })
+    elif any(cf["failureProbability"] > 0.10 for cf in mock_component_failures):
+         mock_maintenance_recommendations.append({
+            "action": "Schedule vehicle inspection soon.",
+            "urgency": "soon",
+            "component": "Multiple", # General recommendation
+            "estimatedCost": {"min": 50, "max": 300, "currency": "RON"},
+            "description": "Potential issues detected. Recommend inspection."
         })
 
-    prediction_result = {
-        "prediction": {
-            "componentFailureProbability": mock_component_failure_probabilities,
-            "vehicleHealthScore": health_score,
-            "maintenanceRecommendations": recommendations
-        },
-        "confidence": 0.85 # Mock confidence
+    highest_prob = 0.0
+    if mock_component_failures:
+        highest_prob = max(cf["failureProbability"] for cf in mock_component_failures)
+
+    vehicle_health_score = max(0, min(100, (1 - highest_prob) * 100))
+
+    # This structure should match PredictionResult schema
+    prediction_data = {
+        "vehicleHealthScore": vehicle_health_score,
+        "componentFailures": mock_component_failures,
+        "maintenanceRecommendations": mock_maintenance_recommendations,
+        "overallUrgency": "high" if any(mr["urgency"] == "immediate" for mr in mock_maintenance_recommendations) else "medium" # Simplified urgency logic
+        # "confidence" might be an overall confidence for the PredictionResult, or per component.
+        # The original mock had a top-level confidence for the whole response. Let's omit it from PredictionResult for now.
     }
 
-    return prediction_result
+    return prediction_data
