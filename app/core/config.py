@@ -1,6 +1,12 @@
 from typing import List, Optional, Union
 from pydantic import AnyHttpUrl, PostgresDsn, validator
 from pydantic_settings import BaseSettings
+import os
+from dotenv import load_dotenv
+
+# Explicitly load .env file and override existing environment variables
+# This ensures that values from .env take precedence over system-wide environment variables.
+load_dotenv(override=True)
 
 class Settings(BaseSettings):
     """Base settings for the ML service."""
@@ -54,6 +60,15 @@ class Settings(BaseSettings):
     # ML model settings
     MODEL_PATH: str = "models"
     MIN_PREDICTION_CONFIDENCE: float = 0.6
+
+    # JWT Authentication settings - must match main backend
+    JWT_SECRET_KEY: str = "your-secret-key"  # Change this in production
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8  # 8 days
+
+    # Rate limiting settings
+    RATE_LIMIT_PER_MINUTE: int = 60  # Default to 60 requests per minute
+    ADMIN_RATE_LIMIT_PER_MINUTE: int = 300  # Higher limits for admins
 
     model_config = {
         "case_sensitive": True,
