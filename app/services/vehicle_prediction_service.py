@@ -12,94 +12,122 @@ from app.schemas.prediction import PredictionRequest, VehicleInfo # Added Vehicl
 import logging # Add logging import
 logger = logging.getLogger(__name__) # Create a logger for this module
 
-def generate_vehicle_health_prediction(
+# Placeholder functions for different stages of prediction generation
+
+def _preprocess_input_data(
     prediction_input: PredictionRequest,
-    db: Session # For potential database access in the future
-) -> Dict[str, Any]: # This will be a dict structured like PredictionResult
-    """
-    Generates a vehicle health prediction based on the input data.
-    This function is responsible for producing the core prediction results.
+    db: Session
+) -> Dict[str, Any]:
+    """Placeholder for preprocessing input data and feature engineering."""
+    logger.info(f"Preprocessing data for vehicle_id: {prediction_input.vehicle_id}")
+    # TODO: Implement data fetching (historical), cleaning, feature engineering
+    # For now, return a simple dict of some processed/selected features
+    processed_features = {
+        "dtc_count": len(prediction_input.dtcCodes),
+        "mileage": prediction_input.vehicleInfo.mileage,
+        "engine_rpm_avg": prediction_input.obdParameters.get("rpm", 0) # Example
+    }
+    logger.info(f"Processed features: {processed_features}")
+    return processed_features
 
-    Args:
-        prediction_input: The validated request data conforming to PredictionRequest schema.
-        db: The SQLAlchemy database session.
+def _load_prediction_model(
+    vehicle_id: int,
+    vehicle_info: VehicleInfo
+) -> Any:
+    """Placeholder for loading the appropriate ML model."""
+    logger.info(f"Loading model for vehicle_id: {vehicle_id} (Make: {vehicle_info.make}, Model: {vehicle_info.model})")
+    # TODO: Implement model loading logic (e.g., based on vehicle type, or a general model)
+    # For now, return a mock model identifier
+    mock_model = "MockVehicleHealthModel_v1.0"
+    logger.info(f"Loaded model: {mock_model}")
+    return mock_model
 
-    Returns:
-        A dictionary structured like the PredictionResult schema.
-    """
+def _get_model_prediction(
+    model: Any,
+    features: Dict[str, Any]
+) -> Dict[str, Any]:
+    """Placeholder for getting predictions from the loaded model."""
+    logger.info(f"Getting prediction from model '{model}' with features: {features}")
+    # TODO: Implement actual model prediction call (e.g., model.predict(features))
+    # For now, return a mock raw prediction based on some feature
+    raw_prediction_output = {
+        "engine_health_score_raw": 0.85 if features.get("dtc_count", 0) == 0 else 0.40,
+        "battery_health_score_raw": 0.70 if features.get("mileage", 100000) < 50000 else 0.30
+    }
+    logger.info(f"Raw model prediction output: {raw_prediction_output}")
+    return raw_prediction_output
 
-    # Step 1: Unpack and log input data
-    vehicle_id = prediction_input.vehicle_id
-    vehicle_info: VehicleInfo = prediction_input.vehicleInfo # Explicitly type hint if desired
-    dtc_codes = prediction_input.dtcCodes
-    obd_parameters = prediction_input.obdParameters
-    sensor_readings = prediction_input.sensorReadings
-    request_time = prediction_input.requestTime
+def _format_prediction_output(
+    raw_prediction: Dict[str, Any],
+    prediction_input: PredictionRequest # May need original input for context
+) -> Dict[str, Any]:
+    """Placeholder for formatting raw model predictions into the final PredictionResult structure."""
+    logger.info(f"Formatting raw prediction: {raw_prediction}")
 
-    logger.info(f"Generating vehicle health prediction for vehicle_id: {vehicle_id}")
-    logger.info(f"Vehicle Info: Make: {vehicle_info.make}, Model: {vehicle_info.model}, Year: {vehicle_info.year}")
-    if vehicle_info.vin:
-        logger.info(f"VIN: {vehicle_info.vin}")
-    logger.info(f"DTC Codes: {dtc_codes}")
-    logger.info(f"OBD Parameters: {obd_parameters}")
-    if sensor_readings:
-        logger.info(f"Sensor Readings Count: {len(sensor_readings)}")
-    logger.info(f"Request Time: {request_time}")
+    # This is where the detailed mock logic (or actual formatting logic) goes
+    # For consistency, let's use a simplified version derived from raw_prediction
+    mock_component_failures: List[Dict[str, Any]] = []
+    engine_score = raw_prediction.get("engine_health_score_raw", 0.5)
+    battery_score = raw_prediction.get("battery_health_score_raw", 0.5)
 
-    # TODO: Implement actual data processing, model loading, and prediction logic using the unpacked variables.
-    # 0. Access prediction_input.vehicle_id and prediction_input.vehicleInfo for specific vehicle context.
+    mock_component_failures.append({
+        "component": "Engine",
+        "failureProbability": round(1 - engine_score, 2),
+        "timeToFailure": int(engine_score * 180),
+        "confidence": 0.75, # Mock confidence for this component
+        "severity": "high" if (1 - engine_score) > 0.5 else "medium"
+    })
+    mock_component_failures.append({
+        "component": "Battery",
+        "failureProbability": round(1 - battery_score, 2),
+        "timeToFailure": int(battery_score * 90),
+        "confidence": 0.80, # Mock confidence for this component
+        "severity": "high" if (1 - battery_score) > 0.5 else "medium"
+    })
 
-    # Mock data for ComponentFailure
-    mock_component_failures: List[Dict[str, Any]] = [
-        {
-            "component": "Engine",
-            "failureProbability": 0.15,
-            "timeToFailure": 180, # Example days
-            "confidence": 0.80,
-            "severity": "medium"
-        },
-        {
-            "component": "Battery",
-            "failureProbability": 0.30,
-            "timeToFailure": 90,  # Example days
-            "confidence": 0.85,
-            "severity": "high"
-        }
-    ]
-
-    # Mock data for MaintenanceRecommendation
     mock_maintenance_recommendations: List[Dict[str, Any]] = []
-    if any(cf["failureProbability"] > 0.25 for cf in mock_component_failures):
+    if any(cf["failureProbability"] > 0.5 for cf in mock_component_failures):
         mock_maintenance_recommendations.append({
-            "action": "Inspect critical components immediately.",
-            "urgency": "immediate",
-            "component": "Multiple", # General recommendation
-            "estimatedCost": {"min": 100, "max": 1000, "currency": "RON"},
-            "description": "High probability of failure detected in one or more critical components."
-        })
-    elif any(cf["failureProbability"] > 0.10 for cf in mock_component_failures):
-         mock_maintenance_recommendations.append({
-            "action": "Schedule vehicle inspection soon.",
-            "urgency": "soon",
-            "component": "Multiple", # General recommendation
-            "estimatedCost": {"min": 50, "max": 300, "currency": "RON"},
-            "description": "Potential issues detected. Recommend inspection."
+            "action": "Urgent inspection required for critical components.",
+            "urgency": "immediate", "component": "Engine/Battery",
+            "estimatedCost": {"min": 200, "max": 1200, "currency": "RON"},
+            "description": "Significant issues detected with engine or battery based on raw scores."
         })
 
-    highest_prob = 0.0
-    if mock_component_failures:
-        highest_prob = max(cf["failureProbability"] for cf in mock_component_failures)
+    overall_health_score = (engine_score + battery_score) / 2 * 100
 
-    vehicle_health_score = max(0, min(100, (1 - highest_prob) * 100))
-
-    # This structure should match PredictionResult schema
-    prediction_data = {
-        "vehicleHealthScore": vehicle_health_score,
+    formatted_output = {
+        "vehicleHealthScore": round(overall_health_score, 2),
         "componentFailures": mock_component_failures,
         "maintenanceRecommendations": mock_maintenance_recommendations,
-        "overallUrgency": "high" if any(mr["urgency"] == "immediate" for mr in mock_maintenance_recommendations) else "medium" # Simplified urgency logic
-        # "confidence" might be an overall confidence for the PredictionResult, or per component.
-        # The original mock had a top-level confidence for the whole response. Let's omit it from PredictionResult for now.
+        "overallUrgency": "immediate" if mock_maintenance_recommendations else "low"
     }
+    logger.info(f"Formatted prediction output: {formatted_output}")
+    return formatted_output
 
-    return prediction_data
+def generate_vehicle_health_prediction(
+    prediction_input: PredictionRequest,
+    db: Session
+) -> Dict[str, Any]:
+    """Generates a vehicle health prediction by orchestrating preprocessing, model loading, prediction, and formatting."""
+
+    vehicle_id = prediction_input.vehicle_id
+    vehicle_info = prediction_input.vehicleInfo
+    # (Logging of initial inputs can remain or be moved into _preprocess_input_data)
+    logger.info(f"START: Generating vehicle health prediction for vehicle_id: {vehicle_id}")
+
+    # Step 1: Preprocess data and engineer features
+    processed_features = _preprocess_input_data(prediction_input, db)
+
+    # Step 2: Load the appropriate model
+    # Pass vehicle_id and vehicle_info for context if model selection depends on them
+    model = _load_prediction_model(vehicle_id, vehicle_info)
+
+    # Step 3: Get predictions from the model
+    raw_prediction = _get_model_prediction(model, processed_features)
+
+    # Step 4: Format the raw predictions into the final output structure
+    formatted_prediction_result = _format_prediction_output(raw_prediction, prediction_input)
+
+    logger.info(f"END: Prediction generation complete for vehicle_id: {vehicle_id}")
+    return formatted_prediction_result
