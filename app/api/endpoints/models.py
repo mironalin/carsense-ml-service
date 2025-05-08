@@ -5,19 +5,23 @@ from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.models.ml import MLModel
 from app.schemas.ml_model import MLModelCreate, MLModelResponse
+from app.core.security import get_current_user, TokenData, check_permission, admin_required
 
 router = APIRouter()
 
 @router.post("/", response_model=MLModelResponse, status_code=status.HTTP_201_CREATED)
 def create_model(
     model_data: MLModelCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    _: bool = Depends(check_permission("create:ml-models"))
 ) -> MLModelResponse:
     """
     Register a new ML model in the system.
 
     This endpoint is used when a new model has been trained and needs to be
     registered in the system for use in predictions.
+    
+    Requires permission: create:ml-models
     """
     # Create a new ML model record
     db_model = MLModel(
@@ -46,12 +50,15 @@ def list_models(
     limit: int = 100,
     model_type: Optional[str] = None,
     vehicle_make: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)
 ) -> List[MLModelResponse]:
     """
     List all registered ML models, with optional filtering.
 
     Supports filtering by model_type and vehicle_make.
+    
+    Requires authentication.
     """
     query = db.query(MLModel)
 
@@ -67,10 +74,13 @@ def list_models(
 @router.get("/{model_id}", response_model=MLModelResponse)
 def get_model(
     model_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)
 ) -> MLModelResponse:
     """
     Get detailed information about a specific ML model.
+    
+    Requires authentication.
     """
     model = db.query(MLModel).filter(MLModel.id == model_id).first()
 
