@@ -5,9 +5,12 @@ It will handle data processing, model interaction, and formatting of prediction 
 
 from typing import Dict, Any, List # Ensure List is imported
 from sqlalchemy.orm import Session
-from app.schemas.prediction import PredictionRequest # For type hinting
+from app.schemas.prediction import PredictionRequest, VehicleInfo # Added VehicleInfo for explicit typing if needed
 # We might not instantiate these directly here if returning a dict, but good for reference
 # from app.schemas.prediction import PredictionResult, ComponentFailure, MaintenanceRecommendation
+
+import logging # Add logging import
+logger = logging.getLogger(__name__) # Create a logger for this module
 
 def generate_vehicle_health_prediction(
     prediction_input: PredictionRequest,
@@ -24,7 +27,27 @@ def generate_vehicle_health_prediction(
     Returns:
         A dictionary structured like the PredictionResult schema.
     """
-    # TODO: Implement actual data processing, model loading, and prediction logic.
+
+    # Step 1: Unpack and log input data
+    vehicle_id = prediction_input.vehicle_id
+    vehicle_info: VehicleInfo = prediction_input.vehicleInfo # Explicitly type hint if desired
+    dtc_codes = prediction_input.dtcCodes
+    obd_parameters = prediction_input.obdParameters
+    sensor_readings = prediction_input.sensorReadings
+    request_time = prediction_input.requestTime
+
+    logger.info(f"Generating vehicle health prediction for vehicle_id: {vehicle_id}")
+    logger.info(f"Vehicle Info: Make: {vehicle_info.make}, Model: {vehicle_info.model}, Year: {vehicle_info.year}")
+    if vehicle_info.vin:
+        logger.info(f"VIN: {vehicle_info.vin}")
+    logger.info(f"DTC Codes: {dtc_codes}")
+    logger.info(f"OBD Parameters: {obd_parameters}")
+    if sensor_readings:
+        logger.info(f"Sensor Readings Count: {len(sensor_readings)}")
+    logger.info(f"Request Time: {request_time}")
+
+    # TODO: Implement actual data processing, model loading, and prediction logic using the unpacked variables.
+    # 0. Access prediction_input.vehicle_id and prediction_input.vehicleInfo for specific vehicle context.
 
     # Mock data for ComponentFailure
     mock_component_failures: List[Dict[str, Any]] = [
