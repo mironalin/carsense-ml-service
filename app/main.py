@@ -1,6 +1,7 @@
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import sentry_sdk
 
 from app.api.api import api_router
 from app.core.config import settings
@@ -11,6 +12,25 @@ from app.db.init_db import init_db
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Initialize Sentry if DSN is provided
+if settings.SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=settings.SENTRY_DSN,
+        # Enable performance monitoring
+        enable_tracing=True,
+        # You might want to set traces_sample_rate to 1.0 for production
+        # or a lower value in high-traffic environments.
+        # For development, 1.0 captures everything.
+        traces_sample_rate=1.0,
+        # You can also set profiles_sample_rate for profiling if needed
+        # profiles_sample_rate=1.0,
+        # Set environment (e.g., "development", "production")
+        # environment="development", # Or load from another env var
+    )
+    logger.info(f"Sentry initialized with DSN: {settings.SENTRY_DSN[:settings.SENTRY_DSN.find('@')]}...") # Log only part of DSN
+else:
+    logger.info("Sentry DSN not found, skipping Sentry initialization.")
 
 # Create FastAPI app
 app = FastAPI(

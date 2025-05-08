@@ -21,6 +21,7 @@ python-jose>=3.3.0  # For JWT tokens
 passlib>=1.7.4      # For password hashing
 httpx>=0.25.0       # For HTTP requests
 pydantic-settings>=2.0.3
+sentry-sdk[fastapi]>=1.0.0 # For error tracking and APM
 
 # Development
 pytest>=7.4.2

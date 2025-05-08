@@ -70,6 +70,9 @@ class Settings(BaseSettings):
     RATE_LIMIT_PER_MINUTE: int = 60  # Default to 60 requests per minute
     ADMIN_RATE_LIMIT_PER_MINUTE: int = 300  # Higher limits for admins
 
+    # Sentry DSN for error tracking and APM
+    SENTRY_DSN: Optional[str] = None
+
     model_config = {
         "case_sensitive": True,
         "env_file": ".env"
