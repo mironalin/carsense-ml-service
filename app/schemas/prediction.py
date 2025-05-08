@@ -52,7 +52,7 @@ class MaintenanceRecommendation(BaseModel):
     action: str = Field(..., description="Recommended action")
     urgency: str = Field(..., description="Urgency level ('routine', 'soon', 'urgent', 'immediate')")
     component: str = Field(..., description="Target component")
-    estimatedCost: Optional[Dict[str, float]] = Field(None, description="Min/max cost estimate")
+    estimatedCost: Optional[Dict[str, Union[float, str]]] = Field(None, description="Min/max cost estimate including currency")
     description: str = Field(..., description="Detailed description of the recommendation")
 
 # Prediction results
