@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.api import api_router
 from app.core.config import settings
+from app.core.middleware import add_middleware
 # We'll import but not use it
 from app.db.init_db import init_db
 
@@ -27,6 +28,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add rate limiting middleware
+add_middleware(app)
 
 # Include API router
 app.include_router(api_router, prefix=settings.API_V1_STR)
