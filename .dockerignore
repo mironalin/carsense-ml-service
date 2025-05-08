@@ -1,0 +1,58 @@
+# Git
+.git
+.gitignore
+.github
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv
+venv/
+ENV/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Docker
+.dockerignore
+docker-compose.yml
+
+# Documentation
+*.md
+LICENSE
+
+# ML models (will be mounted as a volume)
+models/
+
+# Logs
+logs/
+*.log
+
+# Development/test files
+tests/
+test/
+.pytest_cache/
+__tests__/ 

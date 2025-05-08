@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  ml-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: carsense-ml-service
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app/app # For development - enables code changes without rebuilding
+      - ./models:/app/models # For persistence of trained models
+    restart: unless-stopped
+    networks:
+      - carsense-network
+
+networks:
+  carsense-network:
+    driver: bridge
