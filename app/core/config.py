@@ -55,9 +55,10 @@ class Settings(BaseSettings):
     MODEL_PATH: str = "models"
     MIN_PREDICTION_CONFIDENCE: float = 0.6
 
-    class Config:
-        case_sensitive = True
-        env_file = ".env"
+    model_config = {
+        "case_sensitive": True,
+        "env_file": ".env"
+    }
 
 # Create settings instance
 settings = Settings()
