@@ -3,6 +3,7 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, status, Body
 from sqlalchemy.orm import Session
 from app.core.security import get_current_user, TokenData
+from app.schemas.prediction import PredictionRequest, PredictionFeedbackCreate
 
 from app.db.session import get_db
 from app.models.ml import MLModel, Prediction
@@ -47,7 +48,7 @@ def create_prediction(
 
 @router.post("/vehicle-health", status_code=status.HTTP_200_OK)
 def predict_vehicle_health(
-    data: Dict[str, Any] = Body(...),
+    prediction_input: PredictionRequest = Body(...),
     current_user: TokenData = Depends(get_current_user)
 ) -> Dict[str, Any]:
     """
@@ -56,17 +57,28 @@ def predict_vehicle_health(
     This endpoint is specifically designed for integration with the CarSense backend.
     It evaluates overall vehicle health, component failure risks, and recommends maintenance.
 
-    Requires authentication with appropriate permissions.
+    Requires authentication. The schema for the request body is PredictionRequest.
     """
-    # Extract the required data from the request body
-    vehicle_id = data.get("vehicleId")
-    sensor_data = data.get("sensorData", {})
-    dtc_codes = data.get("dtcCodes", [])
+    # Access data using Pydantic model attributes
+    # vehicle_id is not directly in PredictionRequest, but vehicleInfo.vin or another unique ID could be used
+    # For now, let's assume we might use vehicleInfo for context if needed.
+    # The existing mock logic doesn't directly use vehicle_id from the top level.
 
-    # In a real implementation, this would use a trained model to make predictions
-    # For now, we'll return a mock prediction
+    # sensor_data is now prediction_input.obdParameters or prediction_input.sensorReadings
+    # dtc_codes is now prediction_input.dtcCodes
 
-    # Sample component failure probabilities based on sensor data and DTCs
+    # Example:
+    # vehicle_make = prediction_input.vehicleInfo.make
+    # dtc_list = prediction_input.dtcCodes
+    # obd_params = prediction_input.obdParameters
+    
+    # The current mock logic uses hardcoded component failure probabilities
+    # and doesn't directly use the input data for calculation.
+    # If it were to use it, you'd access it via prediction_input.
+    # For example, if you had a model that took dtc_codes:
+    # risk_based_on_dtcs = some_model_function(prediction_input.dtcCodes)
+
+    # Mock prediction logic (remains the same for now)
     component_failure_probabilities = {
         "engine": 0.15,
         "transmission": 0.05,
@@ -153,13 +165,14 @@ def get_prediction(
 @router.post("/{prediction_id}/feedback", response_model=PredictionResponse)
 def add_feedback(
     prediction_id: int,
-    feedback: dict,
+    feedback_input: PredictionFeedbackCreate,
     db: Session = Depends(get_db)
 ) -> PredictionResponse:
     """
     Add feedback to a prediction (e.g., whether it was accurate).
 
     This feedback can be used to improve model performance over time.
+    The request body should conform to the PredictionFeedbackCreate schema.
     """
     prediction = db.query(Prediction).filter(Prediction.id == prediction_id).first()
 
@@ -169,8 +182,8 @@ def add_feedback(
             detail=f"Prediction with id {prediction_id} not found"
         )
 
-    # Update the prediction with feedback
-    prediction.feedback = feedback
+    # Update the prediction with feedback, converting Pydantic model to dict
+    prediction.feedback = feedback_input.model_dump(exclude_unset=True)
     db.commit()
     db.refresh(prediction)
 
