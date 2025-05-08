@@ -24,14 +24,15 @@ class SensorReading(BaseModel):
 # Prediction request schema
 class PredictionRequest(BaseModel):
     """Schema for prediction request."""
-    vehicleInfo: VehicleInfo = Field(..., description="Vehicle information")
+    vehicle_id: int = Field(..., description="The unique ID of the vehicle in the database.")
+    vehicleInfo: VehicleInfo = Field(..., description="Vehicle information, can be used for context or if vehicle_id is not yet known by client.")
     dtcCodes: List[str] = Field(default=[], description="List of DTC codes present in the vehicle")
     obdParameters: Dict[str, float] = Field(
-        default={}, 
+        default={},
         description="OBD parameters as key-value pairs (e.g., {'rpm': 1200, 'coolant_temp': 90})"
     )
     sensorReadings: Optional[List[SensorReading]] = Field(
-        default=None, 
+        default=None,
         description="Detailed sensor readings with units"
     )
     requestTime: datetime = Field(default_factory=datetime.utcnow, description="Request timestamp")
@@ -69,7 +70,7 @@ class PredictionResponse(BaseModel):
     predictions: PredictionResult = Field(..., description="Prediction results")
     modelInfo: Dict[str, Union[str, float]] = Field(..., description="Information about the model used")
     processedAt: datetime = Field(default_factory=datetime.utcnow, description="Processing timestamp")
-    
+
     class Config:
         schema_extra = {
             "example": {
@@ -127,4 +128,4 @@ class PredictionFeedbackCreate(BaseModel):
             }
         },
         "populate_by_name": True
-    } 
+    }

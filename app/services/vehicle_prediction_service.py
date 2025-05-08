@@ -22,9 +22,10 @@ def generate_vehicle_health_prediction(
         A dictionary containing the prediction results.
     """
     # TODO: Implement actual data processing logic here
-    # 1. Fetch any necessary additional data using vehicle_info from prediction_input and db session.
+    # 0. Access prediction_input.vehicle_id and prediction_input.vehicleInfo for specific vehicle context.
+    # 1. Fetch any necessary additional data using vehicle_id from prediction_input and db session.
     #    (e.g., historical sensor data, maintenance records for the vehicle)
-    # 2. Perform feature engineering using prediction_input data and historical data.
+    # 2. Perform feature engineering using prediction_input data (including vehicleInfo, dtcCodes, obdParameters etc.) and historical data.
     # 3. Load the appropriate pre-trained ML model.
     # 4. Make predictions using the model.
     # 5. Format the predictions into the desired output structure.
