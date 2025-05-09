@@ -3,6 +3,7 @@
 __pycache__
 /db-schemas-ts
 data/datasets
+data/processed
 AUTOMOTIVE_DATASETS_AND_RESOURCES.md
 CARSENSE_BACKEND_DOCUMENTATION.md
 ML_SERVICE_ROADMAP.md

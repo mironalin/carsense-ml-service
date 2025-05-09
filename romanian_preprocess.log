@@ -1,0 +1,653 @@
+Starting preprocessing for dataset type: romanian
+Input directory: data/datasets/romanian_driving_ds/dataset/
+Output directory: data/processed/romanian_driving_ds/
+Using default static metadata for Romanian dataset: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel'}
+
+--- Processing Romanian file: r1_20220811-normal-behavior.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/r1_20220811-normal-behavior.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: r1_20220811-normal-behavior.csv ---
+  Min time diff: 0.9960 sec
+  Max time diff: 1.0040 sec
+  Mean time diff: 1.0007 sec
+  Median time diff: 1.0010 sec
+  Std dev of time diff: 0.0007 sec
+  Number of unique time diffs (excluding first NaN): 42
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.001    806
+  1.000    363
+  1.001    106
+  1.001     44
+  1.002     24
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for r1_20220811-normal-behavior.csv...
+Resampling complete. New shape: (1450, 136)
+Loaded r1_20220811-normal-behavior.csv with shape: (1450, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for r1_20220811-normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 146 outliers in column 'ENGINE_RPM' (bounds: [933.85, 1573.02])
+Capped outliers in 'ENGINE_RPM'.
+Found 181 outliers in column 'COOLANT_TEMPERATURE' (bounds: [87.50, 91.50])
+Capped outliers in 'COOLANT_TEMPERATURE'.
+Found 122 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.77, 1.49])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 29 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [16.50, 28.50])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 157 outliers in column 'MASS_AIR_FLOW' (bounds: [9.49, 26.85])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 301 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [12.22, 14.46])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 114 outliers in column 'VEHICLE_SPEED' (bounds: [17.09, 54.37])
+Capped outliers in 'VEHICLE_SPEED'.
+Warning: IQR for column 'AMBIENT_AIR_TEMPERATURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Warning: IQR for column 'BAROMETRIC_PRESSURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/r1_20220811-normal-behavior_processed.parquet
+
+--- Processing Romanian file: r2_20220819_normal-behavior.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/r2_20220819_normal-behavior.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: r2_20220819_normal-behavior.csv ---
+  Min time diff: 0.9900 sec
+  Max time diff: 1.0100 sec
+  Mean time diff: 1.0000 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.0006 sec
+  Number of unique time diffs (excluding first NaN): 40
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    1389
+  1.002      15
+  1.001      15
+  0.998      12
+  1.001      12
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for r2_20220819_normal-behavior.csv...
+Resampling complete. New shape: (1524, 136)
+Loaded r2_20220819_normal-behavior.csv with shape: (1524, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for r2_20220819_normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 68 outliers in column 'ENGINE_RPM' (bounds: [682.06, 2106.90])
+Capped outliers in 'ENGINE_RPM'.
+Found 350 outliers in column 'COOLANT_TEMPERATURE' (bounds: [85.00, 93.00])
+Capped outliers in 'COOLANT_TEMPERATURE'.
+Found 195 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.77, 1.41])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 62 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [16.88, 38.54])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 134 outliers in column 'MASS_AIR_FLOW' (bounds: [6.02, 31.96])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 338 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [12.58, 13.86])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 198 outliers in column 'VEHICLE_SPEED' (bounds: [21.33, 49.50])
+Capped outliers in 'VEHICLE_SPEED'.
+Found 4 outliers in column 'AMBIENT_AIR_TEMPERATURE' (bounds: [21.50, 25.50])
+Capped outliers in 'AMBIENT_AIR_TEMPERATURE'.
+Found 4 outliers in column 'BAROMETRIC_PRESSURE' (bounds: [0.94, 0.98])
+Capped outliers in 'BAROMETRIC_PRESSURE'.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/r2_20220819_normal-behavior_processed.parquet
+
+--- Processing Romanian file: r3_20220820_normal-behavior.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/r3_20220820_normal-behavior.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: r3_20220820_normal-behavior.csv ---
+  Min time diff: 0.9980 sec
+  Max time diff: 1.0030 sec
+  Mean time diff: 1.0000 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.0004 sec
+  Number of unique time diffs (excluding first NaN): 31
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    1318
+  1.002      18
+  0.998      16
+  1.001      10
+  1.001       8
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for r3_20220820_normal-behavior.csv...
+Resampling complete. New shape: (1426, 136)
+Loaded r3_20220820_normal-behavior.csv with shape: (1426, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for r3_20220820_normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 83 outliers in column 'ENGINE_RPM' (bounds: [895.17, 1677.50])
+Capped outliers in 'ENGINE_RPM'.
+Found 197 outliers in column 'COOLANT_TEMPERATURE' (bounds: [88.50, 92.50])
+Capped outliers in 'COOLANT_TEMPERATURE'.
+Found 131 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.82, 1.41])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 34 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [28.00, 46.67])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 128 outliers in column 'MASS_AIR_FLOW' (bounds: [9.14, 25.80])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 342 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [12.33, 14.01])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 158 outliers in column 'VEHICLE_SPEED' (bounds: [21.33, 51.16])
+Capped outliers in 'VEHICLE_SPEED'.
+Found 4 outliers in column 'AMBIENT_AIR_TEMPERATURE' (bounds: [27.00, 35.00])
+Capped outliers in 'AMBIENT_AIR_TEMPERATURE'.
+Warning: IQR for column 'BAROMETRIC_PRESSURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/r3_20220820_normal-behavior_processed.parquet
+
+--- Processing Romanian file: r4_20220822_normal-behavior.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/r4_20220822_normal-behavior.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: r4_20220822_normal-behavior.csv ---
+  Min time diff: 0.9980 sec
+  Max time diff: 1.0040 sec
+  Mean time diff: 1.0000 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.0002 sec
+  Number of unique time diffs (excluding first NaN): 14
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    1400
+  1.001       7
+  1.001       3
+  1.001       2
+  1.000       1
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for r4_20220822_normal-behavior.csv...
+Resampling complete. New shape: (1423, 136)
+Loaded r4_20220822_normal-behavior.csv with shape: (1423, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for r4_20220822_normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 103 outliers in column 'ENGINE_RPM' (bounds: [856.63, 1694.29])
+Capped outliers in 'ENGINE_RPM'.
+Found 4 outliers in column 'COOLANT_TEMPERATURE' (bounds: [40.00, 120.00])
+Capped outliers in 'COOLANT_TEMPERATURE'.
+Found 176 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.82, 1.39])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 10 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [16.00, 32.00])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 124 outliers in column 'MASS_AIR_FLOW' (bounds: [7.58, 29.33])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 285 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [12.55, 13.43])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 161 outliers in column 'VEHICLE_SPEED' (bounds: [23.46, 49.55])
+Capped outliers in 'VEHICLE_SPEED'.
+Warning: IQR for column 'AMBIENT_AIR_TEMPERATURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Warning: IQR for column 'BAROMETRIC_PRESSURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/r4_20220822_normal-behavior_processed.parquet
+
+--- Processing Romanian file: r5_20220824-normal-behavior.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/r5_20220824-normal-behavior.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: r5_20220824-normal-behavior.csv ---
+  Min time diff: 0.9980 sec
+  Max time diff: 1.0020 sec
+  Mean time diff: 1.0000 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.0001 sec
+  Number of unique time diffs (excluding first NaN): 13
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    1460
+  1.002       2
+  0.999       2
+  1.001       1
+  0.998       1
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for r5_20220824-normal-behavior.csv...
+Resampling complete. New shape: (1475, 136)
+Loaded r5_20220824-normal-behavior.csv with shape: (1475, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for r5_20220824-normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 105 outliers in column 'ENGINE_RPM' (bounds: [830.75, 1722.08])
+Capped outliers in 'ENGINE_RPM'.
+Found 39 outliers in column 'COOLANT_TEMPERATURE' (bounds: [45.00, 117.00])
+Capped outliers in 'COOLANT_TEMPERATURE'.
+Found 146 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.78, 1.45])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 4 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [11.50, 34.17])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 143 outliers in column 'MASS_AIR_FLOW' (bounds: [6.67, 30.30])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 5 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [11.20, 16.00])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 136 outliers in column 'VEHICLE_SPEED' (bounds: [17.61, 49.09])
+Capped outliers in 'VEHICLE_SPEED'.
+Found 5 outliers in column 'AMBIENT_AIR_TEMPERATURE' (bounds: [18.50, 22.50])
+Capped outliers in 'AMBIENT_AIR_TEMPERATURE'.
+Found 363 outliers in column 'BAROMETRIC_PRESSURE' (bounds: [0.96, 0.97])
+Capped outliers in 'BAROMETRIC_PRESSURE'.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/r5_20220824-normal-behavior_processed.parquet
+
+--- Processing Romanian file: s1_20220805-intervention-break-30s.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/s1_20220805-intervention-break-30s.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: s1_20220805-intervention-break-30s.csv ---
+  Min time diff: 0.8450 sec
+  Max time diff: 6.5130 sec
+  Mean time diff: 1.0051 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.1682 sec
+  Number of unique time diffs (excluding first NaN): 267
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    86
+  0.999    51
+  1.001    36
+  1.002    28
+  0.998    26
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for s1_20220805-intervention-break-30s.csv...
+Resampling complete. New shape: (1095, 136)
+Loaded s1_20220805-intervention-break-30s.csv with shape: (1095, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for s1_20220805-intervention-break-30s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-break-30s'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 40 outliers in column 'ENGINE_RPM' (bounds: [898.75, 1734.08])
+Capped outliers in 'ENGINE_RPM'.
+Found 84 outliers in column 'COOLANT_TEMPERATURE' (bounds: [88.50, 92.50])
+Capped outliers in 'COOLANT_TEMPERATURE'.
+Found 49 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.75, 1.53])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 8 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [30.33, 49.00])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 78 outliers in column 'MASS_AIR_FLOW' (bounds: [8.69, 27.35])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 166 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [12.45, 13.81])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 86 outliers in column 'VEHICLE_SPEED' (bounds: [12.12, 47.74])
+Capped outliers in 'VEHICLE_SPEED'.
+Found 161 outliers in column 'AMBIENT_AIR_TEMPERATURE' (bounds: [27.50, 31.50])
+Capped outliers in 'AMBIENT_AIR_TEMPERATURE'.
+Found 8 outliers in column 'BAROMETRIC_PRESSURE' (bounds: [0.94, 0.98])
+Capped outliers in 'BAROMETRIC_PRESSURE'.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/s1_20220805-intervention-break-30s_processed.parquet
+
+--- Processing Romanian file: s2_20220811-intervention-stop-60s.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/s2_20220811-intervention-stop-60s.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: s2_20220811-intervention-stop-60s.csv ---
+  Min time diff: 0.9960 sec
+  Max time diff: 1.0050 sec
+  Mean time diff: 1.0000 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.0004 sec
+  Number of unique time diffs (excluding first NaN): 31
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    1579
+  1.002      10
+  1.001       7
+  0.998       5
+  1.001       5
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for s2_20220811-intervention-stop-60s.csv...
+Resampling complete. New shape: (1646, 136)
+Loaded s2_20220811-intervention-stop-60s.csv with shape: (1646, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for s2_20220811-intervention-stop-60s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-stop-60s'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 77 outliers in column 'ENGINE_RPM' (bounds: [731.58, 1883.58])
+Capped outliers in 'ENGINE_RPM'.
+Warning: IQR for column 'COOLANT_TEMPERATURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 111 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.71, 1.62])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 29 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [19.83, 37.17])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 131 outliers in column 'MASS_AIR_FLOW' (bounds: [4.89, 33.67])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 391 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [12.75, 13.31])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Warning: IQR for column 'AMBIENT_AIR_TEMPERATURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Warning: IQR for column 'BAROMETRIC_PRESSURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/s2_20220811-intervention-stop-60s_processed.parquet
+
+--- Processing Romanian file: s3_20220817-intervention-acc-60s.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/s3_20220817-intervention-acc-60s.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: s3_20220817-intervention-acc-60s.csv ---
+  Min time diff: 0.9980 sec
+  Max time diff: 1.0030 sec
+  Mean time diff: 1.0000 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.0002 sec
+  Number of unique time diffs (excluding first NaN): 22
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    1398
+  1.001       5
+  1.001       5
+  0.999       4
+  1.001       3
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for s3_20220817-intervention-acc-60s.csv...
+Resampling complete. New shape: (1438, 136)
+Loaded s3_20220817-intervention-acc-60s.csv with shape: (1438, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for s3_20220817-intervention-acc-60s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-acc-60s'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 159 outliers in column 'ENGINE_RPM' (bounds: [717.15, 1921.31])
+Capped outliers in 'ENGINE_RPM'.
+Found 198 outliers in column 'COOLANT_TEMPERATURE' (bounds: [70.00, 102.00])
+Capped outliers in 'COOLANT_TEMPERATURE'.
+Found 155 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.76, 1.50])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 9 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [19.00, 35.00])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 181 outliers in column 'MASS_AIR_FLOW' (bounds: [5.31, 32.75])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 318 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [12.61, 13.97])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 111 outliers in column 'VEHICLE_SPEED' (bounds: [12.01, 56.75])
+Capped outliers in 'VEHICLE_SPEED'.
+Found 104 outliers in column 'AMBIENT_AIR_TEMPERATURE' (bounds: [19.50, 23.50])
+Capped outliers in 'AMBIENT_AIR_TEMPERATURE'.
+Found 4 outliers in column 'BAROMETRIC_PRESSURE' (bounds: [0.94, 0.98])
+Capped outliers in 'BAROMETRIC_PRESSURE'.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/s3_20220817-intervention-acc-60s_processed.parquet
+
+--- Processing Romanian file: s4_20220818-intervention-break-acc-60s.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/s4_20220818-intervention-break-acc-60s.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: s4_20220818-intervention-break-acc-60s.csv ---
+  Min time diff: 0.9980 sec
+  Max time diff: 1.0040 sec
+  Mean time diff: 1.0000 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.0004 sec
+  Number of unique time diffs (excluding first NaN): 22
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    1447
+  1.001       8
+  1.001       7
+  1.001       6
+  1.002       6
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for s4_20220818-intervention-break-acc-60s.csv...
+Resampling complete. New shape: (1515, 136)
+Loaded s4_20220818-intervention-break-acc-60s.csv with shape: (1515, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for s4_20220818-intervention-break-acc-60s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-break-acc-60s'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 115 outliers in column 'ENGINE_RPM' (bounds: [668.54, 1994.88])
+Capped outliers in 'ENGINE_RPM'.
+Warning: IQR for column 'COOLANT_TEMPERATURE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 155 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.74, 1.54])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 33 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [20.00, 36.00])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 164 outliers in column 'MASS_AIR_FLOW' (bounds: [4.41, 34.03])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 4 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [10.85, 16.56])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 149 outliers in column 'VEHICLE_SPEED' (bounds: [10.77, 57.17])
+Capped outliers in 'VEHICLE_SPEED'.
+Found 4 outliers in column 'AMBIENT_AIR_TEMPERATURE' (bounds: [17.50, 21.50])
+Capped outliers in 'AMBIENT_AIR_TEMPERATURE'.
+Found 4 outliers in column 'BAROMETRIC_PRESSURE' (bounds: [0.94, 0.98])
+Capped outliers in 'BAROMETRIC_PRESSURE'.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/s4_20220818-intervention-break-acc-60s_processed.parquet
+
+--- Processing Romanian file: s5_20220818-intervention-stop-acc-60s.csv ---
+Successfully loaded raw CSV: data/datasets/romanian_driving_ds/dataset/s5_20220818-intervention-stop-acc-60s.csv
+Normalized columns in raw CSV: ['Time (sec)', 'Vehicle speed (MPH)', 'Fuel rate (l/hr)', 'Total CO2 (kg)', 'Rotation Rate X (deg/s)', 'Rotation Rate Y (deg/s)', 'Rotation Rate Z (deg/s)', 'Engine coolant temperature (°C)', 'Engine coolant temperature 1 (°C)', 'Acceleration (m/s²)', 'Engine Torque (kg•m)', 'Max Speed (MPH)', 'Total Trip CO2 (kg)', 'Instant CO2 rate (g/km)', 'CO2 flow (g/s)', 'Accel X (m/s²)', 'Accel Y (m/s²)', 'Accel Z (m/s²)', 'Roll (deg)', 'Pitch (deg)', 'Magnetometer X (µT)', 'Magnetometer Y (µT)', 'Magnetometer Z (µT)', 'Calculated load value (%)', 'Intake manifold absolute pressure (bar)', 'Engine RPM (RPM)', 'Intake air temperature (°C)', 'Ambient air temperature (°C)', 'Absolute throttle position B (%)', 'Accelerator pedal position D (%)', 'Accelerator pedal position E (%)', 'Intake manifold absolute pressure (bar).1', 'Mass air flow rate (g/s)', 'Boost (bar)', 'Engine Power (kW)', 'Average Trip CO2 Rate (g/km)', 'Altitude (m)', 'Instant fuel economy (l/100 km)', 'Total fuel economy (l/100 km)', 'Time since engine start (sec)', 'Number of warm-ups since DTCs cleared', 'Distance traveled since DTCs cleared (km)', 'Barometric pressure (bar)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 1)', 'O2 sensor current wide range (Bank 1  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 2)', 'O2 sensor current wide range (Bank 1  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 3)', 'O2 sensor current wide range (Bank 1  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 1  Sensor 4)', 'O2 sensor current wide range (Bank 1  Sensor 4) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 1)', 'O2 sensor current wide range (Bank 2  Sensor 1) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 2)', 'O2 sensor current wide range (Bank 2  Sensor 2) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 3)', 'O2 sensor current wide range (Bank 2  Sensor 3) (mA)', 'O2 sensor lambda wide range (current probe)  (Bank 2  Sensor 4)', 'O2 sensor current wide range (Bank 2  Sensor 4) (mA)', 'Control module voltage (V)', 'Absolute throttle position C (%)', 'Mass air flow sensor B (g/s)', 'Relative throttle B position (%)', 'Commanded boost pressure A (bar)', 'Boost pressure sensor A (bar)', 'Commanded boost pressure B (bar)', 'Boost pressure sensor B (bar)', 'Boost pressure A control status', 'Boost pressure B control status', 'Charge air cooler temperature bank 1  sensor 1 (°C)', 'Charge air cooler temperature bank 1  sensor 2 (°C)', 'Manifold surface temperature (°C)', 'Intake manifold absolute pressure A (bar)', 'Intake manifold absolute pressure B (bar)', 'Total run time with EI-AECD #11 Timer 1 active (sec)', 'Total run time with EI-AECD #11 Timer 2 active (sec)', 'Total run time with EI-AECD #12 Timer 1 active (sec)', 'Total run time with EI-AECD #12 Timer 2 active (sec)', 'Diesel aftertreatment status', 'O2 sensor concentration bank 1 sensor 1 (%)', 'O2 sensor concentration bank 1 sensor 2 (%)', 'O2 sensor concentration bank 2 sensor 1 (%)', 'O2 sensor concentration bank 2 sensor 2 (%)', 'Absolute throttle position G (%)', 'Target SCR Catalyst NH3 Storage A (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage A (g/L)', 'Target SCR Catalyst NH3 Storage B (g/L)', 'Actual/Modelled SCR Catalyst NH3 Storage B (g/L)', 'Hydrocarbon Doser Flow Rate (g/min)', 'Hydrocarbon Doser Injector Duty Cycle (%)', 'O2 sensor concentration bank 1 sensor 3 (%)', 'O2 sensor concentration bank 1 sensor 4 (%)', 'O2 sensor concentration bank 2 sensor 3 (%)', 'O2 sensor concentration bank 2 sensor 4 (%)', 'O2 sensor lambda bank 1 sensor 3', 'O2 sensor lambda bank 1 sensor 4', 'O2 sensor lambda bank 2 sensor 3', 'O2 sensor lambda bank 2 sensor 4', 'Engine Fuel Rate (g/s)', 'Vehicle Fuel Rate (g/s)', 'Engine Exhaust Flow Rate (g/s)', 'Fuel System A Use Percentage Bank 1 (%)', 'Fuel System A Use Percentage Bank 2 (%)', 'Cylinder Fuel Rate', 'Transmission Actual Gear Status', 'Transmission Actual Gear Ratio', 'Vehicle Odometer Reading (km)', 'Motorcycle ABS Disable Switch State', 'Maximum Current Vehicle Speed Limit (MPH)', 'Alternative Fuel Tank Pressure (bar)', 'Alternative Fuel Tank Temperature (°C)', 'Crankcase Pressure Sensor (inH2O)', 'Fuel System Status Bank 1', 'Fuel System Status Bank 2', 'Short Term Fuel Trim Bank 1 (%)', 'Long Term Fuel Trim Bank 1 (%)', 'Short Term Fuel Trim Bank 2 (%)', 'Long Term Fuel Trim Bank 2 (%)', 'O2 Sensor Concentration Bank 1 Sensor 5 (%)', 'O2 Sensor Concentration Bank 1 Sensor 6 (%)', 'O2 Sensor Concentration Bank 2 Sensor 5 (%)', 'O2 Sensor Concentration Bank 2 Sensor 6 (%)', 'O2 Sensor Lambda Bank 1 Sensor 5', 'O2 Sensor Lambda Bank 1 Sensor 6', 'O2 Sensor Lambda Bank 2 Sensor 5', 'O2 Sensor Lambda Bank 2 Sensor 6', 'Input voltage read by the scan tool (V)', 'Acceleration (Avg) (m/s²)', 'A/F Commanded', 'A/F Actual', 'Trip Distance (km)', 'Trip Fuel (gal)', 'Trip Fuel Economy (l/100 km)', 'Trip Duration (min)', 'Idling Count', 'Seconds Idling (sec)']
+
+
+--- Original Time Step Analysis for: s5_20220818-intervention-stop-acc-60s.csv ---
+  Min time diff: 0.9920 sec
+  Max time diff: 1.0080 sec
+  Mean time diff: 1.0000 sec
+  Median time diff: 1.0000 sec
+  Std dev of time diff: 0.0006 sec
+  Number of unique time diffs (excluding first NaN): 42
+  Top 5 most frequent time diffs (excluding NaN):
+Time (sec)
+  1.000    1367
+  1.001      25
+  1.002      21
+  0.998      18
+  1.001      16
+--- END: Original Time Step Analysis ---
+
+Resampling data to 1-second frequency for s5_20220818-intervention-stop-acc-60s.csv...
+Resampling complete. New shape: (1552, 136)
+Loaded s5_20220818-intervention-stop-acc-60s.csv with shape: (1552, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Adding metadata for s5_20220818-intervention-stop-acc-60s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-stop-acc-60s'}
+
+Reporting and handling missing values...
+Missing values percentage per column:
+FUEL_RAIL_PRESSURE     100.0
+TIMING_ADVANCE         100.0
+FUEL_LEVEL_INPUT       100.0
+ABSOLUTE_LOAD_VALUE    100.0
+EGR_ERROR              100.0
+dtype: float64
+Handling missing values with strategy: 'median' for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Applying rolling mean with window_size=3...
+Applying rolling mean with window size 3 to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+Handling outliers with IQR (cap strategy)...
+Handling outliers with IQR (multiplier=1.5, strategy='cap') for columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Found 130 outliers in column 'ENGINE_RPM' (bounds: [786.19, 1802.02])
+Capped outliers in 'ENGINE_RPM'.
+Found 118 outliers in column 'COOLANT_TEMPERATURE' (bounds: [88.50, 92.50])
+Capped outliers in 'COOLANT_TEMPERATURE'.
+Found 164 outliers in column 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' (bounds: [0.76, 1.51])
+Capped outliers in 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'.
+Found 83 outliers in column 'INTAKE_AIR_TEMPERATURE' (bounds: [26.50, 38.50])
+Capped outliers in 'INTAKE_AIR_TEMPERATURE'.
+Found 174 outliers in column 'MASS_AIR_FLOW' (bounds: [6.34, 30.16])
+Capped outliers in 'MASS_AIR_FLOW'.
+Warning: IQR for column 'THROTTLE_POSITION' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 4 outliers in column 'CONTROL_MODULE_VOLTAGE' (bounds: [11.19, 15.91])
+Capped outliers in 'CONTROL_MODULE_VOLTAGE'.
+Warning: IQR for column 'ENGINE_FUEL_RATE' is 0 (data might be constant or have low variance). Skipping IQR outlier handling for this column.
+Found 145 outliers in column 'VEHICLE_SPEED' (bounds: [13.67, 53.44])
+Capped outliers in 'VEHICLE_SPEED'.
+Found 4 outliers in column 'AMBIENT_AIR_TEMPERATURE' (bounds: [20.50, 24.50])
+Capped outliers in 'AMBIENT_AIR_TEMPERATURE'.
+Found 4 outliers in column 'BAROMETRIC_PRESSURE' (bounds: [0.94, 0.98])
+Capped outliers in 'BAROMETRIC_PRESSURE'.
+
+Applying StandardScaler...
+Applying standard scaling to columns: ['ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE']
+Successfully saved processed file: data/processed/romanian_driving_ds/s5_20220818-intervention-stop-acc-60s_processed.parquet
