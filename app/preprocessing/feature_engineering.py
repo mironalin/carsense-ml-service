@@ -2,6 +2,7 @@ import json
 from enum import Enum
 from pydantic import BaseModel, Field
 from typing import Optional, Dict
+import pandas as pd
 
 # Refined based on raw data occurrence analysis (threshold >= 500 raw occurrences)
 RELEVANT_PIDS = [
@@ -88,6 +89,48 @@ PID_COLUMN_MAPPING_VOLVO_V40 = {
 # - Process DTCs with severity classification
 # - Create metadata features from vehicle info
 # - Normalize data
+
+# --- Start: New function for time-based features ---
+def add_time_features(df, timestamp_col: str = 'absolute_timestamp'):
+    """
+    Adds time-based features (hour, dayofweek, is_weekend) to the DataFrame.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+        timestamp_col (str): Name of the column containing absolute timestamps.
+                            This column should be of datetime64[ns] type or coercible.
+
+    Returns:
+        pd.DataFrame: DataFrame with added time features, or original df if error.
+    """
+    if timestamp_col not in df.columns:
+        print(f"Warning: Timestamp column '{timestamp_col}' not found. Skipping time feature extraction.")
+        return df
+
+    # Ensure the timestamp column is in datetime format
+    try:
+        # Check if it's already datetime, if not, try to convert
+        if not pd.api.types.is_datetime64_any_dtype(df[timestamp_col]):
+            df[timestamp_col] = pd.to_datetime(df[timestamp_col], errors='coerce')
+        
+        # Check for NaT values after potential conversion
+        if df[timestamp_col].isnull().all():
+            print(f"Warning: Timestamp column '{timestamp_col}' contains all NaT values after conversion. Skipping time feature extraction.")
+            return df
+        elif df[timestamp_col].isnull().any():
+            print(f"Warning: Timestamp column '{timestamp_col}' contains some NaT values. Features will be NaN for these rows.")
+
+    except Exception as e:
+        print(f"Error converting column '{timestamp_col}' to datetime: {e}. Skipping time feature extraction.")
+        return df
+
+    print(f"Extracting time features from '{timestamp_col}'...")
+    df['hour'] = df[timestamp_col].dt.hour
+    df['dayofweek'] = df[timestamp_col].dt.dayofweek  # Monday=0, Sunday=6
+    df['is_weekend'] = df['dayofweek'].apply(lambda x: 1 if x >= 5 else 0)
+    print(f"Added time features: hour, dayofweek, is_weekend")
+    return df
+# --- End: New function for time-based features ---
 
 class VehicleMetadata(BaseModel):
     make: Optional[str] = None

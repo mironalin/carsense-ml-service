@@ -4,6 +4,7 @@ import pandas as pd
 import sys
 import re
 from typing import Optional
+from datetime import datetime, timedelta
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_root not in sys.path:
@@ -19,7 +20,8 @@ try:
         RELEVANT_PIDS, PID_COLUMN_MAPPING, PID_COLUMN_MAPPING_VOLVO_V40,
         get_vehicle_metadata,
         get_volvo_v40_static_metadata,
-        VehicleMetadata
+        VehicleMetadata,
+        add_time_features
     )
 except ImportError as e:
     print(f"Error importing modules: {e}. Ensure PYTHONPATH is set correctly or script is run from project root.")
@@ -68,6 +70,7 @@ def main(args):
         event_type = None
         file_metadata = {}
         current_file_vehicle_meta: Optional[VehicleMetadata] = None
+        start_datetime: Optional[datetime] = None
 
         if args.dataset_type == "romanian":
             is_normal_behavior = 'normal-behavior' in filename or 'normal_behavior' in filename or \
@@ -80,6 +83,19 @@ def main(args):
             print(f"\n--- Processing Romanian file: {filename} ---")
             df = load_romanian_dataset_csv(file_path, pid_mapping=PID_COLUMN_MAPPING)
             if df is None: continue
+
+            # --- Start: Added for Romanian datetime parsing ---
+            date_match = re.search(r'_(\d{8})[-_]', filename)
+            if date_match:
+                date_str = date_match.group(1)
+                try:
+                    start_datetime = datetime.strptime(date_str, '%Y%m%d')
+                    print(f"Parsed start datetime for {filename}: {start_datetime}")
+                except ValueError as e:
+                    print(f"Warning: Could not parse date from Romanian filename {filename}: {e}")
+            else:
+                print(f"Warning: Could not find date pattern in Romanian filename {filename}. Cannot create absolute_timestamp.")
+            # --- End: Added for Romanian datetime parsing ---
 
             event_type = "normal_behavior"
             if is_intervention:
@@ -102,6 +118,19 @@ def main(args):
             df = load_volvo_v40_csv(file_path, pid_mapping=PID_COLUMN_MAPPING_VOLVO_V40)
             if df is None: continue
 
+            # --- Start: Added for Volvo datetime parsing ---
+            datetime_match = re.match(r'(\d{4}-\d{2}-\d{2} \d{2}-\d{2}-\d{2})', filename)
+            if datetime_match:
+                datetime_str = datetime_match.group(1)
+                try:
+                    start_datetime = datetime.strptime(datetime_str, '%Y-%m-%d %H-%M-%S')
+                    print(f"Parsed start datetime for {filename}: {start_datetime}")
+                except ValueError as e:
+                    print(f"Warning: Could not parse datetime from Volvo filename {filename}: {e}")
+            else:
+                print(f"Warning: Could not find datetime pattern in Volvo filename {filename}. Cannot create absolute_timestamp.")
+            # --- End: Added for Volvo datetime parsing ---
+
             parsed_name_meta = parse_volvo_filename(filename)
             volvo_meta_fields = {}
             if static_vehicle_meta:
@@ -120,6 +149,32 @@ def main(args):
             print(f"No data loaded for {filename}. Skipping further processing.")
             continue
 
+        # --- Start: Create absolute_timestamp column ---
+        if start_datetime and 'TIME_SEC' in df.columns:
+            try:
+                # Ensure TIME_SEC is numeric and handle potential errors
+                df['TIME_SEC'] = pd.to_numeric(df['TIME_SEC'], errors='coerce')
+                # Drop rows where TIME_SEC could not be coerced to numeric, if any, or handle as NaN
+                # For simplicity here, we'll proceed, and NaNs in TIME_SEC will result in NaT in absolute_timestamp
+                df['absolute_timestamp'] = start_datetime + pd.to_timedelta(df['TIME_SEC'], unit='s', errors='coerce')
+                if df['absolute_timestamp'].isnull().any():
+                    print(f"Warning: Some 'absolute_timestamp' values are NaT for {filename} due to invalid 'TIME_SEC' values.")
+                print(f"Successfully created 'absolute_timestamp' for {filename}.")
+            except Exception as e:
+                print(f"Error creating 'absolute_timestamp' for {filename}: {e}")
+        elif not start_datetime:
+            print(f"Skipping 'absolute_timestamp' creation for {filename} due to missing start_datetime.")
+        elif 'TIME_SEC' not in df.columns:
+            print(f"Skipping 'absolute_timestamp' creation for {filename} because 'TIME_SEC' column is missing.")
+        # --- End: Create absolute_timestamp column ---
+
+        # --- Start: Add time-based features ---
+        if 'absolute_timestamp' in df.columns: # Check if it was successfully created
+            df = add_time_features(df, timestamp_col='absolute_timestamp')
+        else:
+            print(f"Skipping time feature extraction for {filename} as 'absolute_timestamp' column is not available.")
+        # --- End: Add time-based features ---
+
         print(f"Loaded {filename} with shape: {df.shape}. Columns: {df.columns.tolist()}")
 
         if current_file_vehicle_meta:
@@ -134,6 +189,12 @@ def main(args):
 
         metadata_cols_to_exclude = list(meta_dict.keys()) if current_file_vehicle_meta else []
         cols_to_exclude_from_numeric_ops = ["TIME_SEC"] + metadata_cols_to_exclude
+        if 'absolute_timestamp' in df.columns:
+            cols_to_exclude_from_numeric_ops.append('absolute_timestamp')
+        # Add new time features to exclusion list if they exist
+        for col_name in ['hour', 'dayofweek', 'is_weekend']:
+            if col_name in df.columns:
+                cols_to_exclude_from_numeric_ops.append(col_name)
 
         print("\nReporting and handling missing values...")
         report_missing_values(df)

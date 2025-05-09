@@ -12,7 +12,11 @@ Converted 43 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-09 22-43-10.csv...
 Resampling complete. New shape: (1313, 44)
 PID selection and renaming complete. Final shape: (1313, 18)
-Loaded 2019-02-09 22-43-10.csv with shape: (1313, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-09 22-43-10.csv: 2019-02-09 22:43:10
+Successfully created 'absolute_timestamp' for 2019-02-09 22-43-10.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-09 22-43-10.csv with shape: (1313, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-09 22-43-10.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -73,7 +77,11 @@ Converted 14 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-09 23-08-35.csv...
 Resampling complete. New shape: (580, 15)
 PID selection and renaming complete. Final shape: (580, 18)
-Loaded 2019-02-09 23-08-35.csv with shape: (580, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-09 23-08-35.csv: 2019-02-09 23:08:35
+Successfully created 'absolute_timestamp' for 2019-02-09 23-08-35.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-09 23-08-35.csv with shape: (580, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-09 23-08-35.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -122,7 +130,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-12 18-39-42.csv...
 Resampling complete. New shape: (1693, 22)
 PID selection and renaming complete. Final shape: (1693, 18)
-Loaded 2019-02-12 18-39-42.csv with shape: (1693, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-12 18-39-42.csv: 2019-02-12 18:39:42
+Successfully created 'absolute_timestamp' for 2019-02-12 18-39-42.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-12 18-39-42.csv with shape: (1693, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-12 18-39-42.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -172,7 +184,11 @@ Converted 43 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-12 22-14-40.csv...
 Resampling complete. New shape: (2337, 44)
 PID selection and renaming complete. Final shape: (2337, 18)
-Loaded 2019-02-12 22-14-40.csv with shape: (2337, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-12 22-14-40.csv: 2019-02-12 22:14:40
+Successfully created 'absolute_timestamp' for 2019-02-12 22-14-40.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-12 22-14-40.csv with shape: (2337, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-12 22-14-40.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -233,7 +249,11 @@ Converted 22 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-15 08-46-36.csv...
 Resampling complete. New shape: (37303, 23)
 PID selection and renaming complete. Final shape: (37303, 18)
-Loaded 2019-02-15 08-46-36.csv with shape: (37303, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-15 08-46-36.csv: 2019-02-15 08:46:36
+Successfully created 'absolute_timestamp' for 2019-02-15 08-46-36.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-15 08-46-36.csv with shape: (37303, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-15 08-46-36.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -281,7 +301,11 @@ Converted 30 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-17 17-46-58_eco_ah_ah_testdrive-uitrol.csv...
 Resampling complete. New shape: (1505, 31)
 PID selection and renaming complete. Final shape: (1505, 18)
-Loaded 2019-02-17 17-46-58_eco_ah_ah_testdrive-uitrol.csv with shape: (1505, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-17 17-46-58_eco_ah_ah_testdrive-uitrol.csv: 2019-02-17 17:46:58
+Successfully created 'absolute_timestamp' for 2019-02-17 17-46-58_eco_ah_ah_testdrive-uitrol.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-17 17-46-58_eco_ah_ah_testdrive-uitrol.csv with shape: (1505, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-17 17-46-58_eco_ah_ah_testdrive-uitrol.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0, 'drive_mode': 'eco_ah_ah_testdrive', 'from_location': 'uitrol'}
 
 Reporting and handling missing values...
@@ -338,7 +362,11 @@ Converted 11 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-19 19-10-45.csv...
 Resampling complete. New shape: (900, 12)
 PID selection and renaming complete. Final shape: (900, 18)
-Loaded 2019-02-19 19-10-45.csv with shape: (900, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-19 19-10-45.csv: 2019-02-19 19:10:45
+Successfully created 'absolute_timestamp' for 2019-02-19 19-10-45.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-19 19-10-45.csv with shape: (900, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-19 19-10-45.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -383,7 +411,11 @@ Converted 23 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-19 22-12-40.csv...
 Resampling complete. New shape: (1891, 24)
 PID selection and renaming complete. Final shape: (1891, 18)
-Loaded 2019-02-19 22-12-40.csv with shape: (1891, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-19 22-12-40.csv: 2019-02-19 22:12:40
+Successfully created 'absolute_timestamp' for 2019-02-19 22-12-40.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-19 22-12-40.csv with shape: (1891, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-19 22-12-40.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -433,7 +465,11 @@ Converted 12 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-20 19-31-13.csv...
 Resampling complete. New shape: (1849, 13)
 PID selection and renaming complete. Final shape: (1849, 18)
-Loaded 2019-02-20 19-31-13.csv with shape: (1849, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-20 19-31-13.csv: 2019-02-20 19:31:13
+Successfully created 'absolute_timestamp' for 2019-02-20 19-31-13.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-20 19-31-13.csv with shape: (1849, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-20 19-31-13.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -480,7 +516,11 @@ Converted 43 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-22 08-03-05.csv...
 Resampling complete. New shape: (109, 44)
 PID selection and renaming complete. Final shape: (109, 18)
-Loaded 2019-02-22 08-03-05.csv with shape: (109, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-22 08-03-05.csv: 2019-02-22 08:03:05
+Successfully created 'absolute_timestamp' for 2019-02-22 08-03-05.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-22 08-03-05.csv with shape: (109, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-22 08-03-05.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -523,7 +563,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-22 18-09-15.csv...
 Resampling complete. New shape: (1827, 20)
 PID selection and renaming complete. Final shape: (1827, 18)
-Loaded 2019-02-22 18-09-15.csv with shape: (1827, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-22 18-09-15.csv: 2019-02-22 18:09:15
+Successfully created 'absolute_timestamp' for 2019-02-22 18-09-15.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-22 18-09-15.csv with shape: (1827, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-22 18-09-15.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -570,7 +614,11 @@ Converted 43 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-23 10-27-26.csv...
 Resampling complete. New shape: (8764, 44)
 PID selection and renaming complete. Final shape: (8764, 18)
-Loaded 2019-02-23 10-27-26.csv with shape: (8764, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-23 10-27-26.csv: 2019-02-23 10:27:26
+Successfully created 'absolute_timestamp' for 2019-02-23 10-27-26.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-23 10-27-26.csv with shape: (8764, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-23 10-27-26.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -630,7 +678,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-24 09-40-58.csv...
 Resampling complete. New shape: (1673, 21)
 PID selection and renaming complete. Final shape: (1673, 18)
-Loaded 2019-02-24 09-40-58.csv with shape: (1673, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-24 09-40-58.csv: 2019-02-24 09:40:58
+Successfully created 'absolute_timestamp' for 2019-02-24 09-40-58.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-24 09-40-58.csv with shape: (1673, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-24 09-40-58.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -677,7 +729,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-25 07-19-27.csv...
 Resampling complete. New shape: (363, 20)
 PID selection and renaming complete. Final shape: (363, 18)
-Loaded 2019-02-25 07-19-27.csv with shape: (363, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-25 07-19-27.csv: 2019-02-25 07:19:27
+Successfully created 'absolute_timestamp' for 2019-02-25 07-19-27.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-25 07-19-27.csv with shape: (363, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-25 07-19-27.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -726,7 +782,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-27 07-54-36.csv...
 Resampling complete. New shape: (1502, 21)
 PID selection and renaming complete. Final shape: (1502, 18)
-Loaded 2019-02-27 07-54-36.csv with shape: (1502, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-27 07-54-36.csv: 2019-02-27 07:54:36
+Successfully created 'absolute_timestamp' for 2019-02-27 07-54-36.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-27 07-54-36.csv with shape: (1502, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-27 07-54-36.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -776,7 +836,11 @@ Converted 11 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-02-27 18-21-22.csv...
 Resampling complete. New shape: (1493, 12)
 PID selection and renaming complete. Final shape: (1493, 18)
-Loaded 2019-02-27 18-21-22.csv with shape: (1493, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-02-27 18-21-22.csv: 2019-02-27 18:21:22
+Successfully created 'absolute_timestamp' for 2019-02-27 18-21-22.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-02-27 18-21-22.csv with shape: (1493, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-02-27 18-21-22.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -824,7 +888,11 @@ Converted 206 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-01 08-34-54.csv...
 Resampling complete. New shape: (5160, 207)
 PID selection and renaming complete. Final shape: (5160, 18)
-Loaded 2019-03-01 08-34-54.csv with shape: (5160, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-01 08-34-54.csv: 2019-03-01 08:34:54
+Successfully created 'absolute_timestamp' for 2019-03-01 08-34-54.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-01 08-34-54.csv with shape: (5160, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-01 08-34-54.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -885,7 +953,11 @@ Converted 16 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-05 19-30-27.csv...
 Resampling complete. New shape: (626, 17)
 PID selection and renaming complete. Final shape: (626, 18)
-Loaded 2019-03-05 19-30-27.csv with shape: (626, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-05 19-30-27.csv: 2019-03-05 19:30:27
+Successfully created 'absolute_timestamp' for 2019-03-05 19-30-27.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-05 19-30-27.csv with shape: (626, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-05 19-30-27.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -935,7 +1007,11 @@ Converted 43 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-05 22-17-15.csv...
 Resampling complete. New shape: (1916, 44)
 PID selection and renaming complete. Final shape: (1916, 18)
-Loaded 2019-03-05 22-17-15.csv with shape: (1916, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-05 22-17-15.csv: 2019-03-05 22:17:15
+Successfully created 'absolute_timestamp' for 2019-03-05 22-17-15.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-05 22-17-15.csv with shape: (1916, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-05 22-17-15.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -999,7 +1075,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-06 07-14-35.csv...
 Resampling complete. New shape: (1564, 21)
 PID selection and renaming complete. Final shape: (1564, 18)
-Loaded 2019-03-06 07-14-35.csv with shape: (1564, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-06 07-14-35.csv: 2019-03-06 07:14:35
+Successfully created 'absolute_timestamp' for 2019-03-06 07-14-35.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-06 07-14-35.csv with shape: (1564, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-06 07-14-35.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1051,7 +1131,11 @@ Converted 9 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-06 16-46-53.csv...
 Resampling complete. New shape: (1, 10)
 PID selection and renaming complete. Final shape: (1, 18)
-Loaded 2019-03-06 16-46-53.csv with shape: (1, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-06 16-46-53.csv: 2019-03-06 16:46:53
+Successfully created 'absolute_timestamp' for 2019-03-06 16-46-53.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-06 16-46-53.csv with shape: (1, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-06 16-46-53.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1094,7 +1178,11 @@ Converted 43 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-06 19-32-34.csv...
 Resampling complete. New shape: (1270, 44)
 PID selection and renaming complete. Final shape: (1270, 18)
-Loaded 2019-03-06 19-32-34.csv with shape: (1270, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-06 19-32-34.csv: 2019-03-06 19:32:34
+Successfully created 'absolute_timestamp' for 2019-03-06 19-32-34.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-06 19-32-34.csv with shape: (1270, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-06 19-32-34.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1155,7 +1243,11 @@ Converted 23 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-06 22-13-55.csv...
 Resampling complete. New shape: (2476, 24)
 PID selection and renaming complete. Final shape: (2476, 18)
-Loaded 2019-03-06 22-13-55.csv with shape: (2476, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-06 22-13-55.csv: 2019-03-06 22:13:55
+Successfully created 'absolute_timestamp' for 2019-03-06 22-13-55.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-06 22-13-55.csv with shape: (2476, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-06 22-13-55.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1206,7 +1298,11 @@ Converted 27 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-07 07-26-20.csv...
 Resampling complete. New shape: (2264, 28)
 PID selection and renaming complete. Final shape: (2264, 18)
-Loaded 2019-03-07 07-26-20.csv with shape: (2264, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-07 07-26-20.csv: 2019-03-07 07:26:20
+Successfully created 'absolute_timestamp' for 2019-03-07 07-26-20.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-07 07-26-20.csv with shape: (2264, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-07 07-26-20.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1260,7 +1356,11 @@ Converted 26 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-07 18-49-41_eco-kc-ah.csv...
 Resampling complete. New shape: (1893, 27)
 PID selection and renaming complete. Final shape: (1893, 18)
-Loaded 2019-03-07 18-49-41_eco-kc-ah.csv with shape: (1893, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-07 18-49-41_eco-kc-ah.csv: 2019-03-07 18:49:41
+Successfully created 'absolute_timestamp' for 2019-03-07 18-49-41_eco-kc-ah.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-07 18-49-41_eco-kc-ah.csv with shape: (1893, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-07 18-49-41_eco-kc-ah.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0, 'drive_mode': 'eco', 'from_location': 'kc', 'to_location': 'ah'}
 
 Reporting and handling missing values...
@@ -1317,7 +1417,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-09 09-22-17.csv...
 Resampling complete. New shape: (1658, 21)
 PID selection and renaming complete. Final shape: (1658, 18)
-Loaded 2019-03-09 09-22-17.csv with shape: (1658, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-09 09-22-17.csv: 2019-03-09 09:22:17
+Successfully created 'absolute_timestamp' for 2019-03-09 09-22-17.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-09 09-22-17.csv with shape: (1658, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-09 09-22-17.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1368,7 +1472,11 @@ Converted 24 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-09 16-09-53.csv...
 Resampling complete. New shape: (2102, 25)
 PID selection and renaming complete. Final shape: (2102, 18)
-Loaded 2019-03-09 16-09-53.csv with shape: (2102, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-09 16-09-53.csv: 2019-03-09 16:09:53
+Successfully created 'absolute_timestamp' for 2019-03-09 16-09-53.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-09 16-09-53.csv with shape: (2102, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-09 16-09-53.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1418,7 +1526,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-09 17-43-58.csv...
 Resampling complete. New shape: (5464, 22)
 PID selection and renaming complete. Final shape: (5464, 18)
-Loaded 2019-03-09 17-43-58.csv with shape: (5464, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-09 17-43-58.csv: 2019-03-09 17:43:58
+Successfully created 'absolute_timestamp' for 2019-03-09 17-43-58.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-09 17-43-58.csv with shape: (5464, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-09 17-43-58.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1468,7 +1580,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-10 12-31-48_test-ah-gv-amf-harde_wind_regen_test_cruise_consumption.csv...
 Resampling complete. New shape: (11166, 22)
 PID selection and renaming complete. Final shape: (11166, 18)
-Loaded 2019-03-10 12-31-48_test-ah-gv-amf-harde_wind_regen_test_cruise_consumption.csv with shape: (11166, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-10 12-31-48_test-ah-gv-amf-harde_wind_regen_test_cruise_consumption.csv: 2019-03-10 12:31:48
+Successfully created 'absolute_timestamp' for 2019-03-10 12-31-48_test-ah-gv-amf-harde_wind_regen_test_cruise_consumption.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-10 12-31-48_test-ah-gv-amf-harde_wind_regen_test_cruise_consumption.csv with shape: (11166, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-10 12-31-48_test-ah-gv-amf-harde_wind_regen_test_cruise_consumption.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0, 'drive_mode': 'test', 'from_location': 'ah', 'to_location': 'gv', 'file_description': 'amf-harde_wind_regen_test_cruise_consumption'}
 
 Reporting and handling missing values...
@@ -1519,7 +1635,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-10 18-19-12_normal-amf-ah-harde-wind.csv...
 Resampling complete. New shape: (1922, 22)
 PID selection and renaming complete. Final shape: (1922, 18)
-Loaded 2019-03-10 18-19-12_normal-amf-ah-harde-wind.csv with shape: (1922, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-10 18-19-12_normal-amf-ah-harde-wind.csv: 2019-03-10 18:19:12
+Successfully created 'absolute_timestamp' for 2019-03-10 18-19-12_normal-amf-ah-harde-wind.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-10 18-19-12_normal-amf-ah-harde-wind.csv with shape: (1922, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-10 18-19-12_normal-amf-ah-harde-wind.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0, 'drive_mode': 'normal', 'from_location': 'amf', 'to_location': 'ah', 'file_description': 'harde-wind'}
 
 Reporting and handling missing values...
@@ -1570,7 +1690,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-11 08-22-21.csv...
 Resampling complete. New shape: (1355, 22)
 PID selection and renaming complete. Final shape: (1355, 18)
-Loaded 2019-03-11 08-22-21.csv with shape: (1355, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-11 08-22-21.csv: 2019-03-11 08:22:21
+Successfully created 'absolute_timestamp' for 2019-03-11 08-22-21.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-11 08-22-21.csv with shape: (1355, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-11 08-22-21.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1622,7 +1746,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-11 08-22-21_rush-ah-vndk.csv...
 Resampling complete. New shape: (1355, 22)
 PID selection and renaming complete. Final shape: (1355, 18)
-Loaded 2019-03-11 08-22-21_rush-ah-vndk.csv with shape: (1355, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-11 08-22-21_rush-ah-vndk.csv: 2019-03-11 08:22:21
+Successfully created 'absolute_timestamp' for 2019-03-11 08-22-21_rush-ah-vndk.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-11 08-22-21_rush-ah-vndk.csv with shape: (1355, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-11 08-22-21_rush-ah-vndk.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0, 'drive_mode': 'rush', 'from_location': 'ah', 'to_location': 'vndk'}
 
 Reporting and handling missing values...
@@ -1674,7 +1802,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-13 15-43-49_eco-vnd-dtc.csv...
 Resampling complete. New shape: (3151, 20)
 PID selection and renaming complete. Final shape: (3151, 18)
-Loaded 2019-03-13 15-43-49_eco-vnd-dtc.csv with shape: (3151, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-13 15-43-49_eco-vnd-dtc.csv: 2019-03-13 15:43:49
+Successfully created 'absolute_timestamp' for 2019-03-13 15-43-49_eco-vnd-dtc.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-13 15-43-49_eco-vnd-dtc.csv with shape: (3151, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-13 15-43-49_eco-vnd-dtc.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0, 'drive_mode': 'eco', 'from_location': 'vnd', 'to_location': 'dtc'}
 
 Reporting and handling missing values...
@@ -1721,7 +1853,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-19 07-12-52-eco-ah-vnd.csv...
 Resampling complete. New shape: (2009, 22)
 PID selection and renaming complete. Final shape: (2009, 18)
-Loaded 2019-03-19 07-12-52-eco-ah-vnd.csv with shape: (2009, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-19 07-12-52-eco-ah-vnd.csv: 2019-03-19 07:12:52
+Successfully created 'absolute_timestamp' for 2019-03-19 07-12-52-eco-ah-vnd.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-19 07-12-52-eco-ah-vnd.csv with shape: (2009, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-19 07-12-52-eco-ah-vnd.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1773,7 +1909,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-19 17-01-52.csv...
 Resampling complete. New shape: (2556, 22)
 PID selection and renaming complete. Final shape: (2556, 18)
-Loaded 2019-03-19 17-01-52.csv with shape: (2556, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-19 17-01-52.csv: 2019-03-19 17:01:52
+Successfully created 'absolute_timestamp' for 2019-03-19 17-01-52.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-19 17-01-52.csv with shape: (2556, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-19 17-01-52.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1822,7 +1962,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-19 17-01-52-normal-vnd-ah.csv...
 Resampling complete. New shape: (2553, 21)
 PID selection and renaming complete. Final shape: (2553, 18)
-Loaded 2019-03-19 17-01-52-normal-vnd-ah.csv with shape: (2553, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-19 17-01-52-normal-vnd-ah.csv: 2019-03-19 17:01:52
+Successfully created 'absolute_timestamp' for 2019-03-19 17-01-52-normal-vnd-ah.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-19 17-01-52-normal-vnd-ah.csv with shape: (2553, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-19 17-01-52-normal-vnd-ah.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1872,7 +2016,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-19 19-26-28-eco-ah-gnd.csv...
 Resampling complete. New shape: (1862, 22)
 PID selection and renaming complete. Final shape: (1862, 18)
-Loaded 2019-03-19 19-26-28-eco-ah-gnd.csv with shape: (1862, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-19 19-26-28-eco-ah-gnd.csv: 2019-03-19 19:26:28
+Successfully created 'absolute_timestamp' for 2019-03-19 19-26-28-eco-ah-gnd.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-19 19-26-28-eco-ah-gnd.csv with shape: (1862, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-19 19-26-28-eco-ah-gnd.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1919,7 +2067,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-19 21-08-36-hyper-gnd-ah.csv...
 Resampling complete. New shape: (2138, 22)
 PID selection and renaming complete. Final shape: (2138, 18)
-Loaded 2019-03-19 21-08-36-hyper-gnd-ah.csv with shape: (2138, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-19 21-08-36-hyper-gnd-ah.csv: 2019-03-19 21:08:36
+Successfully created 'absolute_timestamp' for 2019-03-19 21-08-36-hyper-gnd-ah.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-19 21-08-36-hyper-gnd-ah.csv with shape: (2138, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-19 21-08-36-hyper-gnd-ah.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -1969,7 +2121,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-20 16-43-25.csv...
 Resampling complete. New shape: (623, 21)
 PID selection and renaming complete. Final shape: (623, 18)
-Loaded 2019-03-20 16-43-25.csv with shape: (623, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-20 16-43-25.csv: 2019-03-20 16:43:25
+Successfully created 'absolute_timestamp' for 2019-03-20 16-43-25.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-20 16-43-25.csv with shape: (623, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-20 16-43-25.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2018,7 +2174,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-20 20-21-04.csv...
 Resampling complete. New shape: (1875, 21)
 PID selection and renaming complete. Final shape: (1875, 18)
-Loaded 2019-03-20 20-21-04.csv with shape: (1875, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-20 20-21-04.csv: 2019-03-20 20:21:04
+Successfully created 'absolute_timestamp' for 2019-03-20 20-21-04.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-20 20-21-04.csv with shape: (1875, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-20 20-21-04.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2067,7 +2227,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-22 07-20-09.csv...
 Resampling complete. New shape: (125, 21)
 PID selection and renaming complete. Final shape: (125, 18)
-Loaded 2019-03-22 07-20-09.csv with shape: (125, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-22 07-20-09.csv: 2019-03-22 07:20:09
+Successfully created 'absolute_timestamp' for 2019-03-22 07-20-09.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-22 07-20-09.csv with shape: (125, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-22 07-20-09.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2116,7 +2280,11 @@ Converted 22 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-22 17-26-22.csv...
 Resampling complete. New shape: (3678, 23)
 PID selection and renaming complete. Final shape: (3678, 18)
-Loaded 2019-03-22 17-26-22.csv with shape: (3678, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-22 17-26-22.csv: 2019-03-22 17:26:22
+Successfully created 'absolute_timestamp' for 2019-03-22 17-26-22.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-22 17-26-22.csv with shape: (3678, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-22 17-26-22.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2167,7 +2335,11 @@ Converted 11 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-22 22-46-22.csv...
 Resampling complete. New shape: (687, 12)
 PID selection and renaming complete. Final shape: (687, 18)
-Loaded 2019-03-22 22-46-22.csv with shape: (687, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-22 22-46-22.csv: 2019-03-22 22:46:22
+Successfully created 'absolute_timestamp' for 2019-03-22 22-46-22.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-22 22-46-22.csv with shape: (687, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-22 22-46-22.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2214,7 +2386,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-23 17-27-41.csv...
 Resampling complete. New shape: (1349, 22)
 PID selection and renaming complete. Final shape: (1349, 18)
-Loaded 2019-03-23 17-27-41.csv with shape: (1349, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-23 17-27-41.csv: 2019-03-23 17:27:41
+Successfully created 'absolute_timestamp' for 2019-03-23 17-27-41.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-23 17-27-41.csv with shape: (1349, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-23 17-27-41.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2261,7 +2437,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-23 17-27-41 (2).csv...
 Resampling complete. New shape: (1349, 22)
 PID selection and renaming complete. Final shape: (1349, 18)
-Loaded 2019-03-23 17-27-41 (2).csv with shape: (1349, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-23 17-27-41 (2).csv: 2019-03-23 17:27:41
+Successfully created 'absolute_timestamp' for 2019-03-23 17-27-41 (2).csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-23 17-27-41 (2).csv with shape: (1349, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-23 17-27-41 (2).csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2308,7 +2488,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-23 23-26-48-hyper-apd-ah-behind-truck.csv...
 Resampling complete. New shape: (2280, 20)
 PID selection and renaming complete. Final shape: (2280, 18)
-Loaded 2019-03-23 23-26-48-hyper-apd-ah-behind-truck.csv with shape: (2280, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-23 23-26-48-hyper-apd-ah-behind-truck.csv: 2019-03-23 23:26:48
+Successfully created 'absolute_timestamp' for 2019-03-23 23-26-48-hyper-apd-ah-behind-truck.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-23 23-26-48-hyper-apd-ah-behind-truck.csv with shape: (2280, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-23 23-26-48-hyper-apd-ah-behind-truck.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2356,7 +2540,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-24 09-15-06.csv...
 Resampling complete. New shape: (1162, 20)
 PID selection and renaming complete. Final shape: (1162, 18)
-Loaded 2019-03-24 09-15-06.csv with shape: (1162, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-24 09-15-06.csv: 2019-03-24 09:15:06
+Successfully created 'absolute_timestamp' for 2019-03-24 09-15-06.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-24 09-15-06.csv with shape: (1162, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-24 09-15-06.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2405,7 +2593,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-24 14-27-11.csv...
 Resampling complete. New shape: (136, 20)
 PID selection and renaming complete. Final shape: (136, 18)
-Loaded 2019-03-24 14-27-11.csv with shape: (136, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-24 14-27-11.csv: 2019-03-24 14:27:11
+Successfully created 'absolute_timestamp' for 2019-03-24 14-27-11.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-24 14-27-11.csv with shape: (136, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-24 14-27-11.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2452,7 +2644,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-24 15-33-35.csv...
 Resampling complete. New shape: (2535, 20)
 PID selection and renaming complete. Final shape: (2535, 18)
-Loaded 2019-03-24 15-33-35.csv with shape: (2535, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-24 15-33-35.csv: 2019-03-24 15:33:35
+Successfully created 'absolute_timestamp' for 2019-03-24 15-33-35.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-24 15-33-35.csv with shape: (2535, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-24 15-33-35.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2500,7 +2696,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-26 19-22-21.csv...
 Resampling complete. New shape: (1858, 22)
 PID selection and renaming complete. Final shape: (1858, 18)
-Loaded 2019-03-26 19-22-21.csv with shape: (1858, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-26 19-22-21.csv: 2019-03-26 19:22:21
+Successfully created 'absolute_timestamp' for 2019-03-26 19-22-21.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-26 19-22-21.csv with shape: (1858, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-26 19-22-21.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2549,7 +2749,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-26 23-12-46.csv...
 Resampling complete. New shape: (2037, 22)
 PID selection and renaming complete. Final shape: (2037, 18)
-Loaded 2019-03-26 23-12-46.csv with shape: (2037, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-26 23-12-46.csv: 2019-03-26 23:12:46
+Successfully created 'absolute_timestamp' for 2019-03-26 23-12-46.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-26 23-12-46.csv with shape: (2037, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-26 23-12-46.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2598,7 +2802,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-29 07-27-01.csv...
 Resampling complete. New shape: (3148, 20)
 PID selection and renaming complete. Final shape: (3148, 18)
-Loaded 2019-03-29 07-27-01.csv with shape: (3148, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-29 07-27-01.csv: 2019-03-29 07:27:01
+Successfully created 'absolute_timestamp' for 2019-03-29 07-27-01.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-29 07-27-01.csv with shape: (3148, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-29 07-27-01.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2647,7 +2855,11 @@ Converted 24 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-29 16-07-31-test-ut-germanparking1-speed_average.csv...
 Resampling complete. New shape: (8843, 25)
 PID selection and renaming complete. Final shape: (8843, 18)
-Loaded 2019-03-29 16-07-31-test-ut-germanparking1-speed_average.csv with shape: (8843, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-29 16-07-31-test-ut-germanparking1-speed_average.csv: 2019-03-29 16:07:31
+Successfully created 'absolute_timestamp' for 2019-03-29 16-07-31-test-ut-germanparking1-speed_average.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-29 16-07-31-test-ut-germanparking1-speed_average.csv with shape: (8843, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-29 16-07-31-test-ut-germanparking1-speed_average.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2699,7 +2911,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-29 18-49-30.csv...
 Resampling complete. New shape: (3539, 22)
 PID selection and renaming complete. Final shape: (3539, 18)
-Loaded 2019-03-29 18-49-30.csv with shape: (3539, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-29 18-49-30.csv: 2019-03-29 18:49:30
+Successfully created 'absolute_timestamp' for 2019-03-29 18-49-30.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-29 18-49-30.csv with shape: (3539, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-29 18-49-30.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2747,7 +2963,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-03-31 20-23-00-normal-germany-ah-speed_roll.csv...
 Resampling complete. New shape: (10017, 21)
 PID selection and renaming complete. Final shape: (10017, 18)
-Loaded 2019-03-31 20-23-00-normal-germany-ah-speed_roll.csv with shape: (10017, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-03-31 20-23-00-normal-germany-ah-speed_roll.csv: 2019-03-31 20:23:00
+Successfully created 'absolute_timestamp' for 2019-03-31 20-23-00-normal-germany-ah-speed_roll.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-03-31 20-23-00-normal-germany-ah-speed_roll.csv with shape: (10017, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-03-31 20-23-00-normal-germany-ah-speed_roll.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2798,7 +3018,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-01 07-35-25.csv...
 Resampling complete. New shape: (7533, 22)
 PID selection and renaming complete. Final shape: (7533, 18)
-Loaded 2019-04-01 07-35-25.csv with shape: (7533, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-01 07-35-25.csv: 2019-04-01 07:35:25
+Successfully created 'absolute_timestamp' for 2019-04-01 07-35-25.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-01 07-35-25.csv with shape: (7533, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-01 07-35-25.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2846,7 +3070,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-05 08-16-20.csv...
 Resampling complete. New shape: (1716, 20)
 PID selection and renaming complete. Final shape: (1716, 18)
-Loaded 2019-04-05 08-16-20.csv with shape: (1716, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-05 08-16-20.csv: 2019-04-05 08:16:20
+Successfully created 'absolute_timestamp' for 2019-04-05 08-16-20.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-05 08-16-20.csv with shape: (1716, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-05 08-16-20.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2893,7 +3121,11 @@ Converted 22 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-05 17-21-05.csv...
 Resampling complete. New shape: (2252, 23)
 PID selection and renaming complete. Final shape: (2252, 18)
-Loaded 2019-04-05 17-21-05.csv with shape: (2252, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-05 17-21-05.csv: 2019-04-05 17:21:05
+Successfully created 'absolute_timestamp' for 2019-04-05 17-21-05.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-05 17-21-05.csv with shape: (2252, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-05 17-21-05.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2944,7 +3176,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-06 14-19-45.csv...
 Resampling complete. New shape: (2554, 22)
 PID selection and renaming complete. Final shape: (2554, 18)
-Loaded 2019-04-06 14-19-45.csv with shape: (2554, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-06 14-19-45.csv: 2019-04-06 14:19:45
+Successfully created 'absolute_timestamp' for 2019-04-06 14-19-45.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-06 14-19-45.csv with shape: (2554, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-06 14-19-45.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -2993,7 +3229,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-07 09-03-09.csv...
 Resampling complete. New shape: (1582, 22)
 PID selection and renaming complete. Final shape: (1582, 18)
-Loaded 2019-04-07 09-03-09.csv with shape: (1582, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-07 09-03-09.csv: 2019-04-07 09:03:09
+Successfully created 'absolute_timestamp' for 2019-04-07 09-03-09.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-07 09-03-09.csv with shape: (1582, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-07 09-03-09.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3044,7 +3284,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-07 17-13-09.csv...
 Resampling complete. New shape: (1268, 21)
 PID selection and renaming complete. Final shape: (1268, 18)
-Loaded 2019-04-07 17-13-09.csv with shape: (1268, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-07 17-13-09.csv: 2019-04-07 17:13:09
+Successfully created 'absolute_timestamp' for 2019-04-07 17-13-09.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-07 17-13-09.csv with shape: (1268, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-07 17-13-09.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3094,7 +3338,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-07 17-56-37.csv...
 Resampling complete. New shape: (1478, 22)
 PID selection and renaming complete. Final shape: (1478, 18)
-Loaded 2019-04-07 17-56-37.csv with shape: (1478, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-07 17-56-37.csv: 2019-04-07 17:56:37
+Successfully created 'absolute_timestamp' for 2019-04-07 17-56-37.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-07 17-56-37.csv with shape: (1478, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-07 17-56-37.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3143,7 +3391,11 @@ Converted 22 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-07 20-37-48.csv...
 Resampling complete. New shape: (1414, 23)
 PID selection and renaming complete. Final shape: (1414, 18)
-Loaded 2019-04-07 20-37-48.csv with shape: (1414, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-07 20-37-48.csv: 2019-04-07 20:37:48
+Successfully created 'absolute_timestamp' for 2019-04-07 20-37-48.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-07 20-37-48.csv with shape: (1414, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-07 20-37-48.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3194,7 +3446,11 @@ Converted 20 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-09 19-16-30.csv...
 Resampling complete. New shape: (1806, 21)
 PID selection and renaming complete. Final shape: (1806, 18)
-Loaded 2019-04-09 19-16-30.csv with shape: (1806, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-09 19-16-30.csv: 2019-04-09 19:16:30
+Successfully created 'absolute_timestamp' for 2019-04-09 19-16-30.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-09 19-16-30.csv with shape: (1806, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-09 19-16-30.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3243,7 +3499,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-09 22-19-28.csv...
 Resampling complete. New shape: (1905, 22)
 PID selection and renaming complete. Final shape: (1905, 18)
-Loaded 2019-04-09 22-19-28.csv with shape: (1905, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-09 22-19-28.csv: 2019-04-09 22:19:28
+Successfully created 'absolute_timestamp' for 2019-04-09 22-19-28.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-09 22-19-28.csv with shape: (1905, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-09 22-19-28.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3293,7 +3553,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-10 17-16-31.csv...
 Resampling complete. New shape: (903, 20)
 PID selection and renaming complete. Final shape: (903, 18)
-Loaded 2019-04-10 17-16-31.csv with shape: (903, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-10 17-16-31.csv: 2019-04-10 17:16:31
+Successfully created 'absolute_timestamp' for 2019-04-10 17-16-31.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-10 17-16-31.csv with shape: (903, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-10 17-16-31.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3342,7 +3606,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-11 07-49-59.csv...
 Resampling complete. New shape: (2999, 20)
 PID selection and renaming complete. Final shape: (2999, 18)
-Loaded 2019-04-11 07-49-59.csv with shape: (2999, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-11 07-49-59.csv: 2019-04-11 07:49:59
+Successfully created 'absolute_timestamp' for 2019-04-11 07-49-59.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-11 07-49-59.csv with shape: (2999, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-11 07-49-59.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3392,7 +3660,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-11 17-45-25.csv...
 Resampling complete. New shape: (4977, 20)
 PID selection and renaming complete. Final shape: (4977, 18)
-Loaded 2019-04-11 17-45-25.csv with shape: (4977, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-11 17-45-25.csv: 2019-04-11 17:45:25
+Successfully created 'absolute_timestamp' for 2019-04-11 17-45-25.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-11 17-45-25.csv with shape: (4977, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-11 17-45-25.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3439,7 +3711,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-11 20-55-46.csv...
 Resampling complete. New shape: (2695, 20)
 PID selection and renaming complete. Final shape: (2695, 18)
-Loaded 2019-04-11 20-55-46.csv with shape: (2695, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-11 20-55-46.csv: 2019-04-11 20:55:46
+Successfully created 'absolute_timestamp' for 2019-04-11 20-55-46.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-11 20-55-46.csv with shape: (2695, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-11 20-55-46.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3486,7 +3762,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-14 20-32-29.csv...
 Resampling complete. New shape: (4610, 20)
 PID selection and renaming complete. Final shape: (4610, 18)
-Loaded 2019-04-14 20-32-29.csv with shape: (4610, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-14 20-32-29.csv: 2019-04-14 20:32:29
+Successfully created 'absolute_timestamp' for 2019-04-14 20-32-29.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-14 20-32-29.csv with shape: (4610, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-14 20-32-29.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3532,7 +3812,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-16 19-13-43.csv...
 Resampling complete. New shape: (1681, 20)
 PID selection and renaming complete. Final shape: (1681, 18)
-Loaded 2019-04-16 19-13-43.csv with shape: (1681, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-16 19-13-43.csv: 2019-04-16 19:13:43
+Successfully created 'absolute_timestamp' for 2019-04-16 19-13-43.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-16 19-13-43.csv with shape: (1681, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-16 19-13-43.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3577,7 +3861,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-16 23-46-36.csv...
 Resampling complete. New shape: (2287, 20)
 PID selection and renaming complete. Final shape: (2287, 18)
-Loaded 2019-04-16 23-46-36.csv with shape: (2287, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-16 23-46-36.csv: 2019-04-16 23:46:36
+Successfully created 'absolute_timestamp' for 2019-04-16 23-46-36.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-16 23-46-36.csv with shape: (2287, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-16 23-46-36.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3624,7 +3912,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-19 08-59-31.csv...
 Resampling complete. New shape: (1259, 20)
 PID selection and renaming complete. Final shape: (1259, 18)
-Loaded 2019-04-19 08-59-31.csv with shape: (1259, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-19 08-59-31.csv: 2019-04-19 08:59:31
+Successfully created 'absolute_timestamp' for 2019-04-19 08-59-31.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-19 08-59-31.csv with shape: (1259, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-19 08-59-31.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3670,7 +3962,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-19 19-45-32.csv...
 Resampling complete. New shape: (1596, 20)
 PID selection and renaming complete. Final shape: (1596, 18)
-Loaded 2019-04-19 19-45-32.csv with shape: (1596, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-19 19-45-32.csv: 2019-04-19 19:45:32
+Successfully created 'absolute_timestamp' for 2019-04-19 19-45-32.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-19 19-45-32.csv with shape: (1596, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-19 19-45-32.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3717,7 +4013,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-19 22-43-58.csv...
 Resampling complete. New shape: (2311, 20)
 PID selection and renaming complete. Final shape: (2311, 18)
-Loaded 2019-04-19 22-43-58.csv with shape: (2311, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-19 22-43-58.csv: 2019-04-19 22:43:58
+Successfully created 'absolute_timestamp' for 2019-04-19 22-43-58.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-19 22-43-58.csv with shape: (2311, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-19 22-43-58.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3764,7 +4064,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-21 20-44-56.csv...
 Resampling complete. New shape: (2654, 20)
 PID selection and renaming complete. Final shape: (2654, 18)
-Loaded 2019-04-21 20-44-56.csv with shape: (2654, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-21 20-44-56.csv: 2019-04-21 20:44:56
+Successfully created 'absolute_timestamp' for 2019-04-21 20-44-56.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-21 20-44-56.csv with shape: (2654, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-21 20-44-56.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3812,7 +4116,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-23 19-18-04.csv...
 Resampling complete. New shape: (1484, 20)
 PID selection and renaming complete. Final shape: (1484, 18)
-Loaded 2019-04-23 19-18-04.csv with shape: (1484, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-23 19-18-04.csv: 2019-04-23 19:18:04
+Successfully created 'absolute_timestamp' for 2019-04-23 19-18-04.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-23 19-18-04.csv with shape: (1484, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-23 19-18-04.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3859,7 +4167,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-23 22-15-12_rush-gnd-ah.csv...
 Resampling complete. New shape: (1872, 20)
 PID selection and renaming complete. Final shape: (1872, 18)
-Loaded 2019-04-23 22-15-12_rush-gnd-ah.csv with shape: (1872, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-23 22-15-12_rush-gnd-ah.csv: 2019-04-23 22:15:12
+Successfully created 'absolute_timestamp' for 2019-04-23 22-15-12_rush-gnd-ah.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-23 22-15-12_rush-gnd-ah.csv with shape: (1872, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-23 22-15-12_rush-gnd-ah.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0, 'drive_mode': 'rush', 'from_location': 'gnd', 'to_location': 'ah'}
 
 Reporting and handling missing values...
@@ -3906,7 +4218,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-24 07-18-08.csv...
 Resampling complete. New shape: (1379, 20)
 PID selection and renaming complete. Final shape: (1379, 18)
-Loaded 2019-04-24 07-18-08.csv with shape: (1379, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-24 07-18-08.csv: 2019-04-24 07:18:08
+Successfully created 'absolute_timestamp' for 2019-04-24 07-18-08.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-24 07-18-08.csv with shape: (1379, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-24 07-18-08.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3952,7 +4268,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-24 21-15-10.csv...
 Resampling complete. New shape: (1179, 20)
 PID selection and renaming complete. Final shape: (1179, 18)
-Loaded 2019-04-24 21-15-10.csv with shape: (1179, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-24 21-15-10.csv: 2019-04-24 21:15:10
+Successfully created 'absolute_timestamp' for 2019-04-24 21-15-10.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-24 21-15-10.csv with shape: (1179, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-24 21-15-10.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -3999,7 +4319,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-28 16-02-30.csv...
 Resampling complete. New shape: (85, 20)
 PID selection and renaming complete. Final shape: (85, 18)
-Loaded 2019-04-28 16-02-30.csv with shape: (85, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-28 16-02-30.csv: 2019-04-28 16:02:30
+Successfully created 'absolute_timestamp' for 2019-04-28 16-02-30.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-28 16-02-30.csv with shape: (85, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-28 16-02-30.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -4047,7 +4371,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-28 21-23-05.csv...
 Resampling complete. New shape: (1974, 20)
 PID selection and renaming complete. Final shape: (1974, 18)
-Loaded 2019-04-28 21-23-05.csv with shape: (1974, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-28 21-23-05.csv: 2019-04-28 21:23:05
+Successfully created 'absolute_timestamp' for 2019-04-28 21-23-05.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-28 21-23-05.csv with shape: (1974, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-28 21-23-05.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -4092,7 +4420,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-29 09-33-56_ahdealer-vndklmp-normal-zomerbanden.csv...
 Resampling complete. New shape: (1530, 20)
 PID selection and renaming complete. Final shape: (1530, 18)
-Loaded 2019-04-29 09-33-56_ahdealer-vndklmp-normal-zomerbanden.csv with shape: (1530, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-29 09-33-56_ahdealer-vndklmp-normal-zomerbanden.csv: 2019-04-29 09:33:56
+Successfully created 'absolute_timestamp' for 2019-04-29 09-33-56_ahdealer-vndklmp-normal-zomerbanden.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-29 09-33-56_ahdealer-vndklmp-normal-zomerbanden.csv with shape: (1530, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-29 09-33-56_ahdealer-vndklmp-normal-zomerbanden.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0, 'drive_mode': 'ahdealer', 'from_location': 'vndklmp', 'to_location': 'normal', 'file_description': 'zomerbanden'}
 
 Reporting and handling missing values...
@@ -4141,7 +4473,11 @@ Converted 19 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-29 17-17-40.csv...
 Resampling complete. New shape: (1770, 20)
 PID selection and renaming complete. Final shape: (1770, 18)
-Loaded 2019-04-29 17-17-40.csv with shape: (1770, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-29 17-17-40.csv: 2019-04-29 17:17:40
+Successfully created 'absolute_timestamp' for 2019-04-29 17-17-40.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-29 17-17-40.csv with shape: (1770, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-29 17-17-40.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -4186,7 +4522,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-29 17-58-03.csv...
 Resampling complete. New shape: (181, 22)
 PID selection and renaming complete. Final shape: (181, 18)
-Loaded 2019-04-29 17-58-03.csv with shape: (181, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-29 17-58-03.csv: 2019-04-29 17:58:03
+Successfully created 'absolute_timestamp' for 2019-04-29 17-58-03.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-29 17-58-03.csv with shape: (181, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-29 17-58-03.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...
@@ -4232,7 +4572,11 @@ Converted 21 PID columns to numeric.
 Resampling data to 1-second frequency for 2019-04-30 19-15-27.csv...
 Resampling complete. New shape: (12647, 22)
 PID selection and renaming complete. Final shape: (12647, 18)
-Loaded 2019-04-30 19-15-27.csv with shape: (12647, 18). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR']
+Parsed start datetime for 2019-04-30 19-15-27.csv: 2019-04-30 19:15:27
+Successfully created 'absolute_timestamp' for 2019-04-30 19-15-27.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded 2019-04-30 19-15-27.csv with shape: (12647, 22). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for 2019-04-30 19-15-27.csv: {'make': 'Volvo', 'model': 'V40 D2 R-Design', 'year': 2015, 'fuel_type': 'Diesel', 'transmission': 'Manual', 'power_kw': 88.0, 'weight_kg': 1292.0}
 
 Reporting and handling missing values...

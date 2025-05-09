@@ -26,7 +26,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for r1_20220811-normal-behavior.csv...
 Resampling complete. New shape: (1450, 136)
-Loaded r1_20220811-normal-behavior.csv with shape: (1450, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for r1_20220811-normal-behavior.csv: 2022-08-11 00:00:00
+Successfully created 'absolute_timestamp' for r1_20220811-normal-behavior.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded r1_20220811-normal-behavior.csv with shape: (1450, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for r1_20220811-normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
 
 Reporting and handling missing values...
@@ -90,7 +94,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for r2_20220819_normal-behavior.csv...
 Resampling complete. New shape: (1524, 136)
-Loaded r2_20220819_normal-behavior.csv with shape: (1524, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for r2_20220819_normal-behavior.csv: 2022-08-19 00:00:00
+Successfully created 'absolute_timestamp' for r2_20220819_normal-behavior.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded r2_20220819_normal-behavior.csv with shape: (1524, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for r2_20220819_normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
 
 Reporting and handling missing values...
@@ -156,7 +164,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for r3_20220820_normal-behavior.csv...
 Resampling complete. New shape: (1426, 136)
-Loaded r3_20220820_normal-behavior.csv with shape: (1426, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for r3_20220820_normal-behavior.csv: 2022-08-20 00:00:00
+Successfully created 'absolute_timestamp' for r3_20220820_normal-behavior.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded r3_20220820_normal-behavior.csv with shape: (1426, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for r3_20220820_normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
 
 Reporting and handling missing values...
@@ -221,7 +233,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for r4_20220822_normal-behavior.csv...
 Resampling complete. New shape: (1423, 136)
-Loaded r4_20220822_normal-behavior.csv with shape: (1423, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for r4_20220822_normal-behavior.csv: 2022-08-22 00:00:00
+Successfully created 'absolute_timestamp' for r4_20220822_normal-behavior.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded r4_20220822_normal-behavior.csv with shape: (1423, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for r4_20220822_normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
 
 Reporting and handling missing values...
@@ -285,7 +301,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for r5_20220824-normal-behavior.csv...
 Resampling complete. New shape: (1475, 136)
-Loaded r5_20220824-normal-behavior.csv with shape: (1475, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for r5_20220824-normal-behavior.csv: 2022-08-24 00:00:00
+Successfully created 'absolute_timestamp' for r5_20220824-normal-behavior.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded r5_20220824-normal-behavior.csv with shape: (1475, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for r5_20220824-normal-behavior.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'normal_behavior'}
 
 Reporting and handling missing values...
@@ -351,7 +371,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for s1_20220805-intervention-break-30s.csv...
 Resampling complete. New shape: (1095, 136)
-Loaded s1_20220805-intervention-break-30s.csv with shape: (1095, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for s1_20220805-intervention-break-30s.csv: 2022-08-05 00:00:00
+Successfully created 'absolute_timestamp' for s1_20220805-intervention-break-30s.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded s1_20220805-intervention-break-30s.csv with shape: (1095, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for s1_20220805-intervention-break-30s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-break-30s'}
 
 Reporting and handling missing values...
@@ -417,7 +441,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for s2_20220811-intervention-stop-60s.csv...
 Resampling complete. New shape: (1646, 136)
-Loaded s2_20220811-intervention-stop-60s.csv with shape: (1646, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for s2_20220811-intervention-stop-60s.csv: 2022-08-11 00:00:00
+Successfully created 'absolute_timestamp' for s2_20220811-intervention-stop-60s.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded s2_20220811-intervention-stop-60s.csv with shape: (1646, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for s2_20220811-intervention-stop-60s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-stop-60s'}
 
 Reporting and handling missing values...
@@ -478,7 +506,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for s3_20220817-intervention-acc-60s.csv...
 Resampling complete. New shape: (1438, 136)
-Loaded s3_20220817-intervention-acc-60s.csv with shape: (1438, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for s3_20220817-intervention-acc-60s.csv: 2022-08-17 00:00:00
+Successfully created 'absolute_timestamp' for s3_20220817-intervention-acc-60s.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded s3_20220817-intervention-acc-60s.csv with shape: (1438, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for s3_20220817-intervention-acc-60s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-acc-60s'}
 
 Reporting and handling missing values...
@@ -544,7 +576,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for s4_20220818-intervention-break-acc-60s.csv...
 Resampling complete. New shape: (1515, 136)
-Loaded s4_20220818-intervention-break-acc-60s.csv with shape: (1515, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for s4_20220818-intervention-break-acc-60s.csv: 2022-08-18 00:00:00
+Successfully created 'absolute_timestamp' for s4_20220818-intervention-break-acc-60s.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded s4_20220818-intervention-break-acc-60s.csv with shape: (1515, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for s4_20220818-intervention-break-acc-60s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-break-acc-60s'}
 
 Reporting and handling missing values...
@@ -609,7 +645,11 @@ Time (sec)
 
 Resampling data to 1-second frequency for s5_20220818-intervention-stop-acc-60s.csv...
 Resampling complete. New shape: (1552, 136)
-Loaded s5_20220818-intervention-stop-acc-60s.csv with shape: (1552, 19). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type']
+Parsed start datetime for s5_20220818-intervention-stop-acc-60s.csv: 2022-08-18 00:00:00
+Successfully created 'absolute_timestamp' for s5_20220818-intervention-stop-acc-60s.csv.
+Extracting time features from 'absolute_timestamp'...
+Added time features: hour, dayofweek, is_weekend
+Loaded s5_20220818-intervention-stop-acc-60s.csv with shape: (1552, 23). Columns: ['TIME_SEC', 'ENGINE_RPM', 'COOLANT_TEMPERATURE', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'INTAKE_AIR_TEMPERATURE', 'MASS_AIR_FLOW', 'THROTTLE_POSITION', 'FUEL_RAIL_PRESSURE', 'TIMING_ADVANCE', 'CONTROL_MODULE_VOLTAGE', 'ENGINE_FUEL_RATE', 'VEHICLE_SPEED', 'FUEL_LEVEL_INPUT', 'AMBIENT_AIR_TEMPERATURE', 'BAROMETRIC_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ABSOLUTE_LOAD_VALUE', 'EGR_ERROR', 'event_type', 'absolute_timestamp', 'hour', 'dayofweek', 'is_weekend']
 Adding metadata for s5_20220818-intervention-stop-acc-60s.csv: {'make': 'Volkswagen', 'model': 'Passat', 'fuel_type': 'Diesel', 'event_type': 'intervention-stop-acc-60s'}
 
 Reporting and handling missing values...
