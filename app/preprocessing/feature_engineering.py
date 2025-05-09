@@ -3,6 +3,7 @@ from enum import Enum
 from pydantic import BaseModel, Field
 from typing import Optional, Dict
 import pandas as pd
+import numpy as np
 
 # Refined based on raw data occurrence analysis (threshold >= 500 raw occurrences)
 RELEVANT_PIDS = [
@@ -112,7 +113,7 @@ def add_time_features(df, timestamp_col: str = 'absolute_timestamp'):
         # Check if it's already datetime, if not, try to convert
         if not pd.api.types.is_datetime64_any_dtype(df[timestamp_col]):
             df[timestamp_col] = pd.to_datetime(df[timestamp_col], errors='coerce')
-        
+
         # Check for NaT values after potential conversion
         if df[timestamp_col].isnull().all():
             print(f"Warning: Timestamp column '{timestamp_col}' contains all NaT values after conversion. Skipping time feature extraction.")
@@ -131,6 +132,42 @@ def add_time_features(df, timestamp_col: str = 'absolute_timestamp'):
     print(f"Added time features: hour, dayofweek, is_weekend")
     return df
 # --- End: New function for time-based features ---
+
+# --- Start: New function for cyclical features ---
+def add_cyclical_features(df: pd.DataFrame, column_name: str, max_value: float) -> pd.DataFrame:
+    """
+    Adds cyclical sine and cosine features for a given column.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+        column_name (str): Name of the column to encode (e.g., 'hour', 'dayofweek').
+        max_value (float): The maximum value in the cycle (e.g., 24.0 for hour, 7.0 for dayofweek).
+
+    Returns:
+        pd.DataFrame: DataFrame with added cyclical features, or original df if error.
+    """
+    if column_name not in df.columns:
+        print(f"Warning: Column '{column_name}' not found for cyclical encoding. Skipping.")
+        return df
+
+    if df[column_name].isnull().all():
+        print(f"Warning: Column '{column_name}' contains all NaN values. Skipping cyclical encoding.")
+        # Create NaN columns for consistency if needed downstream, otherwise just return
+        df[f'{column_name}_sin'] = np.nan
+        df[f'{column_name}_cos'] = np.nan
+        return df
+
+    print(f"Adding cyclical features for column: {column_name} with max_value: {max_value}")
+    # Ensure the column is numeric and handle potential NaNs gracefully
+    numeric_col = pd.to_numeric(df[column_name], errors='coerce')
+
+    df[f'{column_name}_sin'] = np.sin(2 * np.pi * numeric_col / max_value)
+    df[f'{column_name}_cos'] = np.cos(2 * np.pi * numeric_col / max_value)
+
+    # If original column had NaNs, sin/cos will also be NaN, which is correct.
+    print(f"Added cyclical features: {column_name}_sin, {column_name}_cos")
+    return df
+# --- End: New function for cyclical features ---
 
 class VehicleMetadata(BaseModel):
     make: Optional[str] = None

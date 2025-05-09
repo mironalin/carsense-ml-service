@@ -21,7 +21,8 @@ try:
         get_vehicle_metadata,
         get_volvo_v40_static_metadata,
         VehicleMetadata,
-        add_time_features
+        add_time_features,
+        add_cyclical_features
     )
 except ImportError as e:
     print(f"Error importing modules: {e}. Ensure PYTHONPATH is set correctly or script is run from project root.")
@@ -171,6 +172,14 @@ def main(args):
         # --- Start: Add time-based features ---
         if 'absolute_timestamp' in df.columns: # Check if it was successfully created
             df = add_time_features(df, timestamp_col='absolute_timestamp')
+            
+            # --- Start: Add cyclical features for hour and dayofweek ---
+            if 'hour' in df.columns:
+                df = add_cyclical_features(df, column_name='hour', max_value=24.0) # Hours 0-23
+            if 'dayofweek' in df.columns:
+                df = add_cyclical_features(df, column_name='dayofweek', max_value=7.0) # Day of week 0-6
+            # --- End: Add cyclical features ---
+            
         else:
             print(f"Skipping time feature extraction for {filename} as 'absolute_timestamp' column is not available.")
         # --- End: Add time-based features ---
