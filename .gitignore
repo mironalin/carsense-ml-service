@@ -19,3 +19,5 @@ romanian_aggregation.log
 eda_plots/
 
 # Notebook checkpoints
+data/model_input/romanian_driving_ds_final.parquet
+data/model_input/volvo_v40_full_final.parquet
