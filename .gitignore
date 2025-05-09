@@ -4,8 +4,13 @@ __pycache__
 /db-schemas-ts
 data/datasets
 data/processed
+data/features
 AUTOMOTIVE_DATASETS_AND_RESOURCES.md
 CARSENSE_BACKEND_DOCUMENTATION.md
 ML_SERVICE_ROADMAP.md
 data/README.md
 dtc.json
+volvo_preprocess.log
+volvo_aggregation.log
+romanian_preprocess.log
+romanian_aggregation.log
