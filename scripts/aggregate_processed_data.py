@@ -43,31 +43,32 @@ def aggregate_processed_data(input_dir: str, output_file: str):
         print(f"Loading file {i+1}/{len(processed_files)}: {file_path}...")
         try:
             df = pd.read_parquet(file_path)
-            
+
             if 'source_file' not in df.columns:
                 print(f"Warning: 'source_file' column not found in {file_path}. Lag/diff features might be incorrect or skipped.")
                 # Optionally, assign filename if it's missing, though it should be there from preprocess_dataset.py
                 # df['source_file'] = os.path.basename(file_path)
-            
+
             # Add lag and difference features
             print(f"Adding lag/diff features for {file_path}...")
             df = add_lag_diff_features(
                 df,
-                group_by_col='source_file', 
-                target_cols=pids_for_lag_diff, 
+                group_by_col='source_file',
+                target_cols=pids_for_lag_diff,
                 lag_periods=[1, 2], # e.g., value 1 and 2 timesteps ago
                 diff_periods=[1]    # e.g., change from 1 timestep ago
             )
-            
+
             # Add rolling window features
             print(f"Adding rolling window features for {file_path}...")
             df = add_rolling_window_features(
                 df,
                 group_by_col='source_file',
-                target_cols=pids_for_lag_diff # Using the same PIDs as for lag/diff
-                # Default window_sizes=[3, 5] and aggregations=['mean', 'std'] will be used
+                target_cols=pids_for_lag_diff, # Using the same PIDs as for lag/diff
+                window_sizes=[3, 5, 10],       # Expanded window sizes
+                aggregations=['mean', 'std', 'median'] # Expanded aggregations
             )
-            
+
             all_dataframes.append(df)
         except Exception as e:
             print(f"Error processing {file_path}: {e}. Skipping this file.")
