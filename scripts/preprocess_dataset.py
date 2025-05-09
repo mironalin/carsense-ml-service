@@ -84,6 +84,7 @@ def main(args):
             print(f"\n--- Processing Romanian file: {filename} ---")
             df = load_romanian_dataset_csv(file_path, pid_mapping=PID_COLUMN_MAPPING)
             if df is None: continue
+            df["source_file"] = filename
 
             # --- Start: Added for Romanian datetime parsing ---
             date_match = re.search(r'_(\d{8})[-_]', filename)
@@ -118,6 +119,7 @@ def main(args):
             print(f"\n--- Processing Volvo V40 file: {filename} ---")
             df = load_volvo_v40_csv(file_path, pid_mapping=PID_COLUMN_MAPPING_VOLVO_V40)
             if df is None: continue
+            df["source_file"] = filename
 
             # --- Start: Added for Volvo datetime parsing ---
             datetime_match = re.match(r'(\d{4}-\d{2}-\d{2} \d{2}-\d{2}-\d{2})', filename)
@@ -172,14 +174,14 @@ def main(args):
         # --- Start: Add time-based features ---
         if 'absolute_timestamp' in df.columns: # Check if it was successfully created
             df = add_time_features(df, timestamp_col='absolute_timestamp')
-            
+
             # --- Start: Add cyclical features for hour and dayofweek ---
             if 'hour' in df.columns:
                 df = add_cyclical_features(df, column_name='hour', max_value=24.0) # Hours 0-23
             if 'dayofweek' in df.columns:
                 df = add_cyclical_features(df, column_name='dayofweek', max_value=7.0) # Day of week 0-6
             # --- End: Add cyclical features ---
-            
+
         else:
             print(f"Skipping time feature extraction for {filename} as 'absolute_timestamp' column is not available.")
         # --- End: Add time-based features ---

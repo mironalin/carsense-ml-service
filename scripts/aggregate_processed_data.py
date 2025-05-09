@@ -2,10 +2,23 @@ import argparse
 import os
 import pandas as pd
 import glob
+import sys # Added sys
+
+# Adjust import path to access app modules if running script directly
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+try:
+    from app.preprocessing.feature_engineering import add_lag_diff_features, RELEVANT_PIDS
+except ImportError as e:
+    print(f"Error importing feature_engineering: {e}. Ensure PYTHONPATH or script context is correct.")
+    sys.exit(1)
 
 def aggregate_processed_data(input_dir: str, output_file: str):
     """
-    Aggregates all processed Parquet files from an input directory into a single Parquet file.
+    Aggregates all processed Parquet files from an input directory into a single Parquet file,
+    adding lag and difference features per file before aggregation.
 
     Args:
         input_dir (str): Directory containing the processed Parquet files.
@@ -20,14 +33,35 @@ def aggregate_processed_data(input_dir: str, output_file: str):
 
     print(f"Found {len(processed_files)} processed Parquet files to aggregate.")
 
+    # Define PIDs for which to create lag/diff features
+    # Exclude TIME_SEC as it's an index/timestamp, not a sensor reading to lag directly in this context.
+    pids_for_lag_diff = [pid for pid in RELEVANT_PIDS if pid != "TIME_SEC"]
+    print(f"Will attempt to generate lag/diff features for: {pids_for_lag_diff}")
+
     all_dataframes = []
     for i, file_path in enumerate(processed_files):
         print(f"Loading file {i+1}/{len(processed_files)}: {file_path}...")
         try:
             df = pd.read_parquet(file_path)
+            
+            if 'source_file' not in df.columns:
+                print(f"Warning: 'source_file' column not found in {file_path}. Lag/diff features might be incorrect or skipped.")
+                # Optionally, assign filename if it's missing, though it should be there from preprocess_dataset.py
+                # df['source_file'] = os.path.basename(file_path)
+            
+            # Add lag and difference features
+            print(f"Adding lag/diff features for {file_path}...")
+            df = add_lag_diff_features(
+                df,
+                group_by_col='source_file', 
+                target_cols=pids_for_lag_diff, 
+                lag_periods=[1, 2], # e.g., value 1 and 2 timesteps ago
+                diff_periods=[1]    # e.g., change from 1 timestep ago
+            )
+            
             all_dataframes.append(df)
         except Exception as e:
-            print(f"Error loading {file_path}: {e}. Skipping this file.")
+            print(f"Error processing {file_path}: {e}. Skipping this file.")
             continue
 
     if not all_dataframes:

@@ -169,6 +169,72 @@ def add_cyclical_features(df: pd.DataFrame, column_name: str, max_value: float) 
     return df
 # --- End: New function for cyclical features ---
 
+# --- Start: New function for lag/difference features ---
+def add_lag_diff_features(
+    df: pd.DataFrame, 
+    group_by_col: str, 
+    target_cols: list[str],
+    lag_periods: list[int] = [1],
+    diff_periods: list[int] = [1]
+) -> pd.DataFrame:
+    """
+    Adds lag and difference features for specified columns, grouped by another column.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+        group_by_col (str): Column name to group data by (e.g., 'source_file', 'trip_id').
+        target_cols (list[str]): List of column names to generate lag/diff features for.
+        lag_periods (list[int]): List of lag periods to compute (e.g., [1, 2, 3]).
+        diff_periods (list[int]): List of difference periods to compute (e.g., [1]).
+
+    Returns:
+        pd.DataFrame: DataFrame with added lag and difference features.
+    """
+    if group_by_col not in df.columns:
+        print(f"Warning: Group-by column '{group_by_col}' not found. Skipping lag/diff feature generation.")
+        return df
+
+    # Ensure target columns exist and are numeric, or can be coerced
+    valid_target_cols = []
+    for col in target_cols:
+        if col in df.columns:
+            try:
+                df[col] = pd.to_numeric(df[col], errors='raise') # Try to convert, raise error if not possible
+                valid_target_cols.append(col)
+            except (ValueError, TypeError):
+                print(f"Warning: Target column '{col}' for lag/diff is not numeric or coercible. Skipping this column.")
+        else:
+            print(f"Warning: Target column '{col}' for lag/diff not found. Skipping this column.")
+
+    if not valid_target_cols:
+        print("No valid numeric target columns found for lag/diff feature generation. Skipping.")
+        return df
+
+    print(f"Adding lag/difference features for columns: {valid_target_cols}, grouped by '{group_by_col}'")
+    
+    # It's crucial to sort by the group and then by time (assuming TIME_SEC or similar exists and is sorted)
+    # If not pre-sorted, lags/diffs might be incorrect within a group.
+    # For simplicity, we assume data is already time-ordered within each group (file).
+    # If not, add: df = df.sort_values(by=[group_by_col, 'TIME_SEC'])
+
+    grouped = df.groupby(group_by_col)
+
+    for col in valid_target_cols:
+        for lag in lag_periods:
+            if lag > 0:
+                lag_col_name = f"{col}_lag_{lag}"
+                df[lag_col_name] = grouped[col].shift(lag)
+                print(f"  Added {lag_col_name}")
+
+        for diff_n in diff_periods:
+            if diff_n > 0:
+                diff_col_name = f"{col}_diff_{diff_n}"
+                df[diff_col_name] = grouped[col].diff(periods=diff_n)
+                print(f"  Added {diff_col_name}")
+                
+    return df
+# --- End: New function for lag/difference features ---
+
 class VehicleMetadata(BaseModel):
     make: Optional[str] = None
     model: Optional[str] = None # For Volvo, this will be 'V40 D2 R-Design'
