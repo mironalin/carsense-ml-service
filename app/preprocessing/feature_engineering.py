@@ -171,8 +171,8 @@ def add_cyclical_features(df: pd.DataFrame, column_name: str, max_value: float) 
 
 # --- Start: New function for lag/difference features ---
 def add_lag_diff_features(
-    df: pd.DataFrame, 
-    group_by_col: str, 
+    df: pd.DataFrame,
+    group_by_col: str,
     target_cols: list[str],
     lag_periods: list[int] = [1],
     diff_periods: list[int] = [1]
@@ -211,7 +211,7 @@ def add_lag_diff_features(
         return df
 
     print(f"Adding lag/difference features for columns: {valid_target_cols}, grouped by '{group_by_col}'")
-    
+
     # It's crucial to sort by the group and then by time (assuming TIME_SEC or similar exists and is sorted)
     # If not pre-sorted, lags/diffs might be incorrect within a group.
     # For simplicity, we assume data is already time-ordered within each group (file).
@@ -231,9 +231,99 @@ def add_lag_diff_features(
                 diff_col_name = f"{col}_diff_{diff_n}"
                 df[diff_col_name] = grouped[col].diff(periods=diff_n)
                 print(f"  Added {diff_col_name}")
-                
+
     return df
 # --- End: New function for lag/difference features ---
+
+# --- Start: New function for rolling window features ---
+def add_rolling_window_features(
+    df: pd.DataFrame,
+    group_by_col: str,
+    target_cols: list[str],
+    window_sizes: list[int] = [3, 5],
+    aggregations: list[str] = ['mean', 'std'] # Basic aggregations to start
+) -> pd.DataFrame:
+    """
+    Adds rolling window statistical features for specified columns, grouped by another column.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+        group_by_col (str): Column name to group data by (e.g., 'source_file', 'trip_id').
+        target_cols (list[str]): List of column names to generate rolling features for.
+        window_sizes (list[int]): List of window sizes (number of periods).
+        aggregations (list[str]): List of aggregation function names (e.g., ['mean', 'std', 'min', 'max']).
+
+    Returns:
+        pd.DataFrame: DataFrame with added rolling window features.
+    """
+    if group_by_col not in df.columns:
+        print(f"Warning: Group-by column '{group_by_col}' not found. Skipping rolling window feature generation.")
+        return df
+
+    valid_target_cols = []
+    for col in target_cols:
+        if col in df.columns:
+            try:
+                df[col] = pd.to_numeric(df[col], errors='raise')
+                valid_target_cols.append(col)
+            except (ValueError, TypeError):
+                print(f"Warning: Target column '{col}' for rolling features is not numeric or coercible. Skipping this column.")
+        else:
+            print(f"Warning: Target column '{col}' for rolling features not found. Skipping this column.")
+
+    if not valid_target_cols:
+        print("No valid numeric target columns found for rolling window feature generation. Skipping.")
+        return df
+
+    print(f"Adding rolling window features for columns: {valid_target_cols}, grouped by '{group_by_col}'")
+    print(f"  Window sizes: {window_sizes}, Aggregations: {aggregations}")
+
+    # Again, assumes data is time-ordered within each group.
+    # If not, df = df.sort_values(by=[group_by_col, 'TIME_SEC'])
+    grouped = df.groupby(group_by_col)
+
+    for col in valid_target_cols:
+        for window in window_sizes:
+            if window <= 0:
+                print(f"Warning: Window size {window} is not positive. Skipping for column '{col}'.")
+                continue
+
+            # Use .rolling().agg() which can take a list of functions
+            try:
+                # The .rolling() method automatically handles the grouping when applied to a grouped object.
+                # However, pandas .rolling().agg() on a GroupBy object can be tricky with naming.
+                # It's often simpler to iterate through groups or use a slightly different approach if direct .agg() is problematic.
+                # For simplicity and clarity here, let's construct new column names manually.
+
+                rolling_obj = grouped[col].rolling(window=window, min_periods=1) # min_periods=1 to get values for shorter windows at start
+
+                for agg_func_name in aggregations:
+                    new_col_name = f"{col}_rol_{window}_{agg_func_name}"
+                    try:
+                        # getattr(rolling_obj, agg_func_name)() directly calls the method like .mean(), .std()
+                        # This returns a Series with a MultiIndex (group_by_col, original_index)
+                        # We need to reset index to align it back to the original DataFrame.
+                        rolled_series = getattr(rolling_obj, agg_func_name)()
+
+                        # To assign back to the original df, ensure index compatibility.
+                        # The result of groupby().rolling().agg() will have a MultiIndex.
+                        # We need to drop the group_by_col level from the index to match df's index.
+                        if isinstance(rolled_series.index, pd.MultiIndex):
+                             #This is a common way to handle it:
+                            df[new_col_name] = rolled_series.reset_index(level=group_by_col, drop=True)
+                        else: # Should not happen with groupby().rolling() but as a fallback
+                            df[new_col_name] = rolled_series
+                        print(f"    Added {new_col_name}")
+                    except AttributeError:
+                        print(f"Warning: Aggregation function '{agg_func_name}' not found for rolling object. Skipping.")
+                    except Exception as e_inner:
+                        print(f"Error calculating {new_col_name}: {e_inner}")
+
+            except Exception as e_outer:
+                print(f"Error creating rolling object for column '{col}' with window {window}: {e_outer}")
+
+    return df
+# --- End: New function for rolling window features ---
 
 class VehicleMetadata(BaseModel):
     make: Optional[str] = None

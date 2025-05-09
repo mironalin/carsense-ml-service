@@ -10,7 +10,7 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 try:
-    from app.preprocessing.feature_engineering import add_lag_diff_features, RELEVANT_PIDS
+    from app.preprocessing.feature_engineering import add_lag_diff_features, RELEVANT_PIDS, add_rolling_window_features
 except ImportError as e:
     print(f"Error importing feature_engineering: {e}. Ensure PYTHONPATH or script context is correct.")
     sys.exit(1)
@@ -57,6 +57,15 @@ def aggregate_processed_data(input_dir: str, output_file: str):
                 target_cols=pids_for_lag_diff, 
                 lag_periods=[1, 2], # e.g., value 1 and 2 timesteps ago
                 diff_periods=[1]    # e.g., change from 1 timestep ago
+            )
+            
+            # Add rolling window features
+            print(f"Adding rolling window features for {file_path}...")
+            df = add_rolling_window_features(
+                df,
+                group_by_col='source_file',
+                target_cols=pids_for_lag_diff # Using the same PIDs as for lag/diff
+                # Default window_sizes=[3, 5] and aggregations=['mean', 'std'] will be used
             )
             
             all_dataframes.append(df)
