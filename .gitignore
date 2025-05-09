@@ -14,3 +14,8 @@ volvo_preprocess.log
 volvo_aggregation.log
 romanian_preprocess.log
 romanian_aggregation.log
+
+# EDA plots
+eda_plots/
+
+# Notebook checkpoints
