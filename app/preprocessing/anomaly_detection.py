@@ -494,6 +494,46 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
         print("Skipping low MAP / high load analysis due to missing columns (INTAKE_MANIFOLD_ABSOLUTE_PRESSURE or CALCULATED_ENGINE_LOAD_VALUE).")
     # --- End: Heuristic DTC Mapping Example (Low MAP / High Load) ---
 
+    # --- Start: Heuristic DTC Mapping Example (High Throttle / Low Load) ---
+    print("\n\n--- Anomaly Pattern Analysis: High Throttle Position at Low Engine Load ---")
+
+    if dtc_data and 'THROTTLE_POSITION' in desc_stats.columns and 'CALCULATED_ENGINE_LOAD_VALUE' in desc_stats.columns:
+        # Thresholds based on anomalous data percentiles
+        high_throttle_threshold = desc_stats.loc['75%', 'THROTTLE_POSITION']
+        low_load_threshold = desc_stats.loc['25%', 'CALCULATED_ENGINE_LOAD_VALUE']
+
+        print(f"Identifying anomalies with THROTTLE_POSITION > {high_throttle_threshold:.2f} (75th percentile Throttle) AND CALCULATED_ENGINE_LOAD_VALUE < {low_load_threshold:.2f} (25th percentile Load)")
+
+        high_throttle_low_load_indices = anomalous_df[
+            (anomalous_df['THROTTLE_POSITION'] > high_throttle_threshold) &
+            (anomalous_df['CALCULATED_ENGINE_LOAD_VALUE'] < low_load_threshold)
+        ].index
+
+        if not high_throttle_low_load_indices.empty:
+            print(f"Found {len(high_throttle_low_load_indices)} anomalies with high throttle at low engine load.")
+            print("Sample Anomalies (First 5):")
+            pd.set_option('display.max_columns', 50)
+            pd.set_option('display.width', 1000)
+            print(anomalous_df.loc[high_throttle_low_load_indices, ['TIME_SEC', 'THROTTLE_POSITION', 'CALCULATED_ENGINE_LOAD_VALUE', 'ENGINE_RPM', 'potential_dtcs']].head().to_string())
+            pd.reset_option('display.max_columns')
+            pd.reset_option('display.width')
+
+            tps_dtcs = ["P0121", "P0122"] # TPS Range/Performance, TPS Circuit Low
+            for idx in high_throttle_low_load_indices:
+                for dtc in tps_dtcs:
+                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
+                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+
+            print("\nPotentially Relevant DTCs (Throttle Position Sensor Issues):")
+            for dtc in sorted(list(set(tps_dtcs))):
+                 desc = get_dtc_description(dtc, dtc_data)
+                 print(f"  - {dtc}: {desc}")
+        else:
+            print("No anomalies found matching the high throttle / low load condition.")
+    else:
+        print("Skipping high throttle / low load analysis due to missing columns (THROTTLE_POSITION or CALCULATED_ENGINE_LOAD_VALUE).")
+    # --- End: Heuristic DTC Mapping Example (High Throttle / Low Load) ---
+
     # --- Display anomalies with mapped DTCs ---
     anomalies_with_dtcs = anomalous_df[anomalous_df['potential_dtcs'].apply(lambda x: len(x) > 0)]
     if not anomalies_with_dtcs.empty:
