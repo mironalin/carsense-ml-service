@@ -415,6 +415,85 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
         print("Skipping high RPM / low speed analysis due to missing columns (ENGINE_RPM or VEHICLE_SPEED).")
     # --- End: Heuristic DTC Mapping Example (High RPM / Low Speed) ---
 
+    # --- Start: Heuristic DTC Mapping Example (Low MAF / High Load) ---
+    print("\n\n--- Anomaly Pattern Analysis: Low MAF at High Engine Load ---")
+
+    if dtc_data and 'MASS_AIR_FLOW' in desc_stats.columns and 'CALCULATED_ENGINE_LOAD_VALUE' in desc_stats.columns:
+        low_maf_threshold = desc_stats.loc['25%', 'MASS_AIR_FLOW']
+        high_load_threshold = desc_stats.loc['50%', 'CALCULATED_ENGINE_LOAD_VALUE'] # Using 50th percentile for load
+
+        print(f"Identifying anomalies with MASS_AIR_FLOW < {low_maf_threshold:.2f} (25th percentile MAF) AND CALCULATED_ENGINE_LOAD_VALUE > {high_load_threshold:.2f} (50th percentile Load)")
+
+        low_maf_high_load_indices = anomalous_df[
+            (anomalous_df['MASS_AIR_FLOW'] < low_maf_threshold) &
+            (anomalous_df['CALCULATED_ENGINE_LOAD_VALUE'] > high_load_threshold)
+        ].index
+
+        if not low_maf_high_load_indices.empty:
+            print(f"Found {len(low_maf_high_load_indices)} anomalies with low MAF at high engine load.")
+            print("Sample Anomalies (First 5):")
+            pd.set_option('display.max_columns', 50)
+            pd.set_option('display.width', 1000)
+            print(anomalous_df.loc[low_maf_high_load_indices, ['TIME_SEC', 'MASS_AIR_FLOW', 'CALCULATED_ENGINE_LOAD_VALUE', 'ENGINE_RPM', 'potential_dtcs']].head().to_string())
+            pd.reset_option('display.max_columns')
+            pd.reset_option('display.width')
+
+            maf_dtcs = ["P0101", "P0102"] # MAF Range/Performance, MAF Circuit Low
+            for idx in low_maf_high_load_indices:
+                for dtc in maf_dtcs:
+                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
+                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+
+            print("\nPotentially Relevant DTCs (MAF Sensor Issues):")
+            for dtc in sorted(list(set(maf_dtcs))):
+                 desc = get_dtc_description(dtc, dtc_data)
+                 print(f"  - {dtc}: {desc}")
+        else:
+            print("No anomalies found matching the low MAF / high load condition.")
+    else:
+        print("Skipping low MAF / high load analysis due to missing columns (MASS_AIR_FLOW or CALCULATED_ENGINE_LOAD_VALUE).")
+    # --- End: Heuristic DTC Mapping Example (Low MAF / High Load) ---
+
+    # --- Start: Heuristic DTC Mapping Example (Low MAP / High Load) ---
+    print("\n\n--- Anomaly Pattern Analysis: Low MAP Sensor Reading at High Engine Load ---")
+
+    if dtc_data and 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' in desc_stats.columns and 'CALCULATED_ENGINE_LOAD_VALUE' in desc_stats.columns:
+        # Thresholds based on anomalous data percentiles
+        low_map_threshold = desc_stats.loc['25%', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE']
+        high_load_threshold = desc_stats.loc['75%', 'CALCULATED_ENGINE_LOAD_VALUE'] # Using 75th percentile for higher confidence in load
+
+        print(f"Identifying anomalies with INTAKE_MANIFOLD_ABSOLUTE_PRESSURE < {low_map_threshold:.2f} (25th percentile MAP) AND CALCULATED_ENGINE_LOAD_VALUE > {high_load_threshold:.2f} (75th percentile Load)")
+
+        low_map_high_load_indices = anomalous_df[
+            (anomalous_df['INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'] < low_map_threshold) &
+            (anomalous_df['CALCULATED_ENGINE_LOAD_VALUE'] > high_load_threshold)
+        ].index
+
+        if not low_map_high_load_indices.empty:
+            print(f"Found {len(low_map_high_load_indices)} anomalies with low MAP at high engine load.")
+            print("Sample Anomalies (First 5):")
+            pd.set_option('display.max_columns', 50)
+            pd.set_option('display.width', 1000)
+            print(anomalous_df.loc[low_map_high_load_indices, ['TIME_SEC', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ENGINE_RPM', 'potential_dtcs']].head().to_string())
+            pd.reset_option('display.max_columns')
+            pd.reset_option('display.width')
+
+            map_dtcs = ["P0106", "P0107"] # MAP/Baro Circuit Range/Perf, MAP Circuit Low
+            for idx in low_map_high_load_indices:
+                for dtc in map_dtcs:
+                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
+                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+
+            print("\nPotentially Relevant DTCs (MAP Sensor Issues):")
+            for dtc in sorted(list(set(map_dtcs))):
+                 desc = get_dtc_description(dtc, dtc_data)
+                 print(f"  - {dtc}: {desc}")
+        else:
+            print("No anomalies found matching the low MAP / high load condition.")
+    else:
+        print("Skipping low MAP / high load analysis due to missing columns (INTAKE_MANIFOLD_ABSOLUTE_PRESSURE or CALCULATED_ENGINE_LOAD_VALUE).")
+    # --- End: Heuristic DTC Mapping Example (Low MAP / High Load) ---
+
     # --- Display anomalies with mapped DTCs ---
     anomalies_with_dtcs = anomalous_df[anomalous_df['potential_dtcs'].apply(lambda x: len(x) > 0)]
     if not anomalies_with_dtcs.empty:
