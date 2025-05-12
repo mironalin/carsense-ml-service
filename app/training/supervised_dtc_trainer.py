@@ -12,6 +12,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier # Example classifier
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.impute import SimpleImputer # Import SimpleImputer
+from sklearn.preprocessing import MultiLabelBinarizer # Import MultiLabelBinarizer
+from sklearn.multiclass import OneVsRestClassifier # Import OneVsRestClassifier
+from sklearn.model_selection import RandomizedSearchCV # Import RandomizedSearchCV
+from scipy.stats import randint, uniform # Import distributions for param grid
 from joblib import dump, load # Import load as well for potentially loading later
 import argparse
 import os
@@ -66,7 +70,10 @@ DERIVED_FEATURES_FOR_SUPERVISED = [
 def load_and_prepare_data(features_path: str, anomalies_path: str) -> pd.DataFrame:
     """
     Loads the main features dataset and the anomaly analysis results,
-    merges them, and prepares the target variable.
+    merges them, and prepares the multi-label target variable using MultiLabelBinarizer.
+
+    Returns:
+        Tuple[pd.DataFrame, pd.DataFrame, MultiLabelBinarizer, list]: X, y, fitted_binarizer, labels
     """
     logging.info(f"Loading features from: {features_path}")
     if not os.path.exists(features_path):
@@ -106,9 +113,22 @@ def load_and_prepare_data(features_path: str, anomalies_path: str) -> pd.DataFra
     if df_merged.shape[0] != df_features.shape[0]:
         logging.warning("Row count changed after merging anomalies. Check index alignment.")
 
-    # --- Define Target Variable (Example: Binary flag for *any* heuristic DTC) ---
-    df_merged['target'] = df_merged['potential_dtcs'].apply(lambda x: 1 if isinstance(x, list) and len(x) > 0 else 0)
-    logging.info(f"Target variable created. Distribution:\n{df_merged['target'].value_counts(normalize=True)}")
+    # --- Define Multi-Label Target Variable --- 
+    logging.info("Preparing multi-label target variable...")
+    mlb = MultiLabelBinarizer()
+
+    # Fit and transform the list of potential DTCs
+    y = mlb.fit_transform(df_merged['potential_dtcs'])
+    labels = mlb.classes_.tolist() # Get the DTC labels
+    logging.info(f"Created multi-label target matrix with shape: {y.shape}")
+    logging.info(f"Detected DTC Labels (Columns): {labels}")
+
+    # Convert y back to a DataFrame for easier handling later if needed (optional)
+    y_df = pd.DataFrame(y, columns=labels, index=df_merged.index)
+
+    # Calculate and log label distribution
+    label_counts = y_df.sum().sort_values(ascending=False)
+    logging.info(f"Label distribution (count per DTC):\n{label_counts.to_string()}")
 
     # Define specific features to use for training
     features_to_use = CORE_PIDS_FOR_SUPERVISED + DERIVED_FEATURES_FOR_SUPERVISED
@@ -123,61 +143,102 @@ def load_and_prepare_data(features_path: str, anomalies_path: str) -> pd.DataFra
          raise ValueError("No features selected or available for training.")
     logging.info(f"Using {len(available_features)} features for training: {available_features}")
 
-    # Prepare X and y
+    # Prepare X
     X = df_merged[available_features]
-    y = df_merged['target']
+    # y is now y_df (DataFrame)
 
-    # Handle potential NaNs in feature columns (e.g., fill with mean/median or use imputation)
-    # logging.info("Handling potential NaNs in feature columns (filling with 0 for now)...")
-    # X = X.fillna(0) # Simple strategy, consider more robust imputation
     # Note: Imputation will be done *after* train/test split to avoid data leakage
 
-    return X, y
+    return X, y_df, mlb, labels
 
 
-def train_model(X_train: pd.DataFrame, y_train: pd.Series, model_save_path: str, model_type: str = 'rf'):
-    """Trains the specified classifier and saves it."""
+def train_model(X_train: pd.DataFrame, y_train: pd.DataFrame, model_save_path: str, model_type: str = 'rf', n_iter=10, cv=3):
+    """Trains the specified classifier wrapped in OneVsRestClassifier, potentially using RandomizedSearchCV, and saves it."""
     # Note: Imputer is now handled in main and saved separately
-    logging.info(f"Training model ({model_type})...")
+    logging.info(f"Training model ({model_type} wrapped in OneVsRestClassifier)...")
 
+    # Define the base estimator
     if model_type == 'rf':
-        model = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1, class_weight='balanced')
+        base_estimator = RandomForestClassifier(random_state=42, class_weight='balanced')
+        # Parameters for RandomForest (prefix with 'estimator__')
+        param_distributions = {
+            'estimator__n_estimators': randint(50, 200),
+            'estimator__max_depth': [None] + list(randint(10, 50).rvs(5)), # None + 5 random depths
+            'estimator__min_samples_split': randint(2, 11),
+            'estimator__min_samples_leaf': randint(1, 11)
+        }
+        scoring = 'f1_weighted' # Example scoring
+
     elif model_type == 'lgbm' and lightgbm_available:
-        # Basic LGBM parameters - might need tuning
-        model = LGBMClassifier(random_state=42, n_jobs=-1, class_weight='balanced')
+        base_estimator = LGBMClassifier(random_state=42, class_weight='balanced')
+        # Parameters for LightGBM (prefix with 'estimator__')
+        param_distributions = {
+            'estimator__n_estimators': randint(50, 300),
+            'estimator__num_leaves': randint(20, 60),
+            'estimator__learning_rate': uniform(0.01, 0.2), # Distribution from 0.01 to 0.21
+            'estimator__colsample_bytree': uniform(0.6, 0.4), # Distribution from 0.6 to 1.0
+            'estimator__reg_alpha': uniform(0, 1),
+            'estimator__reg_lambda': uniform(0, 1),
+        }
+        scoring = 'f1_weighted' # Can customize scoring
+
     elif model_type == 'lgbm' and not lightgbm_available:
          raise ValueError("LightGBM selected but not installed. Please install lightgbm.")
     else:
         raise ValueError(f"Unsupported model type: {model_type}")
 
-    model.fit(X_train, y_train)
-    logging.info("Model training complete.")
+    # Wrap the base estimator in OneVsRestClassifier
+    ovr_classifier = OneVsRestClassifier(base_estimator, n_jobs=1) # n_jobs=-1 here conflicts with RandomizedSearchCV
 
-    # Save the trained model
+    # Setup RandomizedSearchCV
+    # n_jobs=-1 uses all available cores for CV folds
+    logging.info(f"Starting RandomizedSearchCV (n_iter={n_iter}, cv={cv}, scoring='{scoring}')...")
+    random_search = RandomizedSearchCV(
+        ovr_classifier,
+        param_distributions=param_distributions,
+        n_iter=n_iter,
+        cv=cv,
+        scoring=scoring,
+        n_jobs=-1, # Parallelize CV folds
+        random_state=42,
+        verbose=1 # Log search progress
+    )
+
+    # Fit the RandomizedSearchCV object (this performs the search and fits the best model)
+    random_search.fit(X_train, y_train)
+
+    logging.info(f"RandomizedSearchCV complete. Best score ({scoring}): {random_search.best_score_:.4f}")
+    logging.info(f"Best parameters found: {random_search.best_params_}")
+
+    # The best model found by the search
+    best_model = random_search.best_estimator_
+
+    # Save the best model
     if model_save_path:
-        logging.info(f"Saving model to: {model_save_path}")
+        logging.info(f"Saving best model found by search to: {model_save_path}")
         output_dir = os.path.dirname(model_save_path)
         if output_dir and not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
-        dump(model, model_save_path)
+        dump(best_model, model_save_path)
 
-    return model
+    return best_model
 
 
-def evaluate_model(model, X_test: pd.DataFrame, y_test: pd.Series):
+def evaluate_model(model, X_test: pd.DataFrame, y_test: pd.Series, labels=None):
     """Evaluates the model on the test set."""
+    # Added labels argument for classification report
     logging.info("\n--- Model Evaluation ---")
     y_pred = model.predict(X_test)
 
-    logging.info("Confusion Matrix:")
-    # Use np.array_str for potentially better formatting in logs
-    cm_str = np.array_str(confusion_matrix(y_test, y_pred))
-    logging.info("\n" + cm_str)
-
+    # Confusion matrix is not straightforward for multi-label, removing for now
+    # logging.info("Confusion Matrix:")
+    # cm_str = np.array_str(confusion_matrix(y_test, y_pred)) # Doesn't work directly
+    # logging.info("\n" + cm_str)
 
     logging.info("\nClassification Report:")
-    # Get report as string
-    report = classification_report(y_test, y_pred)
+    # classification_report handles multi-label format if y_test/y_pred are binary indicator format
+    # Provide target_names if available
+    report = classification_report(y_test, y_pred, target_names=labels, zero_division=0)
     logging.info("\n" + report)
 
     # --- Feature Importances ---
@@ -198,16 +259,18 @@ def evaluate_model(model, X_test: pd.DataFrame, y_test: pd.Series):
 
 def main(args):
     """Main execution function."""
-    logging.info("Starting supervised DTC training process...")
+    logging.info("Starting supervised DTC training process (Multi-Label)...")
 
     try:
-        # Load data (before imputation)
-        X, y = load_and_prepare_data(args.features_path, args.anomalies_path)
+        # Load data (before imputation), also get binarizer and labels
+        X, y, mlb, labels = load_and_prepare_data(args.features_path, args.anomalies_path)
 
         # Split data
         logging.info(f"Splitting data (test_size={args.test_size}, random_state=42)...")
+        # Stratification is tricky for multi-label, often omitted or requires advanced techniques
+        # We will omit stratify=y for now
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=args.test_size, random_state=42, stratify=y # Stratify important for imbalanced data
+            X, y, test_size=args.test_size, random_state=42
         )
         logging.info(f"Train set shape: X={X_train.shape}, y={y_train.shape}")
         logging.info(f"Test set shape: X={X_test.shape}, y={y_test.shape}")
@@ -236,17 +299,27 @@ def main(args):
             if output_dir and not os.path.exists(output_dir):
                 os.makedirs(output_dir, exist_ok=True)
             dump(imputer, args.imputer_output_path)
-        # --- End Imputation ---
 
-        # Train model using imputed data
+        # --- Save the Label Binarizer ---
+        if args.label_binarizer_path:
+            logging.info(f"Saving label binarizer to: {args.label_binarizer_path}")
+            output_dir = os.path.dirname(args.label_binarizer_path)
+            if output_dir and not os.path.exists(output_dir):
+                os.makedirs(output_dir, exist_ok=True)
+            dump(mlb, args.label_binarizer_path)
+        # --- End Imputation & Binarizer Saving ---
+
+        # Train model using imputed data (now potentially with hyperparameter search)
         model = train_model(
             X_train, y_train,
             args.model_output_path,
-            model_type=args.model_type # Pass model type
+            model_type=args.model_type,
+            n_iter=args.search_iterations, # Pass search args
+            cv=args.search_cv_folds      # Pass search args
         )
 
         # Evaluate model using imputed data
-        evaluate_model(model, X_test, y_test)
+        evaluate_model(model, X_test, y_test, labels=labels) # Pass labels
 
         logging.info("Supervised DTC training script finished successfully.")
 
@@ -259,15 +332,17 @@ def main(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Train a supervised model to predict potential DTCs using anomaly heuristics as labels.")
+    parser = argparse.ArgumentParser(description="Train a supervised multi-label model with optional hyperparameter tuning.")
     parser.add_argument("--features-path", required=True, help="Path to the main Parquet file with features.")
     parser.add_argument("--anomalies-path", required=True, help="Path to the CSV file containing anomaly detection results (including 'potential_dtcs').")
     parser.add_argument("--model-output-path", required=True, help="Path to save the trained model (e.g., .joblib file).")
     parser.add_argument("--imputer-output-path", required=True, help="Path to save the fitted imputer (e.g., .joblib file).")
+    parser.add_argument("--label-binarizer-path", required=True, help="Path to save the fitted MultiLabelBinarizer (e.g., .joblib file).")
     parser.add_argument("--imputer-strategy", type=str, default='mean', choices=['mean', 'median', 'most_frequent'], help="Strategy for SimpleImputer.")
     parser.add_argument("--model-type", type=str, default='rf', choices=['rf', 'lgbm'], help="Type of model to train ('rf' for RandomForest, 'lgbm' for LightGBM).")
+    parser.add_argument("--search-iterations", type=int, default=10, help="Number of parameter settings sampled by RandomizedSearchCV. Set to 0 to disable search and use defaults.")
+    parser.add_argument("--search-cv-folds", type=int, default=3, help="Number of cross-validation folds for RandomizedSearchCV.")
     parser.add_argument("--test-size", type=float, default=0.2, help="Proportion of data to use for the test set.")
-    # Add arguments for feature selection, model choice, hyperparameters etc. later
 
     args = parser.parse_args()
     main(args)

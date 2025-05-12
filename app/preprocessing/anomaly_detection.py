@@ -235,63 +235,53 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
         pd.DataFrame: A DataFrame containing only the anomalous rows,
                       with the added 'potential_dtcs' column.
     """
-    logging.info("\nAnalyzing detected anomalies...")
+    if not isinstance(df_with_anomalies, pd.DataFrame):
+        logging.error("analyze_anomalies expects a Pandas DataFrame.")
+        return pd.DataFrame() # Return empty DataFrame on invalid input
+
     anomalous_df = df_with_anomalies[df_with_anomalies['anomaly'] == -1].copy()
 
     if anomalous_df.empty:
         logging.info("No anomalies detected for analysis.")
-        # Ensure an empty DataFrame with the expected potential_dtcs column is returned
-        # Create an empty series with the correct dtype to avoid issues later
-        anomalous_df['potential_dtcs'] = pd.Series(dtype='object')
-        if 'potential_dtcs' not in anomalous_df.columns: # Ensure column exists even if empty
-            anomalous_df['potential_dtcs'] = None # Or some other placeholder like pd.NA
+        if 'potential_dtcs' not in anomalous_df.columns:
+             anomalous_df['potential_dtcs'] = None
+             anomalous_df['potential_dtcs'] = anomalous_df['potential_dtcs'].astype('object')
         return anomalous_df
 
 
     logging.info(f"Number of anomalous data points: {anomalous_df.shape[0]}")
 
-    # --- Initialize column for potential DTCs ---
-    # Ensure initialization happens correctly, even if no anomalies are found later
-    anomalous_df['potential_dtcs'] = [[] for _ in range(len(anomalous_df))]
+    # --- Initialize column for potential DTCs (once, if not already present from prior steps) ---
+    if 'potential_dtcs' not in anomalous_df.columns:
+        anomalous_df['potential_dtcs'] = pd.Series([[] for _ in range(len(anomalous_df))], index=anomalous_df.index).astype('object')
+    else: # Ensure existing column can hold lists properly
+        anomalous_df['potential_dtcs'] = anomalous_df['potential_dtcs'].apply(lambda x: x if isinstance(x, list) else [])
 
 
-    # Ensure only the features used by the model (+ maybe timestamp) are described
-    analysis_cols = [col for col in features_used if col in anomalous_df.columns]
-    # Optionally add timestamp or other context columns if available and helpful
-    if 'absolute_timestamp' in df_with_anomalies.columns:
-        # Add only if it exists in anomalous_df as well
-        if 'absolute_timestamp' in anomalous_df.columns:
-             analysis_cols.append('absolute_timestamp')
-    if 'TIME_SEC' in df_with_anomalies.columns:
-         if 'TIME_SEC' in anomalous_df.columns:
-             analysis_cols.append('TIME_SEC')
+    # Dictionary to collect all DTC updates. Key: index, Value: list of DTCs
+    dtc_updates_map = {}
 
-    logging.info("\nDescriptive Statistics for Anomalous Data Points (Features Used by Model):")
-    # Select only the relevant columns for describe()
-    anomalous_subset = anomalous_df[analysis_cols]
-    try:
-        desc_stats = anomalous_subset.describe(include='all') # Use include='all' for non-numeric too
-        logging.info("\n" + desc_stats.to_string())
-    except Exception as e:
-        logging.error(f"Could not calculate descriptive statistics for anomalous data: {e}")
-        logging.error(f"Columns attempted: {analysis_cols}")
-        logging.error(f"Anomalous subset head:\n{anomalous_subset.head()}")
-
-    # Optional: Print a few full anomalous rows for detailed inspection
-    logging.info("\n\nSample Anomalous Rows (Overall - First 5):")
-    # Display more columns for context if needed
-    try:
-        pd.set_option('display.max_columns', 50)
-        pd.set_option('display.width', 1000)
-        # Log the head(), converting to string first
-        logging.info("\n" + anomalous_df.head().to_string())
-        pd.reset_option('display.max_columns')
-        pd.reset_option('display.width')
-    except Exception as e:
-        logging.error(f"Could not display sample anomalous rows: {e}")
+    # Helper function to add DTCs to the map for a given index
+    def add_dtc_to_map(idx, dtc_to_add):
+        # Get current list for this index from the map, or from the DataFrame if not yet in map
+        current_dtcs_for_idx = dtc_updates_map.get(idx, anomalous_df.loc[idx, 'potential_dtcs'])
+        if not isinstance(current_dtcs_for_idx, list): # Ensure it's a list
+            current_dtcs_for_idx = []
+        
+        new_list = list(current_dtcs_for_idx) # Work with a copy
+        if isinstance(dtc_to_add, list): # If adding multiple DTCs
+            for d in dtc_to_add:
+                if d not in new_list:
+                    new_list.append(d)
+        else: # If adding a single DTC
+            if dtc_to_add not in new_list:
+                new_list.append(dtc_to_add)
+        
+        if new_list != current_dtcs_for_idx: # Only update map if there was a change
+             dtc_updates_map[idx] = new_list
 
 
-    # --- Load DTC descriptions (if available) ---
+    # --- Load DTC descriptions (once) ---
     dtc_data = load_dtc_data() # Use default path "dtc.json"
 
     # --- Start: Heuristic DTC Mapping Example (Voltage Issues) ---
@@ -309,11 +299,12 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
         voltage_dtcs_low = ["P0560", "P0561", "P0562"] # System Voltage Malfunction/Unstable/Low
         voltage_dtcs_high = ["P0563"] # System Voltage High
 
-        # --- Low Voltage Check (Sustained) ---
+        # --- Sustained Low Voltage Check ---
+        # This requires identifying consecutive anomalies meeting the low voltage criteria
         logging.info(f"Identifying anomalies with SUSTAINED ({sustained_low_voltage_duration}s) {voltage_col} < {low_voltage_threshold:.1f} V (and TIME_SEC > {min_time_for_voltage_check}s if available)")
 
-        # 1. Identify individual low voltage points after initial period
-        voltage_base_condition = (anomalous_df[voltage_col].notna())
+        # 1. Find all individual anomalies meeting the base condition
+        voltage_base_condition = pd.Series(True, index=anomalous_df.index)
         if time_col_present_for_voltage:
             logging.info(f"  (Initial filter: TIME_SEC <= {min_time_for_voltage_check}s ignored)")
             voltage_base_condition &= (anomalous_df['TIME_SEC'] > min_time_for_voltage_check)
@@ -324,63 +315,83 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
         individual_low_indices = anomalous_df[individual_low_voltage_mask].index
         logging.info(f"  Found {len(individual_low_indices)} individual anomalies initially meeting low voltage criteria.")
 
-        # 2. Find consecutive sequences
-        sustained_low_indices = []
-        if not individual_low_indices.empty:
-            # Calculate differences between consecutive indices; a diff > 1 indicates a break
-            # Assumes index is somewhat sequential (like default integer index or timestamp)
-            # Using .to_series() to handle potential MultiIndex safely
-            index_diff = individual_low_indices.to_series().diff()
-            # Mark group starts: first element or where diff > 1 (adjust threshold if time-based index)
-            group_starts = (index_diff > 1) | (index_diff.isna())
-            # Cumulative sum assigns a unique group ID to each consecutive block
-            group_ids = group_starts.cumsum()
+        # 2. Find consecutive sequences among these individual anomalies
+        sustained_low_indices = pd.Index([]) # Initialize as empty Index
+        if not individual_low_indices.empty and len(individual_low_indices) >= sustained_low_voltage_duration:
+            try:
+                # Calculate differences between consecutive indices; assumes index is sortable (numeric or datetime)
+                # Using .to_series() to handle potential MultiIndex safely, ensure index is sorted first
+                sorted_indices = individual_low_indices.sort_values()
+                index_diff = sorted_indices.to_series().diff()
 
-            # Count occurrences in each group
-            group_counts = group_ids.value_counts()
+                # Heuristic to define a "break" - adjust if needed based on typical time gaps
+                # If index is numeric (like default RangeIndex), diff > 1 is a break.
+                # If index is datetime, a larger threshold (e.g., > pd.Timedelta('2s')) might be needed.
+                # Assuming default-like index for now.
+                if pd.api.types.is_numeric_dtype(sorted_indices.dtype):
+                     break_threshold = 1 # For default integer index
+                elif pd.api.types.is_datetime64_any_dtype(sorted_indices.dtype):
+                     # Adjust this timedelta based on expected data frequency
+                     break_threshold = pd.Timedelta('2s')
+                else:
+                     logging.warning("Sustained voltage check using index diff might be unreliable for non-numeric/non-datetime index.")
+                     break_threshold = 1 # Default fallback
 
-            # Identify groups meeting the duration criteria
-            valid_group_ids = group_counts[group_counts >= sustained_low_voltage_duration].index
+                # Mark group starts: first element or where diff > break_threshold
+                group_starts = (index_diff > break_threshold) | (index_diff.isna())
+                group_ids = group_starts.cumsum()
 
-            # Filter the original indices to keep only those belonging to valid groups
-            sustained_low_indices = individual_low_indices[group_ids.isin(valid_group_ids)]
+                # Count occurrences in each group
+                group_counts = anomalous_df.loc[sorted_indices].index.to_series().groupby(group_ids).size()
+
+                # Identify groups meeting the duration criteria (count >= duration)
+                valid_group_ids = group_counts[group_counts >= sustained_low_voltage_duration].index
+
+                # Filter the original indices to keep only those belonging to valid groups
+                sustained_low_indices = sorted_indices[group_ids.isin(valid_group_ids)]
+            except Exception as e:
+                logging.error(f"Error during sustained low voltage check using index diff: {e}. Skipping this check.")
+                sustained_low_indices = pd.Index([]) # Reset on error
 
         if sustained_low_indices.empty:
-            logging.info(f"No anomalies found with sustained low voltage (>= {sustained_low_voltage_duration}s)." )
+            logging.info(f"  No anomalies found part of sustained low voltage periods (>= {sustained_low_voltage_duration} occurrences based on index diff)." )
         else:
-            logging.info(f"Found {len(sustained_low_indices)} anomalies part of sustained low voltage periods (>= {sustained_low_voltage_duration}s)." )
-            # Append DTCs only to the sustained low voltage indices
-            for idx in sustained_low_indices:
-                if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
-                    anomalous_df.loc[idx, 'potential_dtcs'] = []
-                for dtc in voltage_dtcs_low:
-                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
-                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
-            # (Optional: Print sample rows)
+            logging.info(f"  Found {len(sustained_low_indices)} anomalies potentially part of sustained low voltage periods (>= {sustained_low_voltage_duration} occurrences based on index diff)." )
 
-        # --- High Voltage Check (Remains unchanged, typically less transient) ---
-        logging.info(f"\nIdentifying anomalies with {voltage_col} > {high_voltage_threshold:.1f} V (and TIME_SEC > {min_time_for_voltage_check}s if available)")
-        high_voltage_condition = voltage_base_condition & (anomalous_df[voltage_col] > high_voltage_threshold)
-        high_voltage_indices = anomalous_df[high_voltage_condition].index
+            # Filter the anomalous_df using the identified sustained indices
+            sustained_low_voltage_df_subset = anomalous_df.loc[sustained_low_indices]
 
-        if not high_voltage_indices.empty:
-            logging.info(f"Found {len(high_voltage_indices)} anomalies with high voltage (after initial period)." )
-            # Append DTCs
-            for idx in high_voltage_indices:
-                if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
-                    anomalous_df.loc[idx, 'potential_dtcs'] = []
-                for dtc in voltage_dtcs_high:
-                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
-                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
-        else:
-            logging.info("No anomalies found above the high voltage threshold (after initial period).")
+            # Iterate safely using iterrows over this subset
+            # Build a dictionary of updates first to avoid repeated .loc assignments in loop
+            for idx, _ in sustained_low_voltage_df_subset.iterrows():
+                add_dtc_to_map(idx, voltage_dtcs_low) # Use helper
 
-        # Print potentially relevant DTC descriptions
-        all_voltage_dtcs = sorted(list(set(voltage_dtcs_low + voltage_dtcs_high)))
-        logging.info("\nPotentially Relevant DTCs (Voltage Issues):")
-        for code in all_voltage_dtcs:
-            desc = get_dtc_description(code, dtc_data)
-            logging.info(f"  - {code}: {desc}")
+            # After the loop, apply the updates using pd.Series and df.update()
+            # This will be done once at the end of the function
+            # if dtcs_to_update:
+            #     update_series = pd.Series(dtcs_to_update, name=\'potential_dtcs\')
+            #     anomalous_df.update(update_series)
+            #     logging.info(f\"  Applied low voltage DTCs to {len(dtcs_to_update)} indices.\")
+
+
+            # --- High Voltage Check ---
+            logging.info(f"\\nIdentifying anomalies with {voltage_col} > {high_voltage_threshold:.1f} V (and TIME_SEC > {min_time_for_voltage_check}s if available)")
+            high_voltage_condition = voltage_base_condition & (anomalous_df[voltage_col] > high_voltage_threshold)
+            high_voltage_indices = anomalous_df[high_voltage_condition].index
+
+            if not high_voltage_indices.empty:
+                logging.info(f"Found {len(high_voltage_indices)} anomalies with high voltage (after initial period).")
+                for idx in high_voltage_indices:
+                    add_dtc_to_map(idx, voltage_dtcs_high) # Use helper
+            else:
+                logging.info("No anomalies found above the high voltage threshold (after initial period).")
+
+            # Print potentially relevant DTC descriptions
+            all_voltage_dtcs = sorted(list(set(voltage_dtcs_low + voltage_dtcs_high)))
+            logging.info("\nPotentially Relevant DTCs (Voltage Issues):")
+            for code in all_voltage_dtcs:
+                desc = get_dtc_description(code, dtc_data)
+                logging.info(f"  - {code}: {desc}")
 
     else:
         if not dtc_data:
@@ -445,10 +456,7 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
 
             # Append P0128 (Thermostat) for these anomalies
             for idx in stuck_open_indices:
-                if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
-                    anomalous_df.loc[idx, 'potential_dtcs'] = []
-                if "P0128" not in anomalous_df.loc[idx, 'potential_dtcs']:
-                    anomalous_df.loc[idx, 'potential_dtcs'].append("P0128")
+                add_dtc_to_map(idx, "P0128") # Use helper
 
             # Further analysis: Check for sudden drops within this subset (Potential Sensor Issue)
             if coolant_diff_col in anomalous_df.columns:
@@ -481,11 +489,7 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
 
                     # Append Sensor-related DTCs for these specific cases
                     for idx in valid_indices:
-                         if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
-                             anomalous_df.loc[idx, 'potential_dtcs'] = []
-                         for dtc in coolant_dtcs_sensor:
-                             if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
-                                 anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+                        add_dtc_to_map(idx, coolant_dtcs_sensor) # Use helper
                 else:
                     logging.info(f"\n  None of the low coolant temperature anomalies showed a significant drop (scaled_diff < {significant_drop_threshold_scaled}) while engine load was stable or increasing.")
             else:
@@ -536,11 +540,7 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
 
             # Append DTCs
             for idx in high_rpm_low_speed_indices:
-                if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
-                    anomalous_df.loc[idx, 'potential_dtcs'] = []
-                for dtc in idle_dtcs:
-                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
-                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+                add_dtc_to_map(idx, idle_dtcs) # Use helper
 
             # Print potentially relevant DTC descriptions
             logging.info("\nPotentially Relevant DTCs (Idle Control):")
@@ -585,13 +585,7 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
             # Correct approach: Iterate or use apply
             maf_dtcs = ["P0101", "P0102"]
             for idx in potential_maf_issues.index:
-                 current_dtcs = anomalous_df.loc[idx, 'potential_dtcs']
-                 if not isinstance(current_dtcs, list): current_dtcs = [] # Ensure list
-                 for dtc in maf_dtcs:
-                     if dtc not in current_dtcs:
-                         current_dtcs.append(dtc)
-                 # Assign back the modified list (important!)
-                 anomalous_df.loc[idx, 'potential_dtcs'] = current_dtcs
+                 add_dtc_to_map(idx, maf_dtcs) # Use helper
 
 
             logging.info("\nPotentially Relevant DTCs (MAF Sensor Issues):")
@@ -650,12 +644,7 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
 
             map_dtcs = ["P0106", "P0107", "P0299"] # MAP/Baro Circuit Range/Perf, MAP Circuit Low, Turbo Underboost
             for idx in low_map_high_load_indices:
-                current_dtcs = anomalous_df.loc[idx, 'potential_dtcs']
-                if not isinstance(current_dtcs, list): current_dtcs = [] # Ensure list
-                for dtc in map_dtcs:
-                    if dtc not in current_dtcs:
-                        current_dtcs.append(dtc)
-                anomalous_df.loc[idx, 'potential_dtcs'] = current_dtcs
+                add_dtc_to_map(idx, map_dtcs) # Use helper
 
             logging.info("\nPotentially Relevant DTCs (MAP Sensor/Boost Issues):")
             for dtc in sorted(list(set(map_dtcs))):
@@ -713,12 +702,7 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
 
             tps_dtcs = ["P0121", "P0122", "P2135"] # TPS Range/Performance, TPS Circuit Low, TPS Correlation (A/B)
             for idx in high_throttle_low_load_indices:
-                current_dtcs = anomalous_df.loc[idx, 'potential_dtcs']
-                if not isinstance(current_dtcs, list): current_dtcs = [] # Ensure list
-                for dtc in tps_dtcs:
-                    if dtc not in current_dtcs:
-                        current_dtcs.append(dtc)
-                anomalous_df.loc[idx, 'potential_dtcs'] = current_dtcs
+                add_dtc_to_map(idx, tps_dtcs) # Use helper
 
             logging.info("\nPotentially Relevant DTCs (Throttle Position Sensor Issues):")
             for dtc in sorted(list(set(tps_dtcs))):
@@ -737,9 +721,98 @@ def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
 
     # --- End: High Throttle / Low Load Heuristic ---
 
-    # --- Display anomalies with mapped DTCs --- (Moved logging to main execution block)
+    # --- New Heuristic ---
 
-    return anomalous_df # Return the DataFrame with the new column
+    # 7. EGR Error (Potential P0401, P0402, P0404, P0405, P0406 - EGR Flow/Range/Sensor Issues)
+    egr_error_col = 'EGR_ERROR'
+    rpm_col = 'ENGINE_RPM' # Already defined, but good for clarity
+    load_col = 'CALCULATED_ENGINE_LOAD_VALUE' # Already defined
+
+    if dtc_data and egr_error_col in anomalous_df.columns and rpm_col in anomalous_df.columns and load_col in anomalous_df.columns:
+        egr_dtcs_flow_range = ["P0401", "P0402", "P0404"] # Insufficient, Excessive, Range/Performance
+        egr_dtcs_sensor_stuck = ["P0405", "P0406"]       # Sensor A Circuit, Sensor A Range/Performance (often if stuck)
+
+        # Conditions where EGR is typically closed or its error is more indicative of a problem
+        # Low RPM (idle), very high RPM (WOT), or high load often mean EGR should be minimal or closed.
+        # Cold engine also a factor, but we don't have a simple "engine_warmed_up" flag here yet.
+        # For simplicity, focus on RPM and Load for now.
+        # Consider TIME_SEC > some_warmup_period if adding later.
+        
+        # Check for large errors regardless of operating condition
+        large_error_condition = anomalous_df[egr_error_col].abs() > 25.0 # Error > 25%
+
+        # Check for smaller but still significant errors when EGR should ideally be closed or very low
+        # Example: At idle (RPM < 850) or high load (Load > 75%), EGR error should be minimal.
+        idle_condition = anomalous_df[rpm_col] < 850
+        high_load_condition = anomalous_df[load_col] > 75
+        
+        # EGR error when it should be closed/low (e.g. > 5-10% error)
+        error_when_closed_condition = (idle_condition | high_load_condition) & (anomalous_df[egr_error_col].abs() > 10.0)
+
+        # Combine conditions
+        egr_problem_indices = anomalous_df[large_error_condition | error_when_closed_condition].index
+        
+        if not egr_problem_indices.empty:
+            logging.info(f"\nFound {len(egr_problem_indices)} anomalies with potential EGR issues based on '{egr_error_col}'.")
+            # Apply specific DTCs based on the type of condition met (simplified for now)
+            for idx in egr_problem_indices:
+                add_dtc_to_map(idx, egr_dtcs_flow_range) # Use helper
+                add_dtc_to_map(idx, egr_dtcs_sensor_stuck) # Use helper
+                
+            logging.info("\nPotentially Relevant DTCs (EGR Issues):")
+            all_egr_dtcs = sorted(list(set(egr_dtcs_flow_range + egr_dtcs_sensor_stuck)))
+            for dtc_code in all_egr_dtcs:
+                desc = get_dtc_description(dtc_code, dtc_data)
+                logging.info(f"  - {dtc_code}: {desc}")
+        else:
+            logging.info("\nNo anomalies found matching EGR error conditions.")
+            
+    else:
+        missing_info = []
+        if not dtc_data: missing_info.append("DTC data")
+        if egr_error_col not in anomalous_df.columns: missing_info.append(f"'{egr_error_col}' column")
+        if rpm_col not in anomalous_df.columns: missing_info.append(f"'{rpm_col}' column")
+        if load_col not in anomalous_df.columns: missing_info.append(f"'{load_col}' column")
+        if missing_info:
+            logging.warning(f"Skipping EGR error analysis due to missing: {', '.join(missing_info)}.")
+
+
+    # --- Apply all collected DTC updates from the map to the DataFrame ---
+    if dtc_updates_map:
+        logging.info(f"\nApplying {len(dtc_updates_map)} collected DTC updates to the DataFrame.")
+        # Create a Series from the map to use with df.update()
+        # Ensure the Series has the same index type as anomalous_df for proper alignment
+        update_series = pd.Series(dtc_updates_map, name='potential_dtcs', index=anomalous_df.index.intersection(dtc_updates_map.keys()))
+        
+        # Fill NaNs in the update_series with empty lists where necessary
+        # This is to ensure that if an index was in dtc_updates_map but then an empty list was assigned,
+        # it doesn't cause issues with .update() if it tries to update with NaN.
+        # However, our helper `add_dtc_to_map` should always put a list.
+        # More robustly, iterate and assign if `update` causes issues with list types.
+        for_update_df = pd.DataFrame(update_series)
+        anomalous_df.update(for_update_df)
+
+
+    # --- Final Logging of DTC counts ---
+    # Convert potential_dtcs set to a sorted list for consistent output (already lists now)
+    # anomalous_df['potential_dtcs'] = potential_dtcs_list # This was from older logic
+
+    logging.info(f"Analysis complete. {len(anomalous_df)} anomalies analyzed.")
+    # Ensure 'potential_dtcs' is treated as string for value_counts if it contains lists
+    logging.info(f"Value counts for potential DTCs (before filtering empty):\\n{anomalous_df['potential_dtcs'].astype(str).value_counts(dropna=False)}")
+
+    # Filter out rows where no potential DTCs were assigned (optional, but keeps output clean)
+    original_anomaly_count = len(anomalous_df)
+    # Ensure we are checking for empty lists correctly
+    anomalous_df_filtered = anomalous_df[anomalous_df['potential_dtcs'].apply(lambda x: isinstance(x, list) and len(x) > 0)]
+    logging.info(f"Filtered out {original_anomaly_count - len(anomalous_df_filtered)} anomalies with no assigned heuristic DTCs.")
+    logging.info(f"Final count of anomalies with potential DTCs: {len(anomalous_df_filtered)}")
+    if not anomalous_df_filtered.empty:
+        logging.info(f"Value counts for potential DTCs (final):\\n{anomalous_df_filtered['potential_dtcs'].astype(str).value_counts(dropna=False)}")
+    else:
+        logging.info("No anomalies with assigned heuristic DTCs after filtering.")
+
+    return anomalous_df_filtered # Return the DataFrame with the new column, filtered
 
 
 if __name__ == "__main__":
