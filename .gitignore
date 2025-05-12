@@ -5,6 +5,8 @@ __pycache__
 data/datasets
 data/processed
 data/features
+data/model_input
+data/synthetic_dtc_samples
 models
 AUTOMOTIVE_DATASETS_AND_RESOURCES.md
 CARSENSE_BACKEND_DOCUMENTATION.md
@@ -19,7 +21,3 @@ romanian_aggregation.log
 # EDA plots
 eda_plots/
 
-# Notebook checkpoints
-data/model_input/romanian_driving_ds_final.parquet
-data/model_input/volvo_v40_full_final.parquet
-data/model_input/exp1_14drivers_14cars_dailyRoutes_model_input.parquet
