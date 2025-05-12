@@ -61,6 +61,24 @@ DATASET_CONFIGS = {
             ],
             "output_check_file": "data/model_input/volvo_v40_full_final.parquet"
         }
+    },
+    "kaggle": {
+        "preprocess": {
+            "script": "scripts/preprocess_kaggle_dataset.py",
+            "args": [
+                "--input_path", "data/datasets/kaggle_dtc_dataset/exp1_14drivers_14cars_dailyRoutes.csv",
+                "--output_dir", "data/processed/kaggle_dtc"
+            ],
+            "output_check_file": "data/processed/kaggle_dtc/exp1_14drivers_14cars_dailyRoutes_processed.parquet"
+        },
+        "aggregate": {
+            "script": "scripts/aggregate_kaggle_data.py",
+            "args": [
+                "--input_file", "data/processed/kaggle_dtc/exp1_14drivers_14cars_dailyRoutes_processed.parquet",
+                "--output_file", "data/model_input/exp1_14drivers_14cars_dailyRoutes_model_input.parquet"
+            ],
+            "output_check_file": "data/model_input/exp1_14drivers_14cars_dailyRoutes_model_input.parquet"
+        }
     }
 }
 
@@ -132,18 +150,30 @@ def main():
         config = DATASET_CONFIGS[dataset_name]
 
         # Step 1: Preprocessing
-        if not run_step("step1_preprocess", config["preprocess"], force_run=args.force_run_preprocess):
-            continue # Skip to next dataset if this step fails
+        step_config = config.get("preprocess")
+        if step_config:
+            if not run_step("step1_preprocess", step_config, force_run=args.force_run_preprocess):
+                continue # Skip to next dataset if this step fails
+        else:
+            print(f"Skipping preprocess step for {dataset_name} (not defined in config).")
 
         # Step 2: Aggregation
-        if not run_step("step2_aggregate", config["aggregate"], force_run=args.force_run_aggregate):
-            continue # Skip to next dataset if this step fails
+        step_config = config.get("aggregate")
+        if step_config:
+            if not run_step("step2_aggregate", step_config, force_run=args.force_run_aggregate):
+                continue # Skip to next dataset if this step fails
+        else:
+            print(f"Skipping aggregate step for {dataset_name} (not defined in config).")
 
         # Step 3: Finalization
-        if not run_step("step3_finalize", config["finalize"], force_run=args.force_run_finalize):
-            continue # Skip to next dataset if this step fails
+        step_config = config.get("finalize")
+        if step_config:
+            if not run_step("step3_finalize", step_config, force_run=args.force_run_finalize):
+                continue # Skip to next dataset if this step fails
+        else:
+            print(f"Skipping finalize step for {dataset_name} (not defined in config).")
 
-        print(f"=== Successfully completed all steps for dataset: {dataset_name.upper()} ===")
+        print(f"=== Successfully completed defined steps for dataset: {dataset_name.upper()} ===")
 
 if __name__ == "__main__":
     main()
