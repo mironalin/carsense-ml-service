@@ -5,6 +5,7 @@ __pycache__
 data/datasets
 data/processed
 data/features
+models
 AUTOMOTIVE_DATASETS_AND_RESOURCES.md
 CARSENSE_BACKEND_DOCUMENTATION.md
 ML_SERVICE_ROADMAP.md
