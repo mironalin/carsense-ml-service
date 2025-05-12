@@ -5,9 +5,14 @@ from sklearn.preprocessing import StandardScaler
 from joblib import dump, load
 import os
 import argparse # Import argparse
+import sys # Import sys for exit
+import logging # Import logging
 
 # Import the dtc lookup utility (we might use it later)
 from app.preprocessing.dtc_lookup import load_dtc_data, get_dtc_description
+
+# Setup basic logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Get RELEVANT_PIDS from feature_engineering.py (or define a subset here)
 # For now, let's define a core subset relevant for anomaly detection.
@@ -47,66 +52,89 @@ DERIVED_FEATURES_FOR_ANOMALY = [
 
 def load_data(file_path: str) -> pd.DataFrame:
     """Loads data from a Parquet file."""
-    print(f"Loading data from: {file_path}")
+    logging.info(f"Loading data from: {file_path}")
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Parquet file not found at: {file_path}")
     try:
         df = pd.read_parquet(file_path)
-        print(f"Successfully loaded data with shape: {df.shape}")
+        logging.info(f"Successfully loaded data with shape: {df.shape}")
         return df
     except Exception as e:
-        print(f"Error loading Parquet file: {e}")
+        logging.error(f"Error loading Parquet file: {e}")
         raise
 
 
 def select_features(df: pd.DataFrame, core_pids: list, derived_features: list) -> pd.DataFrame:
     """Selects relevant features for anomaly detection."""
-    print("Selecting features...")
+    logging.info("Selecting features...")
     available_core = [pid for pid in core_pids if pid in df.columns]
     available_derived = [feat for feat in derived_features if feat in df.columns]
 
     missing_core = set(core_pids) - set(available_core)
     if missing_core:
-        print(f"Warning: Core PIDs not found in DataFrame: {missing_core}")
+        logging.warning(f"Core PIDs not found in DataFrame: {missing_core}")
 
     missing_derived = set(derived_features) - set(available_derived)
     if missing_derived:
-        print(f"Warning: Derived features not found in DataFrame: {missing_derived}")
+        logging.warning(f"Derived features not found in DataFrame: {missing_derived}")
 
     features_to_use = available_core + available_derived
     if not features_to_use:
         raise ValueError("No features selected for anomaly detection. Check PIDs and derived feature names.")
 
-    print(f"Selected features ({len(features_to_use)}): {features_to_use}")
+    logging.info(f"Selected features ({len(features_to_use)}): {features_to_use}")
     return df[features_to_use]
 
 
 def preprocess_data(df: pd.DataFrame, scaler_path: str = None) -> (pd.DataFrame, StandardScaler):
     """Handles NaNs and scales the data. Saves or loads the scaler."""
-    print("Preprocessing data (handling NaNs, scaling)...")
+    logging.info("Preprocessing data (handling NaNs, scaling)...")
     # Simple NaN handling: fill with the mean of the column
     # More sophisticated strategies might be needed (e.g., interpolation)
     for col in df.columns:
         if df[col].isnull().any():
             mean_val = df[col].mean()
+            # Check if mean_val is NaN (happens if all values are NaN)
+            if pd.isna(mean_val):
+                logging.warning(f"Column '{col}' consists entirely of NaNs. Filling with 0.")
+                mean_val = 0 # Or another default value
             df[col].fillna(mean_val, inplace=True)
-            print(f"  NaNs in '{col}' filled with mean ({mean_val:.2f})")
+            # Use round() for potentially large numbers, ensure it's float before formatting
+            log_val = round(float(mean_val), 2) if not pd.isna(mean_val) else 0
+            logging.info(f"  NaNs in '{col}' filled with mean ({log_val}) or 0 if all NaNs")
+
 
     if scaler_path and os.path.exists(scaler_path):
-        print(f"Loading existing scaler from: {scaler_path}")
+        logging.info(f"Loading existing scaler from: {scaler_path}")
         scaler = load(scaler_path)
+        # Ensure columns match before transforming
+        if hasattr(scaler, 'feature_names_in_'):
+             expected_cols = list(scaler.feature_names_in_)
+             if list(df.columns) != expected_cols:
+                  logging.warning(f"Scaler columns {expected_cols} differ from DataFrame columns {list(df.columns)}. Attempting transform anyway.")
+        try:
+            df_scaled = scaler.transform(df.copy())
+        except ValueError as e:
+             logging.error(f"Error transforming data with loaded scaler: {e}. Columns might mismatch.")
+             logging.error(f"Scaler expected: {getattr(scaler, 'feature_names_in_', 'N/A')}")
+             logging.error(f"Data has: {list(df.columns)}")
+             raise
     else:
-        print("Fitting new StandardScaler...")
+        logging.info("Fitting new StandardScaler...")
         scaler = StandardScaler()
-        scaler.fit(df)
+        # Fit on a copy to avoid changing the original df if it's a slice
+        df_scaled = scaler.fit_transform(df.copy())
         if scaler_path:
-            print(f"Saving scaler to: {scaler_path}")
-            dump(scaler, scaler_path)
+            # Ensure directory exists before saving
+            scaler_dir = os.path.dirname(scaler_path)
+            if scaler_dir and not os.path.exists(scaler_dir):
+                 os.makedirs(scaler_dir, exist_ok=True)
+                 logging.info(f"Created directory for scaler: {scaler_dir}")
 
-    scaled_data = scaler.transform(df)
-    scaled_df = pd.DataFrame(scaled_data, index=df.index, columns=df.columns)
-    print("Data scaled.")
-    return scaled_df, scaler
+            dump(scaler, scaler_path)
+            logging.info(f"Scaler saved to {scaler_path}")
+
+    return pd.DataFrame(df_scaled, columns=df.columns, index=df.index), scaler
 
 
 def train_and_predict_anomalies(
@@ -130,9 +158,9 @@ def train_and_predict_anomalies(
     Returns:
         pd.DataFrame: Original DataFrame with an added 'anomaly' column (-1 for anomalies, 1 for normal).
     """
-    print(f"--- Running Anomaly Detection for: {data_path} ---")
-    print(f"Output directory: {output_dir}")
-    print(f"Contamination rate: {contamination}")
+    logging.info(f"--- Running Anomaly Detection for: {data_path} ---")
+    logging.info(f"Output directory: {output_dir}")
+    logging.info(f"Contamination rate: {contamination}")
 
     os.makedirs(output_dir, exist_ok=True)
     model_path = os.path.join(output_dir, model_filename)
@@ -148,34 +176,40 @@ def train_and_predict_anomalies(
     actual_features_used = df_features.columns.tolist() # Store the actual features used
 
     # 3. Preprocess Data (Scaling, NaN handling)
-    # Important: Always use a fresh scaler for a new dataset/output dir
-    # Delete old scaler if it exists to force refit for this dataset
+    # Important: Force refit if scaler exists but is for different features?
+    # For now, just remove if exists to simplify workflow for single dataset runs
     if os.path.exists(scaler_path):
-         print(f"Removing existing scaler to ensure refit for this dataset: {scaler_path}")
-         os.remove(scaler_path)
+         logging.info(f"Removing existing scaler to ensure refit for this dataset: {scaler_path}")
+         try:
+             os.remove(scaler_path)
+         except OSError as e:
+             logging.error(f"Error removing existing scaler: {e}")
+             # Decide if we should proceed or exit
+             # sys.exit(1) # Option: exit if scaler cannot be removed
+
     df_scaled, scaler = preprocess_data(df_features.copy(), scaler_path) # Use copy to avoid SettingWithCopyWarning
 
     # 4. Train Isolation Forest Model
-    print("Training Isolation Forest model...")
+    logging.info("Training Isolation Forest model...")
     # Consider making n_estimators, max_samples, etc., configurable
     model = IsolationForest(n_estimators=100, contamination=contamination, random_state=42, n_jobs=-1)
     model.fit(df_scaled)
-    print(f"Saving model to: {model_path}")
+    logging.info(f"Saving model to: {model_path}")
     dump(model, model_path)
-    print("Model training complete.")
+    logging.info("Model training complete.")
 
     # 5. Predict Anomalies
-    print("Predicting anomalies...")
+    logging.info("Predicting anomalies...")
     # predict returns -1 for outliers and 1 for inliers.
     anomaly_predictions = model.predict(df_scaled)
-    print(f"Prediction complete. Found {np.sum(anomaly_predictions == -1)} potential anomalies.")
+    logging.info(f"Prediction complete. Found {np.sum(anomaly_predictions == -1)} potential anomalies.")
 
     # Add predictions back to the original DataFrame
     # Ensure index alignment if preprocessing changed it (it shouldn't here)
     df_full['anomaly'] = anomaly_predictions
     # Restore index *before* potentially adding analysis columns
     if not df_full.index.equals(original_index):
-         print("Restoring original index...")
+         logging.info("Restoring original index...")
          df_full.set_index(original_index, inplace=True)
 
     # Add the list of features used to the dataframe attributes for later use
@@ -190,425 +224,636 @@ def train_and_predict_anomalies(
 
 def analyze_anomalies(df_with_anomalies: pd.DataFrame, features_used: list):
     """
-    Analyzes the data points flagged as anomalies.
+    Analyzes the data points flagged as anomalies and maps potential DTCs.
+    Adds a 'potential_dtcs' column (list of strings) to the anomalous subset.
 
     Args:
         df_with_anomalies (pd.DataFrame): DataFrame including the 'anomaly' column.
         features_used (list): List of feature names used by the anomaly model.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing only the anomalous rows,
+                      with the added 'potential_dtcs' column.
     """
-    print("\nAnalyzing detected anomalies...")
+    logging.info("\nAnalyzing detected anomalies...")
     anomalous_df = df_with_anomalies[df_with_anomalies['anomaly'] == -1].copy()
 
     if anomalous_df.empty:
-        print("No anomalies detected for analysis.")
-        return anomalous_df # Return the empty dataframe
+        logging.info("No anomalies detected for analysis.")
+        # Ensure an empty DataFrame with the expected potential_dtcs column is returned
+        # Create an empty series with the correct dtype to avoid issues later
+        anomalous_df['potential_dtcs'] = pd.Series(dtype='object')
+        if 'potential_dtcs' not in anomalous_df.columns: # Ensure column exists even if empty
+            anomalous_df['potential_dtcs'] = None # Or some other placeholder like pd.NA
+        return anomalous_df
 
-    print(f"Number of anomalous data points: {anomalous_df.shape[0]}")
+
+    logging.info(f"Number of anomalous data points: {anomalous_df.shape[0]}")
 
     # --- Initialize column for potential DTCs ---
-    # Use lists to allow multiple potential DTCs per anomaly
-    anomalous_df['potential_dtcs'] = [[] for _ in range(anomalous_df.shape[0])]
+    # Ensure initialization happens correctly, even if no anomalies are found later
+    anomalous_df['potential_dtcs'] = [[] for _ in range(len(anomalous_df))]
 
 
     # Ensure only the features used by the model (+ maybe timestamp) are described
     analysis_cols = [col for col in features_used if col in anomalous_df.columns]
     # Optionally add timestamp or other context columns if available and helpful
     if 'absolute_timestamp' in df_with_anomalies.columns:
-        analysis_cols.append('absolute_timestamp')
+        # Add only if it exists in anomalous_df as well
+        if 'absolute_timestamp' in anomalous_df.columns:
+             analysis_cols.append('absolute_timestamp')
     if 'TIME_SEC' in df_with_anomalies.columns:
-         analysis_cols.append('TIME_SEC')
+         if 'TIME_SEC' in anomalous_df.columns:
+             analysis_cols.append('TIME_SEC')
 
-    print("\nDescriptive Statistics for Anomalous Data Points (Features Used by Model):")
+    logging.info("\nDescriptive Statistics for Anomalous Data Points (Features Used by Model):")
     # Select only the relevant columns for describe()
     anomalous_subset = anomalous_df[analysis_cols]
-    desc_stats = anomalous_subset.describe()
-    print(desc_stats.to_string())
+    try:
+        desc_stats = anomalous_subset.describe(include='all') # Use include='all' for non-numeric too
+        logging.info("\n" + desc_stats.to_string())
+    except Exception as e:
+        logging.error(f"Could not calculate descriptive statistics for anomalous data: {e}")
+        logging.error(f"Columns attempted: {analysis_cols}")
+        logging.error(f"Anomalous subset head:\n{anomalous_subset.head()}")
 
     # Optional: Print a few full anomalous rows for detailed inspection
-    print("\n\nSample Anomalous Rows (Overall - First 5):")
+    logging.info("\n\nSample Anomalous Rows (Overall - First 5):")
     # Display more columns for context if needed
-    pd.set_option('display.max_columns', 50)
-    pd.set_option('display.width', 1000)
-    print(anomalous_df.head().to_string())
-    pd.reset_option('display.max_columns')
-    pd.reset_option('display.width')
+    try:
+        pd.set_option('display.max_columns', 50)
+        pd.set_option('display.width', 1000)
+        # Log the head(), converting to string first
+        logging.info("\n" + anomalous_df.head().to_string())
+        pd.reset_option('display.max_columns')
+        pd.reset_option('display.width')
+    except Exception as e:
+        logging.error(f"Could not display sample anomalous rows: {e}")
+
 
     # --- Load DTC descriptions (if available) ---
     dtc_data = load_dtc_data() # Use default path "dtc.json"
 
-    # --- Start: Heuristic DTC Mapping Example (Low Voltage) ---
-    print("\n\n--- Anomaly Pattern Analysis: Low Control Module Voltage ---")
+    # --- Start: Heuristic DTC Mapping Example (Voltage Issues) ---
+    logging.info("\n\n--- Anomaly Pattern Analysis: Control Module Voltage Issues ---")
+    voltage_col = 'CONTROL_MODULE_VOLTAGE' # Define column name
+    time_col_present_for_voltage = 'TIME_SEC' in anomalous_df.columns # Check if time column is available
+    min_time_for_voltage_check = 60.0 # Ignore first 60 seconds for voltage checks
 
-    if dtc_data and 'CONTROL_MODULE_VOLTAGE' in desc_stats.columns:
-        # Define a threshold, e.g., below the 25th percentile of anomalous voltage
-        low_voltage_threshold = desc_stats.loc['25%', 'CONTROL_MODULE_VOLTAGE']
-        print(f"Identifying anomalies with CONTROL_MODULE_VOLTAGE < {low_voltage_threshold:.2f} (25th percentile of anomalies)")
+    if dtc_data and voltage_col in anomalous_df.columns: # Check column exists
+        # Define fixed thresholds
+        low_voltage_threshold = 12.0
+        high_voltage_threshold = 15.0
+        sustained_low_voltage_duration = 3 # Require 3 consecutive seconds below threshold
 
-        low_voltage_indices = anomalous_df[
-            anomalous_df['CONTROL_MODULE_VOLTAGE'] < low_voltage_threshold
-        ].index
+        voltage_dtcs_low = ["P0560", "P0561", "P0562"] # System Voltage Malfunction/Unstable/Low
+        voltage_dtcs_high = ["P0563"] # System Voltage High
 
-        # Append DTCs to the corresponding rows
-        voltage_dtcs = ["P0560", "P0561", "P0562", "P0563"] # Example potential DTCs
-        for idx in low_voltage_indices:
-            # Ensure we don't add duplicates if other heuristics flag the same DTC
-            for dtc in voltage_dtcs:
-                if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
-                    anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+        # --- Low Voltage Check (Sustained) ---
+        logging.info(f"Identifying anomalies with SUSTAINED ({sustained_low_voltage_duration}s) {voltage_col} < {low_voltage_threshold:.1f} V (and TIME_SEC > {min_time_for_voltage_check}s if available)")
 
-        if not low_voltage_indices.empty:
-            print(f"Found {len(low_voltage_indices)} anomalies with low voltage.")
-            print("\nSample Low Voltage Anomalous Rows (First 5):")
-            pd.set_option('display.max_columns', 50)
-            pd.set_option('display.width', 1000)
-            print(anomalous_df.loc[low_voltage_indices].head().to_string())
-            pd.reset_option('display.max_columns')
-            pd.reset_option('display.width')
-
-            # Look up potentially relevant DTCs
-            print("\nPotentially Relevant DTCs (Voltage Issues):")
-            for code in voltage_dtcs:
-                desc = get_dtc_description(code, dtc_data)
-                if desc:
-                    fault = desc.get('fault', 'N/A')
-                    desc_text = desc.get('description', 'N/A')
-                    print(f"  - {code}: {fault} | {desc_text}")
-                else:
-                    print(f"  - {code}: Not found in dtc.json")
+        # 1. Identify individual low voltage points after initial period
+        voltage_base_condition = (anomalous_df[voltage_col].notna())
+        if time_col_present_for_voltage:
+            logging.info(f"  (Initial filter: TIME_SEC <= {min_time_for_voltage_check}s ignored)")
+            voltage_base_condition &= (anomalous_df['TIME_SEC'] > min_time_for_voltage_check)
         else:
-            print("No anomalies found below the low voltage threshold.")
+            logging.warning("  TIME_SEC column not found, cannot filter initial voltage anomalies.")
+
+        individual_low_voltage_mask = voltage_base_condition & (anomalous_df[voltage_col] < low_voltage_threshold)
+        individual_low_indices = anomalous_df[individual_low_voltage_mask].index
+        logging.info(f"  Found {len(individual_low_indices)} individual anomalies initially meeting low voltage criteria.")
+
+        # 2. Find consecutive sequences
+        sustained_low_indices = []
+        if not individual_low_indices.empty:
+            # Calculate differences between consecutive indices; a diff > 1 indicates a break
+            # Assumes index is somewhat sequential (like default integer index or timestamp)
+            # Using .to_series() to handle potential MultiIndex safely
+            index_diff = individual_low_indices.to_series().diff()
+            # Mark group starts: first element or where diff > 1 (adjust threshold if time-based index)
+            group_starts = (index_diff > 1) | (index_diff.isna())
+            # Cumulative sum assigns a unique group ID to each consecutive block
+            group_ids = group_starts.cumsum()
+
+            # Count occurrences in each group
+            group_counts = group_ids.value_counts()
+
+            # Identify groups meeting the duration criteria
+            valid_group_ids = group_counts[group_counts >= sustained_low_voltage_duration].index
+
+            # Filter the original indices to keep only those belonging to valid groups
+            sustained_low_indices = individual_low_indices[group_ids.isin(valid_group_ids)]
+
+        if sustained_low_indices.empty:
+            logging.info(f"No anomalies found with sustained low voltage (>= {sustained_low_voltage_duration}s)." )
+        else:
+            logging.info(f"Found {len(sustained_low_indices)} anomalies part of sustained low voltage periods (>= {sustained_low_voltage_duration}s)." )
+            # Append DTCs only to the sustained low voltage indices
+            for idx in sustained_low_indices:
+                if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
+                    anomalous_df.loc[idx, 'potential_dtcs'] = []
+                for dtc in voltage_dtcs_low:
+                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
+                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+            # (Optional: Print sample rows)
+
+        # --- High Voltage Check (Remains unchanged, typically less transient) ---
+        logging.info(f"\nIdentifying anomalies with {voltage_col} > {high_voltage_threshold:.1f} V (and TIME_SEC > {min_time_for_voltage_check}s if available)")
+        high_voltage_condition = voltage_base_condition & (anomalous_df[voltage_col] > high_voltage_threshold)
+        high_voltage_indices = anomalous_df[high_voltage_condition].index
+
+        if not high_voltage_indices.empty:
+            logging.info(f"Found {len(high_voltage_indices)} anomalies with high voltage (after initial period)." )
+            # Append DTCs
+            for idx in high_voltage_indices:
+                if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
+                    anomalous_df.loc[idx, 'potential_dtcs'] = []
+                for dtc in voltage_dtcs_high:
+                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
+                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+        else:
+            logging.info("No anomalies found above the high voltage threshold (after initial period).")
+
+        # Print potentially relevant DTC descriptions
+        all_voltage_dtcs = sorted(list(set(voltage_dtcs_low + voltage_dtcs_high)))
+        logging.info("\nPotentially Relevant DTCs (Voltage Issues):")
+        for code in all_voltage_dtcs:
+            desc = get_dtc_description(code, dtc_data)
+            logging.info(f"  - {code}: {desc}")
+
     else:
         if not dtc_data:
-            print("Skipping low voltage analysis because DTC data failed to load.")
+            logging.warning("Skipping voltage analysis because DTC data failed to load.")
         else:
-            print("Skipping low voltage analysis because CONTROL_MODULE_VOLTAGE stats are missing.")
-    # --- End: Heuristic DTC Mapping Example ---
+            # Log the specific column name that is missing
+            logging.warning(f"Skipping voltage analysis because {voltage_col} column is missing.")
+    # --- End: Voltage Heuristic ---
 
-    # --- Start: Heuristic DTC Mapping Example (Low Coolant Temp) ---
-    print("\n\n--- Anomaly Pattern Analysis: Low Coolant Temperature ---")
+    # --- Start: Low Coolant Temp Heuristic ---
+    logging.info("\n\n--- Anomaly Pattern Analysis: Low Coolant Temperature After Warmup ---")
+    coolant_col = 'COOLANT_TEMPERATURE'
+    time_col = 'TIME_SEC' # Assuming TIME_SEC represents runtime or similar progression
+    ambient_temp_col = 'AMBIENT_AIR_TEMPERATURE' # For conditional warmup time
+    coolant_diff_col = 'COOLANT_TEMPERATURE_diff_1' # Assuming derived feature exists
+    load_diff_col = 'CALCULATED_ENGINE_LOAD_VALUE_diff_1' # Assuming derived feature exists
 
-    if dtc_data and 'COOLANT_TEMPERATURE' in desc_stats.columns and 'TIME_SEC' in anomalous_df.columns:
-        # Define thresholds
-        low_temp_threshold = desc_stats.loc['25%', 'COOLANT_TEMPERATURE']
-        min_runtime_sec = 120 # Only flag if engine has been running for > 2 minutes
-        coolant_dtcs = ["P0128", "P0117", "P0118", "P0119"] # Example potential DTCs
 
-        print(f"Identifying anomalies with COOLANT_TEMPERATURE < {low_temp_threshold:.2f} (25th percentile of anomalies) AND TIME_SEC > {min_runtime_sec}")
+    if dtc_data and coolant_col in anomalous_df.columns and time_col in anomalous_df.columns:
+        # Define fixed thresholds
+        low_temp_threshold = 75.0 # Degrees C
+        # Define base runtime and adjustments based on ambient temp
+        base_min_runtime_sec = 300 # 5 minutes (default)
+        ambient_temp_present = ambient_temp_col in anomalous_df.columns
 
-        # Apply both conditions
-        low_temp_anomalies_indices = anomalous_df[
-            (anomalous_df['COOLANT_TEMPERATURE'] < low_temp_threshold) &
-            (anomalous_df['TIME_SEC'] > min_runtime_sec)
-        ].index
+        coolant_dtcs_thermostat = ["P0128"] # Thermostat Rationality
+        coolant_dtcs_sensor = ["P0117", "P0118", "P0119"] # Sensor Low/High/Intermittent
 
-        if not low_temp_anomalies_indices.empty:
-            print(f"Found {len(low_temp_anomalies_indices)} anomalies with low coolant temperature after {min_runtime_sec}s runtime.")
-            print("\nSample Low Coolant Temp Anomalous Rows (First 5 after runtime filter):")
-            pd.set_option('display.max_columns', 50)
-            pd.set_option('display.width', 1000)
-            print(anomalous_df.loc[low_temp_anomalies_indices].head().to_string())
-            pd.reset_option('display.max_columns')
-            pd.reset_option('display.width')
+        # --- Determine Runtime Threshold ---
+        # Create a Series for the runtime threshold, matching the anomalous_df index
+        min_runtime_thresholds = pd.Series(base_min_runtime_sec, index=anomalous_df.index)
+        if ambient_temp_present:
+            logging.info(f"Adjusting minimum runtime based on {ambient_temp_col}:")
+            cold_condition = anomalous_df[ambient_temp_col] < 5.0
+            cool_condition = (anomalous_df[ambient_temp_col] >= 5.0) & (anomalous_df[ambient_temp_col] < 15.0)
 
-            # Append P0128 (Thermostat) for all low-temp-after-runtime anomalies
-            for idx in low_temp_anomalies_indices:
+            min_runtime_thresholds[cold_condition] = 600.0 # 10 mins if < 5C
+            min_runtime_thresholds[cool_condition] = 450.0 # 7.5 mins if 5-15C
+
+            n_cold = cold_condition.sum()
+            n_cool = cool_condition.sum()
+            n_warm = (~cold_condition & ~cool_condition).sum()
+            logging.info(f"  Runtime > 600s required for {n_cold} anomalies (Ambient < 5C)")
+            logging.info(f"  Runtime > 450s required for {n_cool} anomalies (5C <= Ambient < 15C)")
+            logging.info(f"  Runtime > 300s required for {n_warm} anomalies (Ambient >= 15C)")
+        else:
+            logging.warning(f"{ambient_temp_col} not found. Using default minimum runtime of {base_min_runtime_sec}s for all anomalies.")
+
+        logging.info(f"Identifying anomalies with {coolant_col} < {low_temp_threshold:.1f} C AND {time_col} > adjusted minimum runtime")
+
+        # Apply conditions using the calculated runtime thresholds
+        stuck_open_condition = (
+            (anomalous_df[coolant_col] < low_temp_threshold) &
+            (anomalous_df[time_col] > min_runtime_thresholds)
+        )
+        stuck_open_indices = anomalous_df[stuck_open_condition].index
+
+
+        if not stuck_open_indices.empty:
+            logging.info(f"Found {len(stuck_open_indices)} anomalies with low coolant temperature after adjusted runtime (Potential P0128).")
+            # (Optional: Print sample rows)
+
+            # Append P0128 (Thermostat) for these anomalies
+            for idx in stuck_open_indices:
+                if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
+                    anomalous_df.loc[idx, 'potential_dtcs'] = []
                 if "P0128" not in anomalous_df.loc[idx, 'potential_dtcs']:
                     anomalous_df.loc[idx, 'potential_dtcs'].append("P0128")
 
-            # Further analysis: Check for sudden drops in these low-temp anomalies
-            if 'COOLANT_TEMPERATURE_diff_1' in anomalous_df.columns:
-                # Define a threshold for a significant drop (e.g., more than 0.5 scaled units)
-                significant_drop_threshold = -0.5 # Scaled value
+            # Further analysis: Check for sudden drops within this subset (Potential Sensor Issue)
+            if coolant_diff_col in anomalous_df.columns:
+                # Define a threshold for a significant drop (Using absolute diff for clarity now)
+                # Need original non-scaled data for this ideally, or adjust scaled threshold carefully
+                # Let's assume scaled diff is available and use a threshold based on that distribution
+                # A large negative scaled value implies a significant drop relative to recent history
+                significant_drop_threshold_scaled = -0.5 # Example: drop more than 0.5 std dev in one step
 
-                # Condition 1: Temperature is dropping significantly
-                dropping_condition = anomalous_df.loc[low_temp_anomalies_indices, 'COOLANT_TEMPERATURE_diff_1'] < significant_drop_threshold
+                # Condition 1: Temperature is dropping significantly (using scaled diff)
+                # Apply condition only on the 'stuck_open_indices' subset for efficiency
+                dropping_condition = anomalous_df.loc[stuck_open_indices, coolant_diff_col] < significant_drop_threshold_scaled
 
-                # Condition 2 (Optional refinement): Engine load is NOT decreasing (more suspicious)
-                load_not_decreasing_condition = True # Default to True if load diff is not available
-                if 'CALCULATED_ENGINE_LOAD_VALUE_diff_1' in anomalous_df.columns:
-                    # Check if load diff is greater than or equal to 0 (or a small negative tolerance)
-                    load_not_decreasing_condition = anomalous_df.loc[low_temp_anomalies_indices, 'CALCULATED_ENGINE_LOAD_VALUE_diff_1'] >= -0.01 # Allow small negative tolerance
+                # Condition 2 (Optional): Engine load is NOT decreasing significantly (more suspicious)
+                load_not_decreasing_condition = True
+                if load_diff_col in anomalous_df.columns:
+                    # Load decrease less than 0.01 std dev (i.e., stable or increasing)
+                    load_not_decreasing_condition = anomalous_df.loc[stuck_open_indices, load_diff_col] >= -0.01
                 else:
-                    print("\n  CALCULATED_ENGINE_LOAD_VALUE_diff_1 not available for load condition.")
+                    logging.warning(f"\n  {load_diff_col} not available for load condition.")
 
-                # Combine conditions
-                dropping_unexpectedly_indices = anomalous_df.loc[low_temp_anomalies_indices][
-                    dropping_condition & load_not_decreasing_condition
-                ].index
+                # Combine conditions for potential sensor issue
+                # Get indices from the boolean series derived from the subset
+                valid_indices = stuck_open_indices[dropping_condition & load_not_decreasing_condition]
 
-                if not dropping_unexpectedly_indices.empty:
-                    print(f"\n  Out of the low temp anomalies, {len(dropping_unexpectedly_indices)} also showed a significant coolant temperature drop (diff < {significant_drop_threshold}) while engine load was NOT decreasing.")
-                    print("  Sample of low & dropping (unexpectedly) coolant temp anomalies (First 5):")
-                    print(anomalous_df.loc[dropping_unexpectedly_indices].head().to_string())
 
-                    # Append Sensor-related DTCs (P0117/P0118/P0119) for these specific cases
-                    sensor_dtcs = ["P0117", "P0118", "P0119"]
-                    for idx in dropping_unexpectedly_indices:
-                        for dtc in sensor_dtcs:
+                if not valid_indices.empty:
+                    logging.info(f"\n  Out of these, {len(valid_indices)} also showed a significant coolant temperature drop (scaled_diff < {significant_drop_threshold_scaled}) while load was stable/increasing (Potential Sensor DTCs).")
+                    # (Optional: Print sample rows)
+
+                    # Append Sensor-related DTCs for these specific cases
+                    for idx in valid_indices:
+                         if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
+                             anomalous_df.loc[idx, 'potential_dtcs'] = []
+                         for dtc in coolant_dtcs_sensor:
                              if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
                                  anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
                 else:
-                    print(f"\n  None of the low coolant temperature anomalies showed a significant drop (diff < {significant_drop_threshold}) while engine load was stable or increasing.")
+                    logging.info(f"\n  None of the low coolant temperature anomalies showed a significant drop (scaled_diff < {significant_drop_threshold_scaled}) while engine load was stable or increasing.")
             else:
-                print("\n  COOLANT_TEMPERATURE_diff_1 column not available for drop analysis.")
+                logging.warning(f"\n  {coolant_diff_col} column not available for drop analysis.")
 
-            # Print DTC descriptions (moved outside the drop check, covers both P0128 and sensor DTCs)
-            all_coolant_related_dtcs = set(coolant_dtcs) # Combine potential DTCs
-            print("\nPotentially Relevant DTCs (Coolant Issues):")
-            for dtc in sorted(list(all_coolant_related_dtcs)):
+            # Print potentially relevant DTC descriptions
+            all_coolant_related_dtcs = sorted(list(set(coolant_dtcs_thermostat + coolant_dtcs_sensor)))
+            logging.info("\nPotentially Relevant DTCs (Coolant Issues):")
+            for dtc in all_coolant_related_dtcs:
                  desc = get_dtc_description(dtc, dtc_data)
-                 print(f"  - {dtc}: {desc}")
+                 logging.info(f"  - {dtc}: {desc}")
 
         else:
-            print(f"No low coolant temperature anomalies found after {min_runtime_sec}s runtime.")
+            logging.info("No low coolant temperature anomalies found after adjusted runtime.")
     else:
-        # Add check for missing TIME_SEC as well
         if not dtc_data:
-            print("Skipping low coolant temp analysis because DTC data failed to load.")
-        elif 'COOLANT_TEMPERATURE' not in desc_stats.columns:
-             print("Skipping low coolant temp analysis because COOLANT_TEMPERATURE stats are missing.")
-        elif 'TIME_SEC' not in anomalous_df.columns:
-             print("Skipping low coolant temp analysis because TIME_SEC column is missing.")
-    # --- End: Heuristic DTC Mapping Example ---
+            logging.warning("Skipping low coolant temp analysis because DTC data failed to load.")
+        elif coolant_col not in anomalous_df.columns:
+             logging.warning(f"Skipping low coolant temp analysis because {coolant_col} column is missing.")
+        elif time_col not in anomalous_df.columns:
+             # Add check for time column missing
+             logging.warning(f"Skipping low coolant temp analysis because {time_col} column is missing.")
+    # --- End: Low Coolant Temp Heuristic ---
 
-    # --- Start: Heuristic DTC Mapping Example (High RPM / Low Speed) ---
-    print("\n\n--- Anomaly Pattern Analysis: High Engine RPM at Low Speed ---")
 
-    if dtc_data and 'ENGINE_RPM' in desc_stats.columns and 'VEHICLE_SPEED' in desc_stats.columns:
-        # Define thresholds (e.g., using percentiles of the anomalous data)
-        high_rpm_threshold = desc_stats.loc['75%', 'ENGINE_RPM']
-        low_speed_threshold = desc_stats.loc['25%', 'VEHICLE_SPEED']
+    # --- Start: High RPM / Low Speed Heuristic ---
+    logging.info("\n\n--- Anomaly Pattern Analysis: High Engine RPM at Low Speed ---")
+    rpm_col = 'ENGINE_RPM'
+    speed_col = 'VEHICLE_SPEED'
 
-        print(f"Identifying anomalies with ENGINE_RPM > {high_rpm_threshold:.2f} (75th percentile) AND VEHICLE_SPEED < {low_speed_threshold:.2f} (25th percentile)")
+    if dtc_data and rpm_col in anomalous_df.columns and speed_col in anomalous_df.columns:
+        # Define fixed thresholds based on typical vehicle behavior
+        high_rpm_threshold = 1500.0 # RPM - well above normal idle
+        low_speed_threshold = 10.0 # km/h - essentially stationary or creeping
+        idle_dtcs = ["P0506", "P0507"] # RPM lower/higher than expected
+
+        logging.info(f"Identifying anomalies with {rpm_col} > {high_rpm_threshold:.0f} RPM AND {speed_col} < {low_speed_threshold:.0f} km/h")
 
         # Find indices meeting the condition
         high_rpm_low_speed_indices = anomalous_df[
-            (anomalous_df['ENGINE_RPM'] > high_rpm_threshold) &
-            (anomalous_df['VEHICLE_SPEED'] < low_speed_threshold)
+            (anomalous_df[rpm_col] > high_rpm_threshold) &
+            (anomalous_df[speed_col] < low_speed_threshold)
         ].index
 
         if not high_rpm_low_speed_indices.empty:
-            print(f"Found {len(high_rpm_low_speed_indices)} anomalies with high RPM at low speed.")
-            print("Sample Anomalies (First 5):")
-            pd.set_option('display.max_columns', 50)
-            pd.set_option('display.width', 1000)
-            print(anomalous_df.loc[high_rpm_low_speed_indices, ['TIME_SEC', 'ENGINE_RPM', 'VEHICLE_SPEED', 'potential_dtcs']].head().to_string())
-            pd.reset_option('display.max_columns')
-            pd.reset_option('display.width')
+            logging.info(f"Found {len(high_rpm_low_speed_indices)} anomalies with high RPM at low speed.")
+            # (Optional: Print sample rows)
 
-            # Assign potential DTCs
-            rpm_dtcs = ["P0507", "P0506"] # P0507: Idle RPM High, P0506: Idle RPM Low (might add later based on low RPM analysis)
+            # Append DTCs
             for idx in high_rpm_low_speed_indices:
-                for dtc in rpm_dtcs:
+                if not isinstance(anomalous_df.loc[idx, 'potential_dtcs'], list):
+                    anomalous_df.loc[idx, 'potential_dtcs'] = []
+                for dtc in idle_dtcs:
                     if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
                         anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
 
-            # Print DTC descriptions
-            print("\nPotentially Relevant DTCs (Idle Control):")
-            for dtc in sorted(list(set(rpm_dtcs))):
-                 desc = get_dtc_description(dtc, dtc_data)
-                 print(f"  - {dtc}: {desc}")
-
+            # Print potentially relevant DTC descriptions
+            logging.info("\nPotentially Relevant DTCs (Idle Control):")
+            for code in idle_dtcs:
+                desc = get_dtc_description(code, dtc_data)
+                logging.info(f"  - {code}: {desc}")
         else:
-            print("No anomalies found matching the high RPM / low speed condition.")
+            logging.info("No anomalies found matching the high RPM / low speed condition.")
     else:
-        print("Skipping high RPM / low speed analysis due to missing columns (ENGINE_RPM or VEHICLE_SPEED).")
-    # --- End: Heuristic DTC Mapping Example (High RPM / Low Speed) ---
+        if not dtc_data:
+            logging.warning("Skipping high RPM/low speed analysis because DTC data failed to load.")
+        elif rpm_col not in anomalous_df.columns:
+            logging.warning(f"Skipping high RPM/low speed analysis because {rpm_col} column is missing.")
+        elif speed_col not in anomalous_df.columns:
+            # Add check for speed column missing
+            logging.warning(f"Skipping high RPM/low speed analysis because {speed_col} column is missing.")
+    # --- End: High RPM / Low Speed Heuristic ---
 
-    # --- Start: Heuristic DTC Mapping Example (Low MAF / High Load) ---
-    print("\n\n--- Anomaly Pattern Analysis: Low MAF at High Engine Load ---")
 
-    if dtc_data and 'MASS_AIR_FLOW' in desc_stats.columns and 'CALCULATED_ENGINE_LOAD_VALUE' in desc_stats.columns:
-        low_maf_threshold = desc_stats.loc['25%', 'MASS_AIR_FLOW']
-        high_load_threshold = desc_stats.loc['50%', 'CALCULATED_ENGINE_LOAD_VALUE'] # Using 50th percentile for load
+    # --- Start: Low MAF / High Load Heuristic ---
+    logging.info("\n\n--- Anomaly Pattern Analysis: Low MAF at High Engine Load ---")
+    maf_col = 'MASS_AIR_FLOW'
+    load_col = 'CALCULATED_ENGINE_LOAD_VALUE'
 
-        print(f"Identifying anomalies with MASS_AIR_FLOW < {low_maf_threshold:.2f} (25th percentile MAF) AND CALCULATED_ENGINE_LOAD_VALUE > {high_load_threshold:.2f} (50th percentile Load)")
+    # Check column existence in anomalous_df
+    if dtc_data and maf_col in anomalous_df.columns and load_col in anomalous_df.columns:
+        # Define fixed thresholds
+        high_load_threshold = 80.0  # percent
+        low_maf_threshold = 20.0   # g/s
 
-        low_maf_high_load_indices = anomalous_df[
-            (anomalous_df['MASS_AIR_FLOW'] < low_maf_threshold) &
-            (anomalous_df['CALCULATED_ENGINE_LOAD_VALUE'] > high_load_threshold)
-        ].index
+        potential_maf_issues = anomalous_df[
+            (anomalous_df[load_col] > high_load_threshold) &
+            (anomalous_df[maf_col] < low_maf_threshold)
+        ]
 
-        if not low_maf_high_load_indices.empty:
-            print(f"Found {len(low_maf_high_load_indices)} anomalies with low MAF at high engine load.")
-            print("Sample Anomalies (First 5):")
-            pd.set_option('display.max_columns', 50)
-            pd.set_option('display.width', 1000)
-            print(anomalous_df.loc[low_maf_high_load_indices, ['TIME_SEC', 'MASS_AIR_FLOW', 'CALCULATED_ENGINE_LOAD_VALUE', 'ENGINE_RPM', 'potential_dtcs']].head().to_string())
-            pd.reset_option('display.max_columns')
-            pd.reset_option('display.width')
+        count = len(potential_maf_issues)
+        logging.info(f"Found {count} anomalies with Load > {high_load_threshold}% and MAF < {low_maf_threshold} g/s.")
+        if count > 0:
+            sample_issues = potential_maf_issues.head(5)
+            logging.info(f"Sample 'Low MAF / High Load' anomalies:\n{sample_issues[[load_col, maf_col]].to_string()}")
 
-            maf_dtcs = ["P0101", "P0102"] # MAF Range/Performance, MAF Circuit Low
-            for idx in low_maf_high_load_indices:
-                for dtc in maf_dtcs:
-                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
-                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+            # Correct approach: Iterate or use apply
+            maf_dtcs = ["P0101", "P0102"]
+            for idx in potential_maf_issues.index:
+                 current_dtcs = anomalous_df.loc[idx, 'potential_dtcs']
+                 if not isinstance(current_dtcs, list): current_dtcs = [] # Ensure list
+                 for dtc in maf_dtcs:
+                     if dtc not in current_dtcs:
+                         current_dtcs.append(dtc)
+                 # Assign back the modified list (important!)
+                 anomalous_df.loc[idx, 'potential_dtcs'] = current_dtcs
 
-            print("\nPotentially Relevant DTCs (MAF Sensor Issues):")
+
+            logging.info("\nPotentially Relevant DTCs (MAF Sensor Issues):")
             for dtc in sorted(list(set(maf_dtcs))):
                  desc = get_dtc_description(dtc, dtc_data)
-                 print(f"  - {dtc}: {desc}")
+                 logging.info(f"  - {dtc}: {desc}")
         else:
-            print("No anomalies found matching the low MAF / high load condition.")
+            logging.info("No anomalies found matching the Low MAF / High Load criteria.")
     else:
-        print("Skipping low MAF / high load analysis due to missing columns (MASS_AIR_FLOW or CALCULATED_ENGINE_LOAD_VALUE).")
-    # --- End: Heuristic DTC Mapping Example (Low MAF / High Load) ---
+        # Refine missing column logging
+        missing_cols = []
+        if not dtc_data: missing_cols.append("DTC data")
+        if maf_col not in anomalous_df.columns: missing_cols.append(maf_col)
+        if load_col not in anomalous_df.columns: missing_cols.append(load_col)
+        if missing_cols:
+             logging.warning(f"Skipping low MAF / high load analysis due to missing: {', '.join(missing_cols)}.")
 
-    # --- Start: Heuristic DTC Mapping Example (Low MAP / High Load) ---
-    print("\n\n--- Anomaly Pattern Analysis: Low MAP Sensor Reading at High Engine Load ---")
+    # --- End: Low MAF / High Load Heuristic ---
 
-    if dtc_data and 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE' in desc_stats.columns and 'CALCULATED_ENGINE_LOAD_VALUE' in desc_stats.columns:
-        # Thresholds based on anomalous data percentiles
-        low_map_threshold = desc_stats.loc['25%', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE']
-        high_load_threshold = desc_stats.loc['75%', 'CALCULATED_ENGINE_LOAD_VALUE'] # Using 75th percentile for higher confidence in load
 
-        print(f"Identifying anomalies with INTAKE_MANIFOLD_ABSOLUTE_PRESSURE < {low_map_threshold:.2f} (25th percentile MAP) AND CALCULATED_ENGINE_LOAD_VALUE > {high_load_threshold:.2f} (75th percentile Load)")
+    # --- Start: Low MAP / High Load Heuristic ---
+    logging.info("\n\n--- Anomaly Pattern Analysis: Low MAP Sensor Reading at High Engine Load ---")
+    map_col = 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'
+    # load_col already defined
+
+    if dtc_data and map_col in anomalous_df.columns and load_col in anomalous_df.columns:
+        # Define fixed thresholds
+        high_load_threshold = 80.0  # percent
+        low_map_threshold = 110.0 # kPa (slightly above atmospheric)
+
+        logging.info(f"Identifying anomalies with {map_col} < {low_map_threshold:.1f} kPa AND {load_col} > {high_load_threshold:.1f}%")
 
         low_map_high_load_indices = anomalous_df[
-            (anomalous_df['INTAKE_MANIFOLD_ABSOLUTE_PRESSURE'] < low_map_threshold) &
-            (anomalous_df['CALCULATED_ENGINE_LOAD_VALUE'] > high_load_threshold)
+            (anomalous_df[map_col] < low_map_threshold) &
+            (anomalous_df[load_col] > high_load_threshold)
         ].index
 
         if not low_map_high_load_indices.empty:
-            print(f"Found {len(low_map_high_load_indices)} anomalies with low MAP at high engine load.")
-            print("Sample Anomalies (First 5):")
-            pd.set_option('display.max_columns', 50)
-            pd.set_option('display.width', 1000)
-            print(anomalous_df.loc[low_map_high_load_indices, ['TIME_SEC', 'INTAKE_MANIFOLD_ABSOLUTE_PRESSURE', 'CALCULATED_ENGINE_LOAD_VALUE', 'ENGINE_RPM', 'potential_dtcs']].head().to_string())
-            pd.reset_option('display.max_columns')
-            pd.reset_option('display.width')
+            logging.info(f"Found {len(low_map_high_load_indices)} anomalies with low MAP at high engine load.")
+            logging.info("Sample Anomalies (First 5):")
+            try:
+                pd.set_option('display.max_columns', 50)
+                pd.set_option('display.width', 1000)
+                # Include TIME_SEC if available
+                display_cols = ['TIME_SEC'] if 'TIME_SEC' in anomalous_df.columns else []
+                display_cols.extend([map_col, load_col, 'ENGINE_RPM', 'potential_dtcs'])
+                # Filter display_cols to only those present in anomalous_df
+                display_cols = [col for col in display_cols if col in anomalous_df.columns]
+                # Log the head(), converting to string first
+                logging.info("\n" + anomalous_df.loc[low_map_high_load_indices, display_cols].head().to_string())
 
-            map_dtcs = ["P0106", "P0107"] # MAP/Baro Circuit Range/Perf, MAP Circuit Low
+                pd.reset_option('display.max_columns')
+                pd.reset_option('display.width')
+            except Exception as e:
+                logging.error(f"Could not display sample Low MAP/High Load anomalies: {e}")
+
+            map_dtcs = ["P0106", "P0107", "P0299"] # MAP/Baro Circuit Range/Perf, MAP Circuit Low, Turbo Underboost
             for idx in low_map_high_load_indices:
+                current_dtcs = anomalous_df.loc[idx, 'potential_dtcs']
+                if not isinstance(current_dtcs, list): current_dtcs = [] # Ensure list
                 for dtc in map_dtcs:
-                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
-                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+                    if dtc not in current_dtcs:
+                        current_dtcs.append(dtc)
+                anomalous_df.loc[idx, 'potential_dtcs'] = current_dtcs
 
-            print("\nPotentially Relevant DTCs (MAP Sensor Issues):")
+            logging.info("\nPotentially Relevant DTCs (MAP Sensor/Boost Issues):")
             for dtc in sorted(list(set(map_dtcs))):
                  desc = get_dtc_description(dtc, dtc_data)
-                 print(f"  - {dtc}: {desc}")
+                 logging.info(f"  - {dtc}: {desc}")
         else:
-            print("No anomalies found matching the low MAP / high load condition.")
+            logging.info("No anomalies found matching the low MAP / high load condition.")
     else:
-        print("Skipping low MAP / high load analysis due to missing columns (INTAKE_MANIFOLD_ABSOLUTE_PRESSURE or CALCULATED_ENGINE_LOAD_VALUE).")
-    # --- End: Heuristic DTC Mapping Example (Low MAP / High Load) ---
+        # Refine missing column logging
+        missing_cols = []
+        if not dtc_data: missing_cols.append("DTC data")
+        if map_col not in anomalous_df.columns: missing_cols.append(map_col)
+        if load_col not in anomalous_df.columns: missing_cols.append(load_col)
+        if missing_cols:
+             logging.warning(f"Skipping low MAP / high load analysis due to missing: {', '.join(missing_cols)}.")
 
-    # --- Start: Heuristic DTC Mapping Example (High Throttle / Low Load) ---
-    print("\n\n--- Anomaly Pattern Analysis: High Throttle Position at Low Engine Load ---")
+    # --- End: Low MAP / High Load Heuristic ---
 
-    if dtc_data and 'THROTTLE_POSITION' in desc_stats.columns and 'CALCULATED_ENGINE_LOAD_VALUE' in desc_stats.columns:
-        # Thresholds based on anomalous data percentiles
-        high_throttle_threshold = desc_stats.loc['75%', 'THROTTLE_POSITION']
-        low_load_threshold = desc_stats.loc['25%', 'CALCULATED_ENGINE_LOAD_VALUE']
 
-        print(f"Identifying anomalies with THROTTLE_POSITION > {high_throttle_threshold:.2f} (75th percentile Throttle) AND CALCULATED_ENGINE_LOAD_VALUE < {low_load_threshold:.2f} (25th percentile Load)")
+    # --- Start: High Throttle / Low Load Heuristic ---
+    logging.info("\n\n--- Anomaly Pattern Analysis: High Throttle Position at Low Engine Load ---")
+    throttle_col = 'THROTTLE_POSITION'
+    # load_col already defined
+
+    # Check if columns exist using the original anomalous_df
+    if dtc_data and throttle_col in anomalous_df.columns and load_col in anomalous_df.columns:
+        # Define fixed thresholds
+        high_throttle_threshold = 60.0  # percent
+        low_load_threshold = 30.0     # percent
+
+        logging.info(f"Identifying anomalies with {throttle_col} > {high_throttle_threshold:.1f}% AND {load_col} < {low_load_threshold:.1f}%")
 
         high_throttle_low_load_indices = anomalous_df[
-            (anomalous_df['THROTTLE_POSITION'] > high_throttle_threshold) &
-            (anomalous_df['CALCULATED_ENGINE_LOAD_VALUE'] < low_load_threshold)
+            (anomalous_df[throttle_col] > high_throttle_threshold) &
+            (anomalous_df[load_col] < low_load_threshold)
         ].index
 
         if not high_throttle_low_load_indices.empty:
-            print(f"Found {len(high_throttle_low_load_indices)} anomalies with high throttle at low engine load.")
-            print("Sample Anomalies (First 5):")
-            pd.set_option('display.max_columns', 50)
-            pd.set_option('display.width', 1000)
-            print(anomalous_df.loc[high_throttle_low_load_indices, ['TIME_SEC', 'THROTTLE_POSITION', 'CALCULATED_ENGINE_LOAD_VALUE', 'ENGINE_RPM', 'potential_dtcs']].head().to_string())
-            pd.reset_option('display.max_columns')
-            pd.reset_option('display.width')
+            logging.info(f"Found {len(high_throttle_low_load_indices)} anomalies with high throttle at low engine load.")
+            logging.info("Sample Anomalies (First 5):")
+            try:
+                pd.set_option('display.max_columns', 50)
+                pd.set_option('display.width', 1000)
+                # Include TIME_SEC if available
+                display_cols = ['TIME_SEC'] if 'TIME_SEC' in anomalous_df.columns else []
+                display_cols.extend([throttle_col, load_col, 'ENGINE_RPM', 'potential_dtcs'])
+                # Filter display_cols to only those present in anomalous_df
+                display_cols = [col for col in display_cols if col in anomalous_df.columns]
+                # Log the head(), converting to string first
+                logging.info("\n" + anomalous_df.loc[high_throttle_low_load_indices, display_cols].head().to_string())
+                pd.reset_option('display.max_columns')
+                pd.reset_option('display.width')
+            except Exception as e:
+                logging.error(f"Could not display sample High Throttle/Low Load anomalies: {e}")
 
-            tps_dtcs = ["P0121", "P0122"] # TPS Range/Performance, TPS Circuit Low
+            tps_dtcs = ["P0121", "P0122", "P2135"] # TPS Range/Performance, TPS Circuit Low, TPS Correlation (A/B)
             for idx in high_throttle_low_load_indices:
+                current_dtcs = anomalous_df.loc[idx, 'potential_dtcs']
+                if not isinstance(current_dtcs, list): current_dtcs = [] # Ensure list
                 for dtc in tps_dtcs:
-                    if dtc not in anomalous_df.loc[idx, 'potential_dtcs']:
-                        anomalous_df.loc[idx, 'potential_dtcs'].append(dtc)
+                    if dtc not in current_dtcs:
+                        current_dtcs.append(dtc)
+                anomalous_df.loc[idx, 'potential_dtcs'] = current_dtcs
 
-            print("\nPotentially Relevant DTCs (Throttle Position Sensor Issues):")
+            logging.info("\nPotentially Relevant DTCs (Throttle Position Sensor Issues):")
             for dtc in sorted(list(set(tps_dtcs))):
                  desc = get_dtc_description(dtc, dtc_data)
-                 print(f"  - {dtc}: {desc}")
+                 logging.info(f"  - {dtc}: {desc}")
         else:
-            print("No anomalies found matching the high throttle / low load condition.")
+            logging.info("No anomalies found matching the high throttle / low load condition.")
     else:
-        print("Skipping high throttle / low load analysis due to missing columns (THROTTLE_POSITION or CALCULATED_ENGINE_LOAD_VALUE).")
-    # --- End: Heuristic DTC Mapping Example (High Throttle / Low Load) ---
+        # Refine missing column logging
+        missing_cols = []
+        if not dtc_data: missing_cols.append("DTC data")
+        if throttle_col not in anomalous_df.columns: missing_cols.append(throttle_col)
+        if load_col not in anomalous_df.columns: missing_cols.append(load_col)
+        if missing_cols:
+             logging.warning(f"Skipping high throttle / low load analysis due to missing: {', '.join(missing_cols)}.")
 
-    # --- Display anomalies with mapped DTCs ---
-    anomalies_with_dtcs = anomalous_df[anomalous_df['potential_dtcs'].apply(lambda x: len(x) > 0)]
-    if not anomalies_with_dtcs.empty:
-        print("\n\n--- Anomalies with Potential DTCs Mapped ---")
-        print(f"Found {anomalies_with_dtcs.shape[0]} anomalies associated with potential DTCs based on heuristics.")
-        print("Sample (First 10 rows with mapped DTCs):")
-        print(anomalies_with_dtcs[['TIME_SEC', 'CONTROL_MODULE_VOLTAGE', 'COOLANT_TEMPERATURE', 'potential_dtcs']].head(10).to_string())
-    else:
-        print("\n\nNo anomalies were associated with potential DTCs based on the current heuristics.")
+    # --- End: High Throttle / Low Load Heuristic ---
+
+    # --- Display anomalies with mapped DTCs --- (Moved logging to main execution block)
 
     return anomalous_df # Return the DataFrame with the new column
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Train Isolation Forest for anomaly detection on OBD data.")
+    parser = argparse.ArgumentParser(description="Train Isolation Forest for anomaly detection on OBD data and map potential DTCs.")
     parser.add_argument(
         "--data-path",
         type=str,
-        default="data/model_input/romanian_driving_ds_final.parquet",
+        required=True, # Make data-path mandatory
         help="Path to the input Parquet file."
     )
     parser.add_argument(
         "--output-dir",
         type=str,
-        default="models/anomaly/romanian",
+        required=True, # Make output-dir mandatory
         help="Directory to save the model and scaler."
     )
     parser.add_argument(
         "--contamination",
         type=float,
         default=0.02,
-        help="Expected proportion of anomalies in the data (contamination factor)."
+        help="Expected proportion of anomalies in the data (contamination factor). Default: 0.02"
+    )
+    parser.add_argument(
+        "--output-csv", # New argument
+        type=str,
+        default=None,
+        help="Optional path to save the DataFrame with detected anomalies and potential DTCs as a CSV file."
     )
 
     args = parser.parse_args()
 
-    print(f"Running Anomaly Detection script with args: {args}")
+    logging.info(f"Running Anomaly Detection script with args: {args}")
 
-    # Check if the data file exists
+    # Check if the data file exists (already done in load_data, but good practice here too)
     if not os.path.exists(args.data_path):
-        print(f"Error: Data file not found at '{args.data_path}'.")
-        # Consider adding sys.exit(1) here
-    else:
-        try:
-            # Run the main process using arguments
-            df_full_with_anomalies = train_and_predict_anomalies(
-                data_path=args.data_path,
-                output_dir=args.output_dir,
-                contamination=args.contamination
-            )
+        logging.error(f"Error: Data file not found at '{args.data_path}'.")
+        sys.exit(1) # Exit if data file not found
 
-            # Get the features used from the DataFrame attribute
-            actual_features_used = df_full_with_anomalies.attrs.get('features_used', [])
-            if not actual_features_used:
-                 print("Warning: Could not retrieve list of features used from DataFrame attributes.")
-                 # Fallback (less reliable if columns were missing)
-                 actual_features_used = CORE_PIDS_FOR_ANOMALY + DERIVED_FEATURES_FOR_ANOMALY
+    try:
+        # Run the main training and prediction process
+        df_full_with_anomalies = train_and_predict_anomalies(
+            data_path=args.data_path,
+            output_dir=args.output_dir,
+            contamination=args.contamination
+        )
+
+        # Get the features used from the DataFrame attribute
+        actual_features_used = df_full_with_anomalies.attrs.get('features_used', [])
+        if not actual_features_used:
+             logging.warning("Could not retrieve list of features used from DataFrame attributes.")
+             # Fallback (less reliable if columns were missing)
+             actual_features_used = CORE_PIDS_FOR_ANOMALY + DERIVED_FEATURES_FOR_ANOMALY
 
 
-            # Display info about anomalies found
-            print("\nAnomaly Detection Summary:")
-            print(f"Processed data shape: {df_full_with_anomalies.shape}")
-            anomaly_count = df_full_with_anomalies[df_full_with_anomalies['anomaly'] == -1].shape[0]
-            print(f"Total potential anomalies detected: {anomaly_count}")
-            if anomaly_count > 0:
-                print("\nSample of detected anomalies (first 5):")
-                print(df_full_with_anomalies[df_full_with_anomalies['anomaly'] == -1].head().to_string())
+        # Display info about anomalies found
+        anomaly_count = df_full_with_anomalies[df_full_with_anomalies['anomaly'] == -1].shape[0]
+        logging.info("\nAnomaly Detection Summary:")
+        logging.info(f"Processed data shape: {df_full_with_anomalies.shape}")
+        logging.info(f"Total potential anomalies detected: {anomaly_count}")
 
-            # Analyze the anomalies
-            analyzed_anomalies_df = analyze_anomalies(df_full_with_anomalies, actual_features_used)
+        # Analyze the anomalies and get the DataFrame with potential DTCs
+        analyzed_anomalies_df = analyze_anomalies(df_full_with_anomalies, actual_features_used)
 
-        except FileNotFoundError as fnf_error:
-            print(f"File Error: {fnf_error}")
-        except ValueError as val_error:
-            print(f"Value Error: {val_error}")
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-            # Consider more detailed error logging or re-raising
+        # --- Display anomalies with mapped DTCs ---
+        # Ensure the potential_dtcs column exists and is of list type before filtering
+        if 'potential_dtcs' in analyzed_anomalies_df.columns:
+             anomalies_with_dtcs = analyzed_anomalies_df[analyzed_anomalies_df['potential_dtcs'].apply(lambda x: isinstance(x, list) and len(x) > 0)]
+             if not anomalies_with_dtcs.empty:
+                 logging.info("\n\n--- Anomalies with Potential DTCs Mapped ---")
+                 logging.info(f"Found {anomalies_with_dtcs.shape[0]} anomalies associated with potential DTCs based on heuristics.")
+                 logging.info("Sample (First 10 rows with mapped DTCs):")
+                 # Select a few key columns for concise logging
+                 log_cols = ['TIME_SEC', 'CONTROL_MODULE_VOLTAGE', 'COOLANT_TEMPERATURE', 'potential_dtcs']
+                 log_cols = [c for c in log_cols if c in anomalies_with_dtcs.columns] # Ensure columns exist
+                 try:
+                      logging.info("\n" + anomalies_with_dtcs[log_cols].head(10).to_string())
+                 except Exception as e:
+                      logging.error(f"Could not display sample anomalies with DTCs: {e}")
+             else:
+                 logging.info("\n\nNo anomalies were associated with potential DTCs based on the current heuristics.")
+        else:
+             logging.warning("'potential_dtcs' column not found in analyzed anomalies DataFrame.")
+
+
+        # --- Save results if output path is provided ---
+        if args.output_csv:
+            output_csv_path = args.output_csv
+            logging.info(f"\nSaving analyzed anomalies with potential DTCs to: {output_csv_path}")
+            try:
+                # Ensure directory exists
+                output_csv_dir = os.path.dirname(output_csv_path)
+                if output_csv_dir and not os.path.exists(output_csv_dir):
+                    os.makedirs(output_csv_dir, exist_ok=True)
+                    logging.info(f"Created directory for output CSV: {output_csv_dir}")
+
+                # Convert list column to string for CSV compatibility if needed
+                # df_to_save = analyzed_anomalies_df.copy()
+                # if 'potential_dtcs' in df_to_save.columns:
+                #     df_to_save['potential_dtcs'] = df_to_save['potential_dtcs'].astype(str)
+
+                # Save only the anomalous rows
+                analyzed_anomalies_df.to_csv(output_csv_path, index=True) # Keep index
+                logging.info("Successfully saved anomalies to CSV.")
+            except Exception as e:
+                logging.error(f"Error saving anomalies DataFrame to CSV at '{output_csv_path}': {e}")
+
+        logging.info("\nAnomaly detection script finished successfully.")
+
+    except FileNotFoundError as fnf_error:
+        logging.error(f"File Error: {fnf_error}")
+        sys.exit(1)
+    except ValueError as val_error:
+        logging.error(f"Value Error: {val_error}")
+        sys.exit(1)
+    except Exception as e:
+        logging.error(f"An unexpected error occurred: {e}", exc_info=True) # Log traceback
+        sys.exit(1)
