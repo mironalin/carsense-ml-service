@@ -20,15 +20,14 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Tier 1: Minimal set of core PIDs expected to be widely available
 # Used for the generic, initial anomaly detection model.
-# Using actual column names found in exp1_14drivers... dataset
+# Aligned with CORE_PIDS_FOR_TRAINING from the combined general model training script.
 TIER1_CORE_PIDS = [
     "ENGINE_RPM",
-    "ENGINE_COOLANT_TEMP",  # Was COOLANT_TEMPERATURE
-    "AIR_INTAKE_TEMP",      # Was INTAKE_AIR_TEMPERATURE
-    "THROTTLE_POS",         # Was THROTTLE_POSITION
-    "SPEED",                # Was VEHICLE_SPEED
-    "ENGINE_LOAD",          # Was CALCULATED_ENGINE_LOAD_VALUE
-    # CONTROL_MODULE_VOLTAGE is excluded from Tier 1 training as requested
+    "ENGINE_COOLANT_TEMP",
+    "INTAKE_AIR_TEMP",      # Standardized name
+    "THROTTLE_POS",
+    "VEHICLE_SPEED",        # Standardized name
+    "ENGINE_LOAD",
 ]
 
 # Tier 2/Comprehensive: More extensive list used for detailed analysis
@@ -127,7 +126,7 @@ def preprocess_data(df: pd.DataFrame, scaler_path: str = None) -> (pd.DataFrame,
         if hasattr(scaler, 'feature_names_in_'):
              expected_cols = list(scaler.feature_names_in_)
              if list(df.columns) != expected_cols:
-                  logging.warning(f"Scaler columns {expected_cols} differ from DataFrame columns {list(df.columns)}. Attempting transform anyway.")
+                  logging.warning(f"Scaler columns {expected_cols} differ from DataFrame columns {list(df.columns)}.")
         try:
             df_scaled = scaler.transform(df.copy())
         except ValueError as e:
@@ -267,15 +266,17 @@ def lookup_dtcs(dtc_list: List[str], dtc_data: Dict[str, Dict[str, str]]) -> Dic
 
 def analyze_anomalies(
     anomalous_data: pd.DataFrame,
-    scaler: StandardScaler, # Scaler might be needed for inverse transform later
-    feature_names: List[str], # Features used by the model
-    dtc_data: Dict[str, Dict[str, str]], # Loaded DTC descriptions
-    # Removed model_name and dataset_name as they weren't used
+    scaler: StandardScaler, # Scaler IS needed for inverse transform or direct scaling
+    feature_names: List[str], # Features used by the model, scaler was fit on these
+    dtc_data: Dict[str, Dict[str, str]],
 ) -> Dict[str, Any]:
     """
     Analyzes the detected anomalies to provide more context.
     Adds heuristics to identify potential root causes like low voltage or coolant issues.
     Returns a dictionary summarizing the analysis.
+    IMPORTANT: anomalous_data contains ORIGINAL (unscaled) PID values.
+               Heuristics here compare against SCALED thresholds, so we must scale
+               the relevant PIDs from anomalous_data using the provided scaler before comparison.
     """
     analysis_results = {"total_anomalies": len(anomalous_data)}
     logging.info(f"Starting anomaly analysis for {len(anomalous_data)} anomalies...")
@@ -284,21 +285,77 @@ def analyze_anomalies(
         logging.info("No anomalies detected to analyze.")
         return analysis_results
 
+    # Helper function to get specific PIDs scaled
+    def get_scaled_pids(original_pid_df: pd.DataFrame, pids_to_extract: List[str]) -> Optional[pd.DataFrame]:
+        # 1. Validate that all PIDs requested for extraction are known to the scaler
+        #    (i.e., they are present in 'feature_names').
+        unknown_pids_for_extraction = [pid for pid in pids_to_extract if pid not in feature_names]
+        if unknown_pids_for_extraction:
+            logging.warning(
+                f"Cannot extract scaled PIDs: PIDs {unknown_pids_for_extraction} "
+                f"are not among the features the scaler was trained on ({feature_names}). "
+                f"Skipping scaling for this set of PIDs: {pids_to_extract}."
+            )
+            return None
+
+        # 2. Check if all features expected by the scaler are present in the input DataFrame.
+        #    The scaler was fit on 'feature_names'.
+        missing_features_for_scaler = [fn for fn in feature_names if fn not in original_pid_df.columns]
+        if missing_features_for_scaler:
+            logging.warning(
+                f"Cannot scale PIDs: Original data is missing columns {missing_features_for_scaler} "
+                f"which are required by the scaler. Scaler expects: {feature_names}. "
+                f"Skipping scaling for PIDs: {pids_to_extract}."
+            )
+            return None
+
+        # 3. Prepare the DataFrame for the scaler:
+        #    It must contain all columns in 'feature_names' and in that specific order.
+        try:
+            df_for_scaling = original_pid_df[feature_names]
+        except KeyError as e:
+            logging.error(
+                f"KeyError when selecting features for scaling. This should ideally be caught by "
+                f"missing_features_for_scaler check. PIDs requested: {pids_to_extract}. Scaler features: {feature_names}. Error: {e}",
+                exc_info=True
+            )
+            return None
+
+
+        try:
+            # 4. Scale the data. scaler.transform() expects a DataFrame/array
+            #    with the same columns and order as used during fit.
+            scaled_data_array = scaler.transform(df_for_scaling)
+            
+            # 5. Convert scaled array back to DataFrame, preserving index and using 'feature_names' for columns.
+            scaled_full_df = pd.DataFrame(scaled_data_array, columns=feature_names, index=original_pid_df.index)
+            
+            # 6. From the DataFrame of all scaled features, extract the ones specifically requested.
+            return scaled_full_df[pids_to_extract]
+            
+        except Exception as e:
+            logging.error(
+                f"Error during PID scaling process for PIDs {pids_to_extract}. Scaler's expected features: {feature_names}. "
+                f"Columns provided to scaler from original_pid_df (df_for_scaling): {list(df_for_scaling.columns)}. Error: {e}",
+                exc_info=True
+            )
+            return None
+
     # --- Heuristic 1: Low Control Module Voltage ---
     voltage_col = "CONTROL_MODULE_VOLTAGE"
+    # This heuristic was designed to use original values if present, not scaled thresholds
+    # So, it remains as is. If scaled thresholds were desired, it would need adjustment.
     if voltage_col in anomalous_data.columns:
         try:
-            # Calculate threshold based on the 25th percentile of anomalous voltage values
-            voltage_threshold = anomalous_data[voltage_col].quantile(0.25)
+            voltage_threshold = anomalous_data[voltage_col].quantile(0.25) # Example: 25th percentile of anomalous voltage
             low_voltage_anomalies = anomalous_data[anomalous_data[voltage_col] < voltage_threshold]
             count_low_voltage = len(low_voltage_anomalies)
             analysis_results["low_voltage_analysis"] = {
-                "threshold_scaled": voltage_threshold,
+                "threshold_original_value": voltage_threshold, # Clarify this is on original value
                 "count": count_low_voltage,
-                "insight": "Detected anomalies exhibiting patterns consistent with low system voltage."
+                "insight": "Detected anomalies exhibiting patterns consistent with low system voltage (based on anomalous data distribution)."
             }
-            logging.info(f"Low Voltage Heuristic: Found {count_low_voltage} anomalies below threshold {voltage_threshold:.2f} (scaled). Insight added.")
-            # TODO: Add logic to check if these anomalies cluster in specific trips/times
+            logging.info(f"Low Voltage Heuristic: Found {count_low_voltage} anomalies below threshold {voltage_threshold:.2f} (original value). Insight added.")
         except Exception as e:
             logging.error(f"Error during low voltage analysis: {e}")
             analysis_results["low_voltage_analysis"] = {"error": str(e)}
@@ -309,28 +366,21 @@ def analyze_anomalies(
 
     # --- Heuristic 2: Low Coolant Temperature (after sufficient runtime) ---
     coolant_col = "ENGINE_COOLANT_TEMP"
-    time_col = "TIME_SEC" # Assuming 'TIME_SEC' holds elapsed seconds in trip
-    runtime_threshold_sec = 120 # E.g., ignore first 2 minutes
-    low_coolant_scaled_threshold = -1.5 # Define fixed scaled threshold (e.g., -1.5 std deviations)
+    time_col = "TIME_SEC"
+    runtime_threshold_sec = 120
+    low_coolant_scaled_threshold = -1.5
 
-    # Check if BOTH required columns are present
     if coolant_col in anomalous_data.columns and time_col in anomalous_data.columns:
-        try:
-            # Filter anomalies that occur after the initial runtime threshold
-            # Also ensure TIME_SEC is not NaN for the comparison
-            anomalies_after_warmup = anomalous_data[
-                (anomalous_data[time_col].notna()) & (anomalous_data[time_col] > runtime_threshold_sec)
-            ]
-
-            if not anomalies_after_warmup.empty:
-                # Apply the fixed scaled threshold
-                low_coolant_anomalies = anomalies_after_warmup[
-                    anomalies_after_warmup[coolant_col] < low_coolant_scaled_threshold
-                ]
+        anomalies_after_warmup = anomalous_data[
+            (anomalous_data[time_col].notna()) & (anomalous_data[time_col] > runtime_threshold_sec)
+        ]
+        if not anomalies_after_warmup.empty:
+            scaled_coolant_df = get_scaled_pids(anomalies_after_warmup, [coolant_col])
+            if scaled_coolant_df is not None and coolant_col in scaled_coolant_df.columns:
+                low_coolant_anomalies = anomalies_after_warmup[scaled_coolant_df[coolant_col] < low_coolant_scaled_threshold]
                 count_low_coolant = len(low_coolant_anomalies)
-
                 analysis_results["low_coolant_analysis"] = {
-                    "threshold_scaled": low_coolant_scaled_threshold, # Report the fixed threshold used
+                    "threshold_scaled": low_coolant_scaled_threshold,
                     "count_after_warmup": count_low_coolant,
                     "runtime_filter_sec": runtime_threshold_sec,
                     "insight": f"Detected anomalies exhibiting patterns consistent with low {coolant_col} (scaled < {low_coolant_scaled_threshold}) after expected warmup period. Possible thermostat or sensor issue."
@@ -340,41 +390,34 @@ def analyze_anomalies(
                     f"Found {count_low_coolant} anomalies below scaled threshold {low_coolant_scaled_threshold:.2f}. Insight added."
                 )
             else:
-                 logging.info(f"Low {coolant_col} Heuristic: No anomalies found after runtime threshold ({runtime_threshold_sec}s).")
-                 analysis_results["low_coolant_analysis"] = {
-                     "count_after_warmup": 0,
-                     "runtime_filter_sec": runtime_threshold_sec,
-                     "message": "No anomalies occurred after the specified runtime threshold."
-                 }
-
-        except Exception as e:
-            logging.error(f"Error during low {coolant_col} temperature analysis: {e}")
-            analysis_results["low_coolant_analysis"] = {"error": str(e)}
+                logging.warning(f"Low {coolant_col} Heuristic: Could not get scaled coolant data for anomalies after warmup.")
+                analysis_results["low_coolant_analysis"] = {"skipped": "Failed to scale coolant data for heuristic."}
+        else:
+            logging.info(f"Low {coolant_col} Heuristic: No anomalies found after runtime threshold ({runtime_threshold_sec}s).")
+            analysis_results["low_coolant_analysis"] = {
+                "count_after_warmup": 0,
+                "runtime_filter_sec": runtime_threshold_sec,
+                "message": "No anomalies occurred after the specified runtime threshold."
+            }
     else:
-        # Log which specific columns are missing
-        missing_cols = []
-        if coolant_col not in anomalous_data.columns:
-            missing_cols.append(coolant_col)
-        if time_col not in anomalous_data.columns:
-            missing_cols.append(time_col)
-        logging.warning(f"Skipping Low {coolant_col} Temperature analysis: Required columns missing: {', '.join(missing_cols)}.")
-        analysis_results["low_coolant_analysis"] = {"skipped": f"Required columns missing: {', '.join(missing_cols)}"}
-
+        missing_cols_h2 = [col for col in [coolant_col, time_col] if col not in anomalous_data.columns]
+        logging.warning(f"Skipping Low {coolant_col} Temperature analysis: Required columns missing: {missing_cols_h2}.")
+        analysis_results["low_coolant_analysis"] = {"skipped": f"Required columns missing: {missing_cols_h2}"}
 
     # --- Heuristic 3: High Engine RPM at Low Speed ---
     rpm_col = "ENGINE_RPM"
-    speed_col = "SPEED"
-    high_rpm_scaled_threshold = 1.5 # e.g., > 1.5 std deviations
-    low_speed_scaled_threshold = -0.5 # e.g., < -0.5 std deviations (close to zero for scaled speed)
+    speed_col = "VEHICLE_SPEED"
+    high_rpm_scaled_threshold = 1.5
+    low_speed_scaled_threshold = -0.5
 
     if rpm_col in anomalous_data.columns and speed_col in anomalous_data.columns:
-        try:
+        scaled_rpm_speed_df = get_scaled_pids(anomalous_data, [rpm_col, speed_col])
+        if scaled_rpm_speed_df is not None and rpm_col in scaled_rpm_speed_df.columns and speed_col in scaled_rpm_speed_df.columns:
             high_rpm_low_speed_anomalies = anomalous_data[
-                (anomalous_data[rpm_col] > high_rpm_scaled_threshold) &
-                (anomalous_data[speed_col] < low_speed_scaled_threshold)
+                (scaled_rpm_speed_df[rpm_col] > high_rpm_scaled_threshold) &
+                (scaled_rpm_speed_df[speed_col] < low_speed_scaled_threshold)
             ]
             count_high_rpm_low_speed = len(high_rpm_low_speed_anomalies)
-
             analysis_results["high_rpm_low_speed_analysis"] = {
                 "rpm_threshold_scaled": high_rpm_scaled_threshold,
                 "speed_threshold_scaled": low_speed_scaled_threshold,
@@ -383,35 +426,29 @@ def analyze_anomalies(
             }
             logging.info(
                 f"High RPM / Low Speed Heuristic: "
-                f"Found {count_high_rpm_low_speed} anomalies matching criteria (RPM > {high_rpm_scaled_threshold:.2f}, Speed < {low_speed_scaled_threshold:.2f}, scaled). Insight added."
+                f"Found {count_high_rpm_low_speed} anomalies matching criteria. Insight added."
             )
-        except Exception as e:
-            logging.error(f"Error during High RPM / Low Speed analysis: {e}")
-            analysis_results["high_rpm_low_speed_analysis"] = {"error": str(e)}
+        else:
+            logging.warning(f"High RPM / Low Speed Heuristic: Could not get scaled RPM/Speed data.")
+            analysis_results["high_rpm_low_speed_analysis"] = {"skipped": "Failed to scale RPM/Speed data for heuristic."}
     else:
-        missing_cols = []
-        if rpm_col not in anomalous_data.columns:
-            missing_cols.append(rpm_col)
-        if speed_col not in anomalous_data.columns:
-            missing_cols.append(speed_col)
-        logging.warning(f"Skipping High RPM / Low Speed analysis: Required columns missing: {', '.join(missing_cols)}.")
-        analysis_results["high_rpm_low_speed_analysis"] = {"skipped": f"Required columns missing: {', '.join(missing_cols)}"}
-
+        missing_cols_h3 = [col for col in [rpm_col, speed_col] if col not in anomalous_data.columns]
+        logging.warning(f"Skipping High RPM / Low Speed analysis: Required columns missing: {missing_cols_h3}.")
+        analysis_results["high_rpm_low_speed_analysis"] = {"skipped": f"Required columns missing: {missing_cols_h3}"}
 
     # --- Heuristic 4: High Engine Load at Low RPM ---
     load_col = "ENGINE_LOAD"
-    # rpm_col already defined as "ENGINE_RPM"
-    high_load_scaled_threshold = 0.75 # Changed from 1.5
+    high_load_scaled_threshold = 0.75
     low_rpm_scaled_threshold = -0.5
 
     if load_col in anomalous_data.columns and rpm_col in anomalous_data.columns:
-        try:
+        scaled_load_rpm_df = get_scaled_pids(anomalous_data, [load_col, rpm_col])
+        if scaled_load_rpm_df is not None and load_col in scaled_load_rpm_df.columns and rpm_col in scaled_load_rpm_df.columns:
             high_load_low_rpm_anomalies = anomalous_data[
-                (anomalous_data[load_col] > high_load_scaled_threshold) &
-                (anomalous_data[rpm_col] < low_rpm_scaled_threshold)
+                (scaled_load_rpm_df[load_col] > high_load_scaled_threshold) &
+                (scaled_load_rpm_df[rpm_col] < low_rpm_scaled_threshold)
             ]
             count_high_load_low_rpm = len(high_load_low_rpm_anomalies)
-
             analysis_results["high_load_low_rpm_analysis"] = {
                 "load_threshold_scaled": high_load_scaled_threshold,
                 "rpm_threshold_scaled": low_rpm_scaled_threshold,
@@ -420,35 +457,29 @@ def analyze_anomalies(
             }
             logging.info(
                 f"High Load / Low RPM Heuristic: "
-                f"Found {count_high_load_low_rpm} anomalies matching criteria (Load > {high_load_scaled_threshold:.2f}, RPM < {low_rpm_scaled_threshold:.2f}, scaled). Insight added."
+                f"Found {count_high_load_low_rpm} anomalies matching criteria. Insight added."
             )
-        except Exception as e:
-            logging.error(f"Error during High Load / Low RPM analysis: {e}")
-            analysis_results["high_load_low_rpm_analysis"] = {"error": str(e)}
+        else:
+            logging.warning(f"High Load / Low RPM Heuristic: Could not get scaled Load/RPM data.")
+            analysis_results["high_load_low_rpm_analysis"] = {"skipped": "Failed to scale Load/RPM data for heuristic."}
     else:
-        missing_cols = []
-        if load_col not in anomalous_data.columns:
-            missing_cols.append(load_col)
-        if rpm_col not in anomalous_data.columns:
-            missing_cols.append(rpm_col)
-        logging.warning(f"Skipping High Load / Low RPM analysis: Required columns missing: {', '.join(missing_cols)}.")
-        analysis_results["high_load_low_rpm_analysis"] = {"skipped": f"Required columns missing: {', '.join(missing_cols)}"}
-
+        missing_cols_h4 = [col for col in [load_col, rpm_col] if col not in anomalous_data.columns]
+        logging.warning(f"Skipping High Load / Low RPM analysis: Required columns missing: {missing_cols_h4}.")
+        analysis_results["high_load_low_rpm_analysis"] = {"skipped": f"Required columns missing: {missing_cols_h4}"}
 
     # --- Heuristic 5: High Throttle Position with Low Engine Load ---
     tps_col = "THROTTLE_POS"
-    # load_col already defined as "ENGINE_LOAD"
-    high_tps_scaled_threshold = 0.75 # Changed from 1.5
-    low_load_scaled_threshold = 0.0 # Below average load
+    high_tps_scaled_threshold = 0.75
+    low_load_scaled_threshold = 0.0
 
     if tps_col in anomalous_data.columns and load_col in anomalous_data.columns:
-        try:
+        scaled_tps_load_df = get_scaled_pids(anomalous_data, [tps_col, load_col])
+        if scaled_tps_load_df is not None and tps_col in scaled_tps_load_df.columns and load_col in scaled_tps_load_df.columns:
             high_tps_low_load_anomalies = anomalous_data[
-                (anomalous_data[tps_col] > high_tps_scaled_threshold) &
-                (anomalous_data[load_col] < low_load_scaled_threshold)
+                (scaled_tps_load_df[tps_col] > high_tps_scaled_threshold) &
+                (scaled_tps_load_df[load_col] < low_load_scaled_threshold)
             ]
             count_high_tps_low_load = len(high_tps_low_load_anomalies)
-
             analysis_results["high_tps_low_load_analysis"] = {
                 "tps_threshold_scaled": high_tps_scaled_threshold,
                 "load_threshold_scaled": low_load_scaled_threshold,
@@ -457,30 +488,25 @@ def analyze_anomalies(
             }
             logging.info(
                 f"High TPS / Low Load Heuristic: "
-                f"Found {count_high_tps_low_load} anomalies matching criteria (TPS > {high_tps_scaled_threshold:.2f}, Load < {low_load_scaled_threshold:.2f}, scaled). Insight added."
+                f"Found {count_high_tps_low_load} anomalies matching criteria. Insight added."
             )
-        except Exception as e:
-            logging.error(f"Error during High TPS / Low Load analysis: {e}")
-            analysis_results["high_tps_low_load_analysis"] = {"error": str(e)}
+        else:
+            logging.warning(f"High TPS / Low Load Heuristic: Could not get scaled TPS/Load data.")
+            analysis_results["high_tps_low_load_analysis"] = {"skipped": "Failed to scale TPS/Load data for heuristic."}
     else:
-        missing_cols = []
-        if tps_col not in anomalous_data.columns:
-            missing_cols.append(tps_col)
-        if load_col not in anomalous_data.columns:
-            missing_cols.append(load_col)
-        logging.warning(f"Skipping High TPS / Low Load analysis: Required columns missing: {', '.join(missing_cols)}.")
-        analysis_results["high_tps_low_load_analysis"] = {"skipped": f"Required columns missing: {', '.join(missing_cols)}"}
-
+        missing_cols_h5 = [col for col in [tps_col, load_col] if col not in anomalous_data.columns]
+        logging.warning(f"Skipping High TPS / Low Load analysis: Required columns missing: {missing_cols_h5}.")
+        analysis_results["high_tps_low_load_analysis"] = {"skipped": f"Required columns missing: {missing_cols_h5}"}
 
     # --- Heuristic 6: High Intake Air Temperature ---
-    iat_col = "AIR_INTAKE_TEMP"
-    high_iat_scaled_threshold = 2.0 # e.g., > 2 std deviations
+    iat_col = "INTAKE_AIR_TEMP"
+    high_iat_scaled_threshold = 2.0
 
     if iat_col in anomalous_data.columns:
-        try:
-            high_iat_anomalies = anomalous_data[anomalous_data[iat_col] > high_iat_scaled_threshold]
+        scaled_iat_df = get_scaled_pids(anomalous_data, [iat_col])
+        if scaled_iat_df is not None and iat_col in scaled_iat_df.columns:
+            high_iat_anomalies = anomalous_data[scaled_iat_df[iat_col] > high_iat_scaled_threshold]
             count_high_iat = len(high_iat_anomalies)
-
             analysis_results["high_iat_analysis"] = {
                 "iat_threshold_scaled": high_iat_scaled_threshold,
                 "count": count_high_iat,
@@ -488,33 +514,29 @@ def analyze_anomalies(
             }
             logging.info(
                 f"High IAT Heuristic: "
-                f"Found {count_high_iat} anomalies matching criteria (IAT > {high_iat_scaled_threshold:.2f}, scaled). Insight added."
+                f"Found {count_high_iat} anomalies matching criteria. Insight added."
             )
-        except Exception as e:
-            logging.error(f"Error during High IAT analysis: {e}")
-            analysis_results["high_iat_analysis"] = {"error": str(e)}
+        else:
+            logging.warning(f"High IAT Heuristic: Could not get scaled IAT data.")
+            analysis_results["high_iat_analysis"] = {"skipped": "Failed to scale IAT data for heuristic."}
     else:
         logging.warning(f"Skipping High IAT analysis: Required column missing: {iat_col}.")
         analysis_results["high_iat_analysis"] = {"skipped": f"Required column missing: {iat_col}"}
 
-
     # --- Heuristic 7: Coolant Temp vs. Intake Air Temp (After Warmup) ---
-    # coolant_col, iat_col, time_col defined earlier
-    # runtime_threshold_sec defined earlier
-    coolant_iat_diff_threshold = 0.5 # Scaled coolant temp should be at least this much higher than scaled IAT after warmup
+    coolant_iat_diff_threshold = 0.5
 
     if coolant_col in anomalous_data.columns and iat_col in anomalous_data.columns and time_col in anomalous_data.columns:
-        try:
-            anomalies_after_warmup_h7 = anomalous_data[
-                (anomalous_data[time_col].notna()) & (anomalous_data[time_col] > runtime_threshold_sec)
-            ]
-            if not anomalies_after_warmup_h7.empty:
-                # Check where scaled coolant temp is not significantly higher than scaled IAT
+        anomalies_after_warmup_h7 = anomalous_data[
+            (anomalous_data[time_col].notna()) & (anomalous_data[time_col] > runtime_threshold_sec)
+        ]
+        if not anomalies_after_warmup_h7.empty:
+            scaled_coolant_iat_df = get_scaled_pids(anomalies_after_warmup_h7, [coolant_col, iat_col])
+            if scaled_coolant_iat_df is not None and coolant_col in scaled_coolant_iat_df.columns and iat_col in scaled_coolant_iat_df.columns:
                 low_coolant_vs_iat_anomalies = anomalies_after_warmup_h7[
-                    anomalies_after_warmup_h7[coolant_col] < (anomalies_after_warmup_h7[iat_col] + coolant_iat_diff_threshold)
+                    scaled_coolant_iat_df[coolant_col] < (scaled_coolant_iat_df[iat_col] + coolant_iat_diff_threshold)
                 ]
                 count_low_coolant_vs_iat = len(low_coolant_vs_iat_anomalies)
-
                 analysis_results["coolant_vs_iat_analysis"] = {
                     "diff_threshold_scaled": coolant_iat_diff_threshold,
                     "count_after_warmup": count_low_coolant_vs_iat,
@@ -523,44 +545,35 @@ def analyze_anomalies(
                 }
                 logging.info(
                     f"Coolant vs IAT Heuristic (Runtime > {runtime_threshold_sec}s): "
-                    f"Found {count_low_coolant_vs_iat} anomalies where scaled Coolant Temp was not significantly higher than scaled IAT. Insight added."
+                    f"Found {count_low_coolant_vs_iat} anomalies. Insight added."
                 )
             else:
-                 # Re-use message from Heuristic 2 if no anomalies after warmup
-                 logging.info(f"Coolant vs IAT Heuristic: No anomalies found after runtime threshold ({runtime_threshold_sec}s).")
-                 analysis_results["coolant_vs_iat_analysis"] = {
-                     "count_after_warmup": 0,
-                     "runtime_filter_sec": runtime_threshold_sec,
-                     "message": "No anomalies occurred after the specified runtime threshold."
-                 }
-        except Exception as e:
-            logging.error(f"Error during Coolant vs IAT analysis: {e}")
-            analysis_results["coolant_vs_iat_analysis"] = {"error": str(e)}
+                logging.warning(f"Coolant vs IAT Heuristic: Could not get scaled Coolant/IAT data for anomalies after warmup.")
+                analysis_results["coolant_vs_iat_analysis"] = {"skipped": "Failed to scale Coolant/IAT data for heuristic."}
+        else:
+            logging.info(f"Coolant vs IAT Heuristic: No anomalies found after runtime threshold ({runtime_threshold_sec}s).")
+            analysis_results["coolant_vs_iat_analysis"] = {
+                "count_after_warmup": 0,
+                "runtime_filter_sec": runtime_threshold_sec,
+                "message": "No anomalies occurred after the specified runtime threshold."
+            }
     else:
-        missing_cols = []
-        if coolant_col not in anomalous_data.columns:
-            missing_cols.append(coolant_col)
-        if iat_col not in anomalous_data.columns:
-            missing_cols.append(iat_col)
-        if time_col not in anomalous_data.columns:
-            missing_cols.append(time_col)
-        logging.warning(f"Skipping Coolant vs IAT analysis: Required columns missing: {', '.join(missing_cols)}.")
-        analysis_results["coolant_vs_iat_analysis"] = {"skipped": f"Required columns missing: {', '.join(missing_cols)}"}
-
+        missing_cols_h7 = [col for col in [coolant_col, iat_col, time_col] if col not in anomalous_data.columns]
+        logging.warning(f"Skipping Coolant vs IAT analysis: Required columns missing: {missing_cols_h7}.")
+        analysis_results["coolant_vs_iat_analysis"] = {"skipped": f"Required columns missing: {missing_cols_h7}"}
 
     # --- Heuristic 8: Low Engine Load at High Speed ---
-    # load_col, speed_col defined earlier
     high_speed_scaled_threshold = 1.5
-    very_low_load_scaled_threshold = 0.05 # Very close to minimum scaled load
+    very_low_load_scaled_threshold = 0.05
 
     if load_col in anomalous_data.columns and speed_col in anomalous_data.columns:
-        try:
+        scaled_load_speed_df = get_scaled_pids(anomalous_data, [load_col, speed_col])
+        if scaled_load_speed_df is not None and load_col in scaled_load_speed_df.columns and speed_col in scaled_load_speed_df.columns:
             low_load_high_speed_anomalies = anomalous_data[
-                (anomalous_data[speed_col] > high_speed_scaled_threshold) &
-                (anomalous_data[load_col] < very_low_load_scaled_threshold)
+                (scaled_load_speed_df[speed_col] > high_speed_scaled_threshold) &
+                (scaled_load_speed_df[load_col] < very_low_load_scaled_threshold)
             ]
             count_low_load_high_speed = len(low_load_high_speed_anomalies)
-
             analysis_results["low_load_high_speed_analysis"] = {
                 "speed_threshold_scaled": high_speed_scaled_threshold,
                 "load_threshold_scaled": very_low_load_scaled_threshold,
@@ -569,47 +582,43 @@ def analyze_anomalies(
             }
             logging.info(
                 f"Low Load / High Speed Heuristic: "
-                f"Found {count_low_load_high_speed} anomalies matching criteria (Load < {very_low_load_scaled_threshold:.2f}, Speed > {high_speed_scaled_threshold:.2f}, scaled). Insight added."
+                f"Found {count_low_load_high_speed} anomalies matching criteria. Insight added."
             )
-        except Exception as e:
-            logging.error(f"Error during Low Load / High Speed analysis: {e}")
-            analysis_results["low_load_high_speed_analysis"] = {"error": str(e)}
+        else:
+            logging.warning(f"Low Load / High Speed Heuristic: Could not get scaled Load/Speed data.")
+            analysis_results["low_load_high_speed_analysis"] = {"skipped": "Failed to scale Load/Speed data for heuristic."}
     else:
-        missing_cols = []
-        if load_col not in anomalous_data.columns:
-            missing_cols.append(load_col)
-        if speed_col not in anomalous_data.columns:
-            missing_cols.append(speed_col)
-        logging.warning(f"Skipping Low Load / High Speed analysis: Required columns missing: {', '.join(missing_cols)}.")
-        analysis_results["low_load_high_speed_analysis"] = {"skipped": f"Required columns missing: {', '.join(missing_cols)}"}
-
+        missing_cols_h8 = [col for col in [load_col, speed_col] if col not in anomalous_data.columns]
+        logging.warning(f"Skipping Low Load / High Speed analysis: Required columns missing: {missing_cols_h8}.")
+        analysis_results["low_load_high_speed_analysis"] = {"skipped": f"Required columns missing: {missing_cols_h8}"}
 
     # --- Add more heuristics here ---
 
-
     # --- Summary/Further Analysis ---
-    # Potentially analyze distribution of anomalies over time, features involved etc.
-    # Example: Feature contribution (requires model-specific methods like SHAP if using complex models,
-    # or can look at feature distributions for simpler models like IF)
-
-    # Get descriptive stats for anomalous data (on original scale if possible, needs inverse transform)
-    # Note: Inverse transform might be tricky if scaler wasn't fit on the exact same columns
-    # present in anomalous_data. For now, show stats on scaled data.
     try:
-        # Ensure feature_names only includes columns actually present in anomalous_data
-        available_features = [f for f in feature_names if f in anomalous_data.columns]
-        if available_features:
-             analysis_results["anomaly_stats_scaled"] = anomalous_data[available_features].describe().to_dict()
+        available_features_for_stats = [f for f in feature_names if f in anomalous_data.columns]
+        if available_features_for_stats:
+            # For anomaly_stats, we want to show stats of the ORIGINAL unscaled values for the PIDs involved in anomalies.
+            analysis_results["anomaly_stats_original_values"] = anomalous_data[available_features_for_stats].describe().to_dict()
+            
+            # Optionally, also show stats of the SCALED values for these PIDs for anomalies
+            scaled_stats_df = get_scaled_pids(anomalous_data, available_features_for_stats)
+            if scaled_stats_df is not None:
+                analysis_results["anomaly_stats_scaled_values"] = scaled_stats_df.describe().to_dict()
+            else:
+                analysis_results["anomaly_stats_scaled_values"] = {"skipped": "Failed to scale PIDs for stats."}
         else:
-             logging.warning("Could not generate anomaly stats: No features used by the model were present in the anomalous data.")
-             analysis_results["anomaly_stats_scaled"] = {"error": "No relevant features found in anomalous data."}
+            logging.warning("Could not generate anomaly stats: No features used by the model were present in the anomalous data.")
+            analysis_results["anomaly_stats_original_values"] = {"error": "No relevant features found in anomalous data."}
+            analysis_results["anomaly_stats_scaled_values"] = {"error": "No relevant features found in anomalous data."}
     except KeyError as e:
         logging.warning(f"Could not generate anomaly stats: Feature mismatch? Error: {e}")
-        analysis_results["anomaly_stats_scaled"] = {"error": f"Feature mismatch: {e}"}
+        analysis_results["anomaly_stats_original_values"] = {"error": f"Feature mismatch: {e}"}
+        analysis_results["anomaly_stats_scaled_values"] = {"error": f"Feature mismatch: {e}"}
     except Exception as e:
-        logging.error(f"Error generating anomaly stats: {e}")
-        analysis_results["anomaly_stats_scaled"] = {"error": str(e)}
-
+        logging.error(f"Error generating anomaly stats: {e}", exc_info=True)
+        analysis_results["anomaly_stats_original_values"] = {"error": str(e)}
+        analysis_results["anomaly_stats_scaled_values"] = {"error": str(e)}
 
     logging.info("Anomaly analysis finished.")
     return analysis_results

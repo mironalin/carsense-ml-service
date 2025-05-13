@@ -62,6 +62,68 @@ DATASET_CONFIGS = {
             "output_check_file": "data/model_input/volvo_v40_full_final.parquet"
         }
     },
+    "volvo_final_raw": {
+        "preprocess": {
+            "script": "scripts/preprocess_dataset.py",
+            "args": [
+                "--dataset_type", "volvo_v40",
+                "--input_dir", "data/datasets/data_volvo_v40",
+                "--output_dir", "data/processed/volvo_v40_full_raw_pids",
+                "--no-scaling",
+                "--no-rolling-mean",
+                "--no-outlier-handling"
+            ],
+            "output_check_dir": "data/processed/volvo_v40_full_raw_pids"
+        },
+        "aggregate": {
+            "script": "scripts/aggregate_processed_data.py",
+            "args": [
+                "--input_dir", "data/processed/volvo_v40_full_raw_pids",
+                "--output_file", "data/features/volvo_v40_full_raw_pids_aggregated.parquet"
+            ],
+            "output_check_file": "data/features/volvo_v40_full_raw_pids_aggregated.parquet"
+        },
+        "finalize": {
+            "script": "scripts/finalize_features.py",
+            "args": [
+                "--input_file", "data/features/volvo_v40_full_raw_pids_aggregated.parquet",
+                "--output_file", "data/model_input/volvo_v40_full_raw_pids_final.parquet",
+                "--no-scaling"
+            ],
+            "output_check_file": "data/model_input/volvo_v40_full_raw_pids_final.parquet"
+        }
+    },
+    "romanian_final_raw": {
+        "preprocess": {
+            "script": "scripts/preprocess_dataset.py",
+            "args": [
+                "--dataset_type", "romanian",
+                "--input_dir", "data/datasets/romanian_driving_ds/dataset",
+                "--output_dir", "data/processed/romanian_driving_ds_raw_pids",
+                "--no-scaling",
+                "--no-rolling-mean",
+                "--no-outlier-handling"
+            ],
+            "output_check_dir": "data/processed/romanian_driving_ds_raw_pids"
+        },
+        "aggregate": {
+            "script": "scripts/aggregate_processed_data.py",
+            "args": [
+                "--input_dir", "data/processed/romanian_driving_ds_raw_pids",
+                "--output_file", "data/features/romanian_driving_ds_raw_pids_aggregated.parquet"
+            ],
+            "output_check_file": "data/features/romanian_driving_ds_raw_pids_aggregated.parquet"
+        },
+        "finalize": {
+            "script": "scripts/finalize_features.py",
+            "args": [
+                "--input_file", "data/features/romanian_driving_ds_raw_pids_aggregated.parquet",
+                "--output_file", "data/model_input/romanian_driving_ds_raw_pids_final.parquet",
+                "--no-scaling"
+            ],
+            "output_check_file": "data/model_input/romanian_driving_ds_raw_pids_final.parquet"
+        }
+    },
     "kaggle": {
         "preprocess": {
             "script": "scripts/preprocess_kaggle_dataset.py",
@@ -79,6 +141,38 @@ DATASET_CONFIGS = {
             ],
             "output_check_file": "data/model_input/exp1_14drivers_14cars_dailyRoutes_model_input.parquet"
         }
+    },
+    "kaggle_raw_pids": {
+        "preprocess": {
+            "script": "scripts/preprocess_kaggle_dataset.py",
+            "args": [
+                "--input_path", "data/datasets/kaggle_dtc_dataset/exp1_14drivers_14cars_dailyRoutes.csv",
+                "--output_dir", "data/processed/kaggle_dtc_raw_pids",
+                "--no-rolling-mean",
+                "--no-outlier-handling",
+                "--no-scaling"
+            ],
+            "output_check_file": "data/processed/kaggle_dtc_raw_pids/exp1_14drivers_14cars_dailyRoutes_processed.parquet"
+        },
+        "aggregate": {
+            "script": "scripts/aggregate_kaggle_data.py",
+            "args": [
+                "--input_file", "data/processed/kaggle_dtc_raw_pids/exp1_14drivers_14cars_dailyRoutes_processed.parquet",
+                "--output_file", "data/model_input/exp1_14drivers_14cars_dailyRoutes_raw_pids_model_input.parquet"
+            ],
+            "output_check_file": "data/model_input/exp1_14drivers_14cars_dailyRoutes_raw_pids_model_input.parquet"
+        }
+    },
+    "toyota_raw_pids": {
+        "preprocess": {
+            "script": "scripts/preprocess_toyota_dataset.py",
+            "args": [
+                "--input_dir", "data/datasets/toyota_etios_obd/obdiidata",
+                "--output_file", "data/model_input/toyota_etios_raw_pids_final.parquet"
+            ],
+            "output_check_file": "data/model_input/toyota_etios_raw_pids_final.parquet"
+        }
+        # No aggregate or finalize step needed as preprocess_toyota_dataset.py creates the final model input directly
     }
 }
 

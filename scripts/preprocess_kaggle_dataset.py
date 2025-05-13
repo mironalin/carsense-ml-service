@@ -30,7 +30,10 @@ except ImportError as e:
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s - %(message)s')
 
-def preprocess_kaggle_file(input_file_path: str, output_dir: str):
+def preprocess_kaggle_file(input_file_path: str, output_dir: str,
+                             no_rolling_mean: bool = False,
+                             no_outlier_handling: bool = False,
+                             no_scaling: bool = False):
     """
     Preprocesses a single raw Kaggle DTC dataset CSV file.
     - Loads data
@@ -153,13 +156,13 @@ def preprocess_kaggle_file(input_file_path: str, output_dir: str):
             for col in pids_to_process_for_percentage:
                 if col in df.columns: # df has already been filtered by cols_to_keep which includes pid_cols_present
                     original_nan_count = df[col].isnull().sum()
-                    
+
                     # Convert to string, remove '%', replace decimal comma with period, then to_numeric
-                    df[col] = df[col].astype(str) 
+                    df[col] = df[col].astype(str)
                     df[col] = df[col].str.replace('%', '', regex=False)
                     df[col] = df[col].str.replace(',', '.', regex=False) # Convert "1,23" to "1.23"
                     df[col] = pd.to_numeric(df[col], errors='coerce')
-                    
+
                     current_nan_count = df[col].isnull().sum()
                     if current_nan_count > original_nan_count:
                         logging.warning(f"Column '{col}': {current_nan_count - original_nan_count} new NaNs after removing '%' and converting to numeric. Original NaNs: {original_nan_count}, Current NaNs: {current_nan_count}.")
@@ -181,26 +184,38 @@ def preprocess_kaggle_file(input_file_path: str, output_dir: str):
             logging.info(f"Applying cleaning steps to {len(numeric_cols_for_cleaning)} numeric columns...")
             # report_missing_values(df[numeric_cols_for_cleaning]) # Can be verbose
             df = handle_missing_values(df, strategy='median', columns=numeric_cols_for_cleaning)
-            # Uncomment other steps as needed
-            df = apply_rolling_mean(df, columns=numeric_cols_for_cleaning, window_size=3)
-            df = handle_outliers_iqr(df, columns=numeric_cols_for_cleaning, strategy='cap')
 
-            # --- Scaling (Split between MinMax and Standard) ---
-            cols_for_minmax = ['FUEL_LEVEL', 'ENGINE_LOAD', 'THROTTLE_POS', 'TIMING_ADVANCE', 'EQUIV_RATIO']
-            
-            # Ensure that the columns in cols_for_minmax are indeed numeric now and present
-            actual_cols_to_minmax_scale = [col for col in numeric_cols_for_cleaning if col in cols_for_minmax]
-            actual_cols_to_standard_scale = [col for col in numeric_cols_for_cleaning if col not in cols_for_minmax]
+            if not no_rolling_mean:
+                logging.info("Applying rolling mean...")
+                df = apply_rolling_mean(df, columns=numeric_cols_for_cleaning, window_size=3)
+            else:
+                logging.info("Skipping rolling mean as per --no-rolling-mean flag.")
 
-            if actual_cols_to_minmax_scale:
-                logging.info(f"Applying MinMax scaling to: {actual_cols_to_minmax_scale}")
-                df = apply_scaling(df, columns=actual_cols_to_minmax_scale, scaler_type='minmax')
-            
-            if actual_cols_to_standard_scale:
-                logging.info(f"Applying Standard scaling to: {actual_cols_to_standard_scale}")
-                df = apply_scaling(df, columns=actual_cols_to_standard_scale, scaler_type='standard')
-            
-            logging.info("Cleaning steps applied (median imputation, rolling mean, outlier capping, mixed scaling).")
+            if not no_outlier_handling:
+                logging.info("Handling outliers...")
+                df = handle_outliers_iqr(df, columns=numeric_cols_for_cleaning, strategy='cap')
+            else:
+                logging.info("Skipping outlier handling as per --no-outlier-handling flag.")
+
+            if not no_scaling:
+                # --- Scaling (Split between MinMax and Standard) ---
+                cols_for_minmax = ['FUEL_LEVEL', 'ENGINE_LOAD', 'THROTTLE_POS', 'TIMING_ADVANCE', 'EQUIV_RATIO']
+
+                # Ensure that the columns in cols_for_minmax are indeed numeric now and present
+                actual_cols_to_minmax_scale = [col for col in numeric_cols_for_cleaning if col in cols_for_minmax]
+                actual_cols_to_standard_scale = [col for col in numeric_cols_for_cleaning if col not in cols_for_minmax]
+
+                if actual_cols_to_minmax_scale:
+                    logging.info(f"Applying MinMax scaling to: {actual_cols_to_minmax_scale}")
+                    df = apply_scaling(df, columns=actual_cols_to_minmax_scale, scaler_type='minmax')
+
+                if actual_cols_to_standard_scale:
+                    logging.info(f"Applying Standard scaling to: {actual_cols_to_standard_scale}")
+                    df = apply_scaling(df, columns=actual_cols_to_standard_scale, scaler_type='standard')
+
+                logging.info("Scaling applied.")
+            else:
+                logging.info("Skipping scaling as per --no-scaling flag.")
         else:
              logging.warning("No numeric columns identified for cleaning steps.")
 
@@ -226,12 +241,18 @@ def main(args):
         for filename in os.listdir(args.input_path):
             if filename.endswith('.csv'): # Simple check for CSV files
                 file_path = os.path.join(args.input_path, filename)
-                preprocess_kaggle_file(file_path, args.output_dir)
+                preprocess_kaggle_file(file_path, args.output_dir,
+                                       no_rolling_mean=args.no_rolling_mean,
+                                       no_outlier_handling=args.no_outlier_handling,
+                                       no_scaling=args.no_scaling)
             else:
                 logging.info(f"Skipping non-CSV file: {filename}")
     elif os.path.isfile(args.input_path) and args.input_path.endswith('.csv'):
         logging.info("Processing single file...")
-        preprocess_kaggle_file(args.input_path, args.output_dir)
+        preprocess_kaggle_file(args.input_path, args.output_dir,
+                               no_rolling_mean=args.no_rolling_mean,
+                               no_outlier_handling=args.no_outlier_handling,
+                               no_scaling=args.no_scaling)
     else:
         logging.error(f"Error: Input path is neither a directory nor a valid CSV file: {args.input_path}")
         sys.exit(1)
@@ -245,6 +266,9 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", type=str, required=True,
                         help="Directory to save processed Parquet files.")
     # Add other arguments if needed (e.g., specific columns, cleaning strategies)
+    parser.add_argument("--no-rolling-mean", action="store_true", help="Skip applying rolling mean to PIDs.")
+    parser.add_argument("--no-outlier-handling", action="store_true", help="Skip handling outliers in PIDs.")
+    parser.add_argument("--no-scaling", action="store_true", help="Skip applying scaling to PIDs.")
 
     args = parser.parse_args()
     main(args)

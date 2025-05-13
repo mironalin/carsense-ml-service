@@ -86,20 +86,23 @@ def finalize_features(input_file: str, output_file: str):
 
         # 3. Apply Global StandardScaler
         print("\n--- Step 3: Applying Global StandardScaler ---")
-        scaler = StandardScaler()
+        if not args.no_scaling: # Check the flag
+            scaler = StandardScaler()
 
-        # Fit and transform
-        # Important: Scaler operates on a NumPy array. Store original index and columns.
-        df_scaled_values = scaler.fit_transform(df[numerical_cols_for_scaling])
+            # Fit and transform
+            # Important: Scaler operates on a NumPy array. Store original index and columns.
+            df_scaled_values = scaler.fit_transform(df[numerical_cols_for_scaling])
 
-        # Create a new DataFrame for scaled values to preserve dtypes and handle column assignment safely
-        df_scaled = pd.DataFrame(df_scaled_values, index=df.index, columns=numerical_cols_for_scaling)
+            # Create a new DataFrame for scaled values to preserve dtypes and handle column assignment safely
+            df_scaled = pd.DataFrame(df_scaled_values, index=df.index, columns=numerical_cols_for_scaling)
 
-        # Update the original DataFrame with scaled values
-        for col in numerical_cols_for_scaling:
-            df[col] = df_scaled[col]
+            # Update the original DataFrame with scaled values
+            for col in numerical_cols_for_scaling:
+                df[col] = df_scaled[col]
 
-        print("Finished applying Global StandardScaler.")
+            print("Finished applying Global StandardScaler.")
+        else:
+            print("Skipping global scaling as requested by --no-scaling flag.")
 
     # 4. Save Output
     print("\n--- Step 4: Saving Finalized DataFrame ---")
@@ -135,6 +138,11 @@ if __name__ == "__main__":
         type=str,
         required=True,
         help="Path to save the finalized Parquet file (e.g., data/model_input/dataset_final.parquet)."
+    )
+    parser.add_argument(
+        '--no-scaling',
+        action='store_true',
+        help='If set, skips the global scaling step.'
     )
 
     args = parser.parse_args()

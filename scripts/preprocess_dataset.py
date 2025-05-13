@@ -214,20 +214,44 @@ def main(args):
         df = handle_missing_values(df, strategy='median', columns=cols_for_imputation)
 
         default_rolling_window = 3
-        print(f"\nApplying rolling mean with window_size={default_rolling_window}...")
-        cols_for_rolling = [col for col in df.select_dtypes(include=['number']).columns
-                                if col not in cols_to_exclude_from_numeric_ops]
-        df = apply_rolling_mean(df, columns=cols_for_rolling, window_size=default_rolling_window)
+        # --- Modified section for conditional rolling mean ---
+        if not args.no_rolling_mean:
+            print(f"\nApplying rolling mean with window_size={default_rolling_window}...")
+            cols_for_rolling = [col for col in df.select_dtypes(include=['number']).columns
+                                    if col not in cols_to_exclude_from_numeric_ops]
+            if cols_for_rolling:
+                df = apply_rolling_mean(df, columns=cols_for_rolling, window_size=default_rolling_window)
+            else:
+                print("No columns identified for rolling mean. Skipping.")
+        else:
+            print("\nSkipping rolling mean as per --no-rolling-mean flag.")
+        # --- End of modified section ---
 
-        print("\nHandling outliers with IQR (cap strategy)...")
-        cols_for_outliers = [col for col in df.select_dtypes(include=['number']).columns
-                                if col not in cols_to_exclude_from_numeric_ops]
-        df = handle_outliers_iqr(df, columns=cols_for_outliers, strategy='cap')
+        # --- Modified section for conditional outlier handling ---
+        if not args.no_outlier_handling:
+            print("\nHandling outliers with IQR (cap strategy)...")
+            cols_for_outliers = [col for col in df.select_dtypes(include=['number']).columns
+                                    if col not in cols_to_exclude_from_numeric_ops]
+            if cols_for_outliers:
+                df = handle_outliers_iqr(df, columns=cols_for_outliers, strategy='cap')
+            else:
+                print("No columns identified for outlier handling. Skipping.")
+        else:
+            print("\nSkipping outlier handling as per --no-outlier-handling flag.")
+        # --- End of modified section ---
 
-        print("\nApplying StandardScaler...")
-        cols_for_scaling = [col for col in df.select_dtypes(include=['number']).columns
-                                if col not in cols_to_exclude_from_numeric_ops]
-        df = apply_scaling(df, columns=cols_for_scaling, scaler_type='standard')
+        # --- Modified section for conditional scaling ---
+        if not args.no_scaling:
+            print("\nApplying StandardScaler...")
+            cols_for_scaling = [col for col in df.select_dtypes(include=['number']).columns
+                                    if col not in cols_to_exclude_from_numeric_ops]
+            if cols_for_scaling:
+                df = apply_scaling(df, columns=cols_for_scaling, scaler_type='standard')
+            else:
+                print("No columns identified for scaling. Skipping.")
+        else:
+            print("\nSkipping scaling as per --no-scaling flag.")
+        # --- End of modified section ---
 
         base_filename = os.path.splitext(filename)[0]
         # Ensure consistent output format regardless of dataset type
@@ -247,6 +271,21 @@ if __name__ == "__main__":
                         help="Directory containing raw dataset CSV files.")
     parser.add_argument("--output_dir", type=str, required=True,
                         help="Directory to save processed files.")
+    parser.add_argument(
+        '--no-scaling',
+        action='store_true',
+        help='If set, skips the scaling step in preprocess_dataset.'
+    )
+    parser.add_argument(
+        '--no-rolling-mean',
+        action='store_true',
+        help='If set, skips the rolling mean step in preprocess_dataset.'
+    )
+    parser.add_argument(
+        '--no-outlier-handling',
+        action='store_true',
+        help='If set, skips the IQR outlier handling step in preprocess_dataset.'
+    )
 
     args = parser.parse_args()
     main(args)

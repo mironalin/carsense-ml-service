@@ -233,8 +233,8 @@ def train_model(X_train: pd.DataFrame, y_train_bin: np.ndarray, model_type: str,
         }
     elif model_type == 'lgbm':
         if not lightgbm_available:
-             logging.error("LightGBM selected but not installed. Please install lightgbm.")
-             sys.exit(1)
+            logging.error("LightGBM selected but not installed. Please install lightgbm.")
+            sys.exit(1)
         base_estimator = lgb.LGBMClassifier(random_state=RANDOM_STATE, class_weight='balanced', n_jobs=-1)
         # Hyperparameter grid for LightGBM
         param_dist = {
@@ -252,18 +252,18 @@ def train_model(X_train: pd.DataFrame, y_train_bin: np.ndarray, model_type: str,
 
     if use_tuning:
         logging.info(f"Performing RandomizedSearchCV with {search_iterations} iterations and {search_cv_folds} CV folds...")
-        random_search = RandomizedSearchCV(
-            ovr_classifier,
-            param_distributions=param_dist,
-            n_iter=search_iterations,
-            cv=search_cv_folds,
-            scoring='f1_micro', # Micro-average F1 might still be okay, or consider 'f1_weighted' or 'f1_samples'
-            random_state=RANDOM_STATE,
-            n_jobs=-1, # Use all available cores for search
-            verbose=1 # Show progress
-        )
+    random_search = RandomizedSearchCV(
+        ovr_classifier,
+                param_distributions=param_dist,
+                n_iter=search_iterations,
+                cv=search_cv_folds,
+                scoring='f1_micro', # Micro-average F1 might still be okay, or consider 'f1_weighted' or 'f1_samples'
+                random_state=RANDOM_STATE,
+                n_jobs=-1, # Use all available cores for search
+                verbose=1 # Show progress
+            )
         random_search.fit(X_train, y_train_bin)
-        logging.info(f"Best parameters found: {random_search.best_params_}")
+    logging.info(f"Best parameters found: {random_search.best_params_}")
         logging.info(f"Best micro F1 score from search: {random_search.best_score_:.4f}")
         model = random_search.best_estimator_ # Use the best model found
     else:

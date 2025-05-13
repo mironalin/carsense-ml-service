@@ -1,0 +1,202 @@
+2025-05-13 10:52:05,858 - INFO - --- Starting Tier 1 Anomaly Model Testing (with Combined General Model) ---
+2025-05-13 10:52:05,858 - INFO - Loading model from: /home/alinmiron/ZedProjects/carsense-ml-service/models/anomaly/tier1_combined_general_isolation_forest.joblib
+2025-05-13 10:52:05,888 - INFO - Loading scaler from: /home/alinmiron/ZedProjects/carsense-ml-service/models/anomaly/tier1_combined_general_scaler.joblib
+2025-05-13 10:52:05,888 - INFO - Loading imputer from: /home/alinmiron/ZedProjects/carsense-ml-service/models/anomaly/tier1_combined_general_imputer.joblib
+2025-05-13 10:52:05,890 - INFO - Model, scaler, and imputer loaded successfully.
+2025-05-13 10:52:05,890 - INFO - Scaler was trained on features: ['ENGINE_RPM', 'ENGINE_COOLANT_TEMP', 'INTAKE_AIR_TEMP', 'THROTTLE_POS', 'VEHICLE_SPEED', 'ENGINE_LOAD']
+2025-05-13 10:52:05,890 - INFO - Loading testing data from: /home/alinmiron/ZedProjects/carsense-ml-service/data/model_input/romanian_renamed_raw_pids_for_generic_tier1.parquet
+2025-05-13 10:52:05,920 - INFO - Successfully loaded data with shape: (14544, 20)
+2025-05-13 10:52:05,921 - INFO - Preprocessing data for prediction (is_prescaled=False)...
+2025-05-13 10:52:05,923 - INFO - Applying imputer to features: ['ENGINE_RPM', 'ENGINE_COOLANT_TEMP', 'INTAKE_AIR_TEMP', 'THROTTLE_POS', 'VEHICLE_SPEED', 'ENGINE_LOAD']
+2025-05-13 10:52:05,932 - INFO - Imputation complete.
+2025-05-13 10:52:05,933 - INFO - Scaling features: ['ENGINE_RPM', 'ENGINE_COOLANT_TEMP', 'INTAKE_AIR_TEMP', 'THROTTLE_POS', 'VEHICLE_SPEED', 'ENGINE_LOAD']
+2025-05-13 10:52:05,935 - INFO - Scaling complete.
+2025-05-13 10:52:05,935 - INFO - Predicting anomalies using the loaded model...
+2025-05-13 10:52:05,988 - INFO - Prediction complete. Found 12619 anomalies out of 14544 samples (86.76%).
+2025-05-13 10:52:05,994 - INFO - Extracted 12619 anomalous rows for analysis.
+2025-05-13 10:52:06,020 - INFO - Running heuristic analysis on anomalous data points...
+2025-05-13 10:52:06,020 - INFO - Starting anomaly analysis for 12619 anomalies...
+2025-05-13 10:52:06,021 - WARNING - Skipping Low Voltage analysis: Column 'CONTROL_MODULE_VOLTAGE' not found.
+2025-05-13 10:52:06,027 - INFO - Low ENGINE_COOLANT_TEMP Heuristic (Runtime > 120s): Found 626 anomalies below scaled threshold -1.50. Insight added.
+2025-05-13 10:52:06,032 - INFO - High RPM / Low Speed Heuristic: Found 8 anomalies matching criteria. Insight added.
+2025-05-13 10:52:06,035 - INFO - High Load / Low RPM Heuristic: Found 41 anomalies matching criteria. Insight added.
+2025-05-13 10:52:06,038 - INFO - High TPS / Low Load Heuristic: Found 0 anomalies matching criteria. Insight added.
+2025-05-13 10:52:06,041 - INFO - High IAT Heuristic: Found 57 anomalies matching criteria. Insight added.
+2025-05-13 10:52:06,050 - INFO - Coolant vs IAT Heuristic (Runtime > 120s): Found 839 anomalies. Insight added.
+2025-05-13 10:52:06,053 - INFO - Low Load / High Speed Heuristic: Found 0 anomalies matching criteria. Insight added.
+2025-05-13 10:52:06,077 - INFO - Anomaly analysis finished.
+2025-05-13 10:52:06,079 - INFO - --- Anomaly Analysis Results ---
+2025-05-13 10:52:06,080 - INFO - {
+  "total_anomalies": 12619,
+  "low_voltage_analysis": {
+    "skipped": "Column 'CONTROL_MODULE_VOLTAGE' not found."
+  },
+  "low_coolant_analysis": {
+    "threshold_scaled": -1.5,
+    "count_after_warmup": 626,
+    "runtime_filter_sec": 120,
+    "insight": "Detected anomalies exhibiting patterns consistent with low ENGINE_COOLANT_TEMP (scaled < -1.5) after expected warmup period. Possible thermostat or sensor issue."
+  },
+  "high_rpm_low_speed_analysis": {
+    "rpm_threshold_scaled": 1.5,
+    "speed_threshold_scaled": -0.5,
+    "count": 8,
+    "insight": "Detected anomalies exhibiting patterns consistent with high ENGINE_RPM (scaled > 1.5) at very low VEHICLE_SPEED (scaled < -0.5). Possible clutch/transmission issue or sensor error."
+  },
+  "high_load_low_rpm_analysis": {
+    "load_threshold_scaled": 0.75,
+    "rpm_threshold_scaled": -0.5,
+    "count": 41,
+    "insight": "Detected anomalies consistent with high ENGINE_LOAD (scaled > 0.75) at low ENGINE_RPM (scaled < -0.5). Possible engine lugging or sensor issue."
+  },
+  "high_tps_low_load_analysis": {
+    "tps_threshold_scaled": 0.75,
+    "load_threshold_scaled": 0.0,
+    "count": 0,
+    "insight": "Detected anomalies consistent with high THROTTLE_POS (scaled > 0.75) but low ENGINE_LOAD (scaled < 0.0). Possible throttle/load sensor mismatch or other performance issue."
+  },
+  "high_iat_analysis": {
+    "iat_threshold_scaled": 2.0,
+    "count": 57,
+    "insight": "Detected anomalies consistent with unusually high INTAKE_AIR_TEMP (scaled > 2.0). Possible sensor issue or heat soak condition."
+  },
+  "coolant_vs_iat_analysis": {
+    "diff_threshold_scaled": 0.5,
+    "count_after_warmup": 839,
+    "runtime_filter_sec": 120,
+    "insight": "Detected anomalies where scaled ENGINE_COOLANT_TEMP (< INTAKE_AIR_TEMP + 0.5) is not significantly higher than scaled INTAKE_AIR_TEMP after expected warmup. Possible coolant sensor or thermostat issue."
+  },
+  "low_load_high_speed_analysis": {
+    "speed_threshold_scaled": 1.5,
+    "load_threshold_scaled": 0.05,
+    "count": 0,
+    "insight": "Detected anomalies consistent with very low ENGINE_LOAD (scaled < 0.05) at high VEHICLE_SPEED (scaled > 1.5). Possible sensor issue or coasting condition."
+  },
+  "anomaly_stats_original_values": {
+    "ENGINE_RPM": {
+      "count": 12619.0,
+      "mean": 1342.2665821380458,
+      "std": 349.02273855079176,
+      "min": 0.0,
+      "25%": 1164.0,
+      "50%": 1264.0,
+      "75%": 1470.5,
+      "max": 3853.5
+    },
+    "ENGINE_COOLANT_TEMP": {
+      "count": 12619.0,
+      "mean": 86.11181551628496,
+      "std": 11.465410461503877,
+      "min": 0.0,
+      "25%": 89.0,
+      "50%": 90.0,
+      "75%": 90.0,
+      "max": 95.0
+    },
+    "INTAKE_AIR_TEMP": {
+      "count": 12619.0,
+      "mean": 28.36460892305254,
+      "std": 7.9661643515900575,
+      "min": 0.0,
+      "25%": 24.0,
+      "50%": 27.0,
+      "75%": 32.0,
+      "max": 126.0
+    },
+    "THROTTLE_POS": {
+      "count": 12619.0,
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 0.0,
+      "max": 0.0
+    },
+    "VEHICLE_SPEED": {
+      "count": 12619.0,
+      "mean": 31.7880680940962,
+      "std": 10.932118260793803,
+      "min": 0.0,
+      "25%": 27.9617,
+      "50%": 34.79679,
+      "75%": 39.14639,
+      "max": 59.03026
+    },
+    "ENGINE_LOAD": {
+      "count": 12619.0,
+      "mean": 48.6062565956415,
+      "std": 35.537486933811635,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 60.0,
+      "75%": 78.03922,
+      "max": 100.0
+    }
+  },
+  "anomaly_stats_scaled_values": {
+    "ENGINE_RPM": {
+      "count": 12619.0,
+      "mean": -0.1461472561044771,
+      "std": 0.409206972415697,
+      "min": -1.7198694913150723,
+      "25%": -0.35515349066242435,
+      "50%": -0.23790984799467113,
+      "75%": 0.004198274114239344,
+      "max": 2.798114278886799
+    },
+    "ENGINE_COOLANT_TEMP": {
+      "count": 12619.0,
+      "mean": 0.2540319279281926,
+      "std": 1.1517144667250505,
+      "min": -8.396004982573787,
+      "25%": 0.5441535824153114,
+      "50%": 0.6446048022466496,
+      "75%": 0.6446048022466496,
+      "max": 1.1468609014033406
+    },
+    "INTAKE_AIR_TEMP": {
+      "count": 12619.0,
+      "mean": -1.3639593031243615,
+      "std": 0.778362147386658,
+      "min": -4.13542332730347,
+      "25%": -1.790418791519432,
+      "50%": -1.4972932245464272,
+      "75%": -1.0087506129247528,
+      "max": 8.17585048556273
+    },
+    "THROTTLE_POS": {
+      "count": 12619.0,
+      "mean": -2.0405327972638725,
+      "std": 8.882136138997984e-16,
+      "min": -2.0405327972638734,
+      "25%": -2.0405327972638734,
+      "50%": -2.0405327972638734,
+      "75%": -2.0405327972638734,
+      "max": -2.0405327972638734
+    },
+    "VEHICLE_SPEED": {
+      "count": 12619.0,
+      "mean": -0.5323112654729709,
+      "std": 0.2630850887709869,
+      "min": -1.297301774804163,
+      "25%": -0.6243940956885925,
+      "50%": -0.4599053647299582,
+      "75%": -0.3552307833890139,
+      "max": 0.12328121028575259
+    },
+    "ENGINE_LOAD": {
+      "count": 12619.0,
+      "mean": 1.0428039477098465,
+      "std": 2.6957192778211603,
+      "min": -2.644255386891757,
+      "25%": -2.644255386891757,
+      "50%": 1.907083793915128,
+      "75%": 3.2754606068683807,
+      "max": 4.941309914453051
+    }
+  }
+}
+2025-05-13 10:52:06,080 - INFO - --- End Anomaly Analysis Results ---
+2025-05-13 10:52:06,108 - INFO - Saved DataFrame with anomaly predictions to: /home/alinmiron/ZedProjects/carsense-ml-service/data/processed/combined_general_tier1_test_on_romanian_raw_pids_predictions.parquet
+2025-05-13 10:52:06,108 - INFO - --- Tier 1 Anomaly Model Testing Finished ---
